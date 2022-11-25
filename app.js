@@ -11,7 +11,7 @@ if (process.env.NODE_ENV === 'production') {
 
 const start = async () => {
   try {
-    http.createServer(app).listen(80, () => console.log(`App has been started on port 80...`))
+    http.createServer(app).listen(4343, () => console.log(`App has been started on port 4343...`))
   } catch (e) {
     console.log('Server Error', e.message)
     process.exit(1)
