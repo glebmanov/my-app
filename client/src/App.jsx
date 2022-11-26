@@ -1,13 +1,17 @@
 import React from 'react'
-import ComponentContainer from './components/ComponentContainer.jsx'
+import { Routes, Route } from 'react-router-dom'
+import MainPage from './pages/MainPage.jsx'
 
 const App = () => {
   return (
     <>
       <header></header>
       <main>
-        <ComponentContainer name={'Climbspots'} description={'description'} />
-        <ComponentContainer name={'Cocktails'} description={'description'} />
+        <Routes>
+          <Route path='/' element={<MainPage />} />
+          {/* <Route path='/climbspots' element={<Climbspots />} /> */}
+          {/* <Route path='/cocktails' element={<Cocktails />} /> */}
+        </Routes>
       </main>
       <footer></footer>
     </>
