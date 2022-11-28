@@ -1,0 +1,34 @@
+.item-s {
+  display: flex;
+  width: 520px;
+  height: 50px;
+  padding: 15px;
+  margin-bottom: 16px;
+  border-radius: 5px;
+  background-color: $white-1;
+  box-shadow: $shadow-1;
+
+  .description {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+
+    p {
+      color: #c63228;
+      margin: 0;
+      margin-right: 15px;
+    }
+
+    h2 {
+      margin: 0;
+      text-align: center;
+      font-weight: 500;
+    }
+  }
+}
+
+@include --mobile {
+  .item-s {
+    width: 100%;
+  }
+}

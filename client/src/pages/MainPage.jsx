@@ -16,7 +16,13 @@ const cards = [
 ]
 
 const MainPage = () => {
-  return cards.map(card => <Card key={uniqueId()} card={card} />)
+  return (
+    <div className='main-page'>
+      {cards.map(card => (
+        <Card key={uniqueId()} card={card} />
+      ))}
+    </div>
+  )
 }
 
 export default MainPage

@@ -1,0 +1,177 @@
+@include --desktop {
+  .content {
+    margin: 0 auto;
+    min-height: 100vh;
+
+    h1 {
+      padding: 20px 0;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    .build-cocktails {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .categories {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 16px;
+
+        .buttons {
+          margin-bottom: 16px;
+
+          .option-buttons {
+            margin-left: 16px;
+          }
+        }
+
+        .list-ingredients {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(150px, auto));
+          grid-auto-rows: max-content;
+          grid-gap: 5px 5px;
+          width: 70%;
+          max-width: 1000px;
+          height: max-content;
+          padding: 20px 24px;
+          border-radius: 5px;
+          background-color: $white-1;
+          box-shadow: $shadow-2;
+
+          .ingredient {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            white-space: nowrap;
+          }
+        }
+      }
+
+      .show-btn {
+        margin-bottom: 16px;
+      }
+    }
+  }
+}
+
+@include --tablet {
+  .content {
+    margin: 0 auto;
+    min-height: 100vh;
+
+    h1 {
+      padding: 20px 0;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    .build-cocktails {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .categories {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 16px;
+
+        .buttons {
+          margin-bottom: 16px;
+
+          .option-buttons {
+            margin-left: 16px;
+          }
+        }
+
+        .list-ingredients {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(150px, auto));
+          grid-auto-rows: max-content;
+          grid-gap: 5px 5px;
+          width: 80%;
+          height: max-content;
+          padding: 20px 24px;
+          border-radius: 5px;
+          background-color: $white-1;
+          box-shadow: $shadow-2;
+
+          .ingredient {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            white-space: nowrap;
+          }
+        }
+      }
+
+      .show-btn {
+        margin-bottom: 16px;
+      }
+    }
+  }
+}
+
+@include --mobile {
+  .content {
+    margin: 0 auto;
+    min-height: 100vh;
+
+    h1 {
+      padding: 20px 0;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    .build-cocktails {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .categories {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 16px;
+
+        .buttons {
+          margin-bottom: 16px;
+
+          .option-buttons {
+            margin-left: 16px;
+          }
+        }
+
+        .list-ingredients {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(150px, auto));
+          grid-auto-rows: max-content;
+          grid-gap: 5px 5px;
+          width: 90%;
+          height: max-content;
+          padding: 10px 14px;
+          border-radius: 5px;
+          background-color: $white-1;
+          box-shadow: $shadow-2;
+
+          .ingredient {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            white-space: nowrap;
+          }
+        }
+      }
+
+      .show-btn {
+        margin-bottom: 16px;
+      }
+    }
+  }
+}

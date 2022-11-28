@@ -1,0 +1,21 @@
+.btn-cstm {
+  border: none;
+  color: $black-1;
+  background: $white-1;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: 0.5s;
+  --bs-btn-focus-shadow-rgb: none;
+
+  &.btn-shadow {
+    box-shadow: $shadow-1;
+  }
+
+  &.active {
+    background: $blue-2;
+  }
+
+  &:hover {
+    background-color: $blue-2;
+  }
+}
