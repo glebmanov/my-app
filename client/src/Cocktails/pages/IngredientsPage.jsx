@@ -42,8 +42,6 @@ const IngredientsPage = ({ cocktails, ingredientList, categories }) => {
         const listConsistIngredients = cocktails.filter(({ ingredients }) =>
           ingredients.every(ingredientId => selectedIngredients.includes(ingredientId)),
         )
-        console.log('activeOption', activeOption)
-        console.log('listConsistIngredients', listConsistIngredients)
         setFilteredList(listConsistIngredients)
         break
       default:
