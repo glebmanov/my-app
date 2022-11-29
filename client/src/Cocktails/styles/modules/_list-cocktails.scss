@@ -1,0 +1,49 @@
+.list-cocktails {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
+  .list-big {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(250px, max-content));
+    grid-auto-rows: max-content;
+    grid-gap: 16px 16px;
+    width: 100%;
+    height: max-content;
+    padding-bottom: 30px;
+  }
+
+  .list-medium {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .list-small {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .items-size-button {
+    margin-bottom: 16px;
+  }
+}
+
+@include --desktop {
+}
+
+@include --tablet {
+}
+
+@include --mobile {
+  .list-medium {
+    width: 90%;
+  }
+
+  .list-small {
+    width: 90%;
+  }
+}

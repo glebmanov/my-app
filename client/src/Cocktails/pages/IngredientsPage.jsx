@@ -3,7 +3,7 @@ import Categories from '../components/Categories.jsx'
 import ListCocktails from '../components/ListCocktails.jsx'
 import ShowCocktailsButtons from '../components/ShowCocktailsButtons.jsx'
 
-const IngredientsPage = ({ cocktails, ingredientList, categories }) => {
+const IngredientsPage = ({ cocktails, ingredientList, categories, openModal }) => {
   document.title = 'Cocktails | Build cocktails'
 
   const [checkedState, setCheckedState] = useState(new Array(ingredientList.length).fill(false))
@@ -70,7 +70,12 @@ const IngredientsPage = ({ cocktails, ingredientList, categories }) => {
         />
         <ShowCocktailsButtons show={showListCocktails} clear={clearListCocktails} />
         {filteredList ? (
-          <ListCocktails cocktails={filteredList} ingredientList={ingredientList} showSizeButtons={false} />
+          <ListCocktails
+            cocktails={filteredList}
+            ingredientList={ingredientList}
+            showSizeButtons={false}
+            openModal={openModal}
+          />
         ) : null}
       </div>
     </>

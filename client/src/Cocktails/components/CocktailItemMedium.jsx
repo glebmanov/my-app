@@ -1,20 +1,18 @@
 import React from 'react'
-import cocktail from '../../../public/cocktail.svg'
+import cocktailSvg from '../../../public/cocktail.svg'
 import { uniqueId } from 'lodash'
 
-const CocktailItemMedium = ({ name, ingredients, ingredientList, amount }) => {
-  const openModal = () => {}
-
+const CocktailItemMedium = ({ cocktail, ingredientList, openModal }) => {
   return (
-    <div className='item-m' onClick={() => openModal()}>
-      <img src={cocktail} alt='cocktail-img' />
+    <div className='item-m' onClick={() => openModal(cocktail)}>
+      <img src={cocktailSvg} alt='cocktail-img' />
       <div className='description'>
-        <h3>{name}</h3>
+        <h3>{cocktail.name}</h3>
         <ul>
-          {ingredients.map(ingredientId => (
+          {cocktail.ingredients.map(ingredientId => (
             <li key={uniqueId()}>
               {ingredientList.find(ingredient => ingredient.id === ingredientId).name} —{' '}
-              {amount.find(item => item.ingredientId === ingredientId).value}
+              {cocktail.amount.find(item => item.ingredientId === ingredientId).value}
             </li>
           ))}
         </ul>

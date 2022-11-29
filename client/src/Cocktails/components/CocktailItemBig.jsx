@@ -1,12 +1,10 @@
 import React from 'react'
-import cocktail from '../../../public/cocktail.svg'
+import cocktailSvg from '../../../public/cocktail.svg'
 
-const CocktailItemBig = ({ name, category = 'tasty' }) => {
-  const openModal = () => {}
-
+const CocktailItemBig = ({ name, category = 'tasty', openModal, cocktail }) => {
   return (
-    <div className='item-b' onClick={() => openModal()}>
-      <img src={cocktail} alt='cocktail-img' />
+    <div className='item-b' onClick={() => openModal(cocktail)}>
+      <img src={cocktailSvg} alt='cocktail-img' />
       <div className='description'>
         <p>{category}</p>
         <h3>{name}</h3>

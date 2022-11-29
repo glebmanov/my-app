@@ -13,16 +13,15 @@ const ListCocktails = ({ cocktails, ingredientList, showSizeButtons = true, open
       case 'small':
         return <CocktailItemSmall key={cocktail.id} name={cocktail.name} openModal={openModal} cocktail={cocktail} />
       case 'big':
-        return <CocktailItemBig key={cocktail.id} name={cocktail.name} />
+        return <CocktailItemBig key={cocktail.id} name={cocktail.name} openModal={openModal} cocktail={cocktail} />
 
       default:
         return (
           <CocktailItemMedium
             key={cocktail.id}
-            name={cocktail.name}
-            ingredients={cocktail.ingredients}
+            cocktail={cocktail}
             ingredientList={ingredientList}
-            amount={cocktail.amount}
+            openModal={openModal}
           />
         )
     }

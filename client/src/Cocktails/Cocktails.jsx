@@ -30,7 +30,12 @@ const Cocktails = () => {
           <CocktailsPage cocktails={data.cocktails} ingredientList={data.ingredients} openModal={openModalCocktail} />
         ) : null}
         {page === 'build' ? (
-          <IngredientsPage cocktails={data.cocktails} ingredientList={data.ingredients} categories={data.categories} />
+          <IngredientsPage
+            cocktails={data.cocktails}
+            ingredientList={data.ingredients}
+            categories={data.categories}
+            openModal={openModalCocktail}
+          />
         ) : null}
       </div>
       <Modal active={modalActive} setActive={setModalActive}>
