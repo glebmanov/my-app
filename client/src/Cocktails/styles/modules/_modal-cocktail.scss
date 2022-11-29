@@ -1,0 +1,11 @@
+.modal-cocktail {
+  display: flex;
+  flex-direction: row;
+
+  .description {
+    h3 {
+      text-align: center;
+      margin: 0 0 16px 0;
+    }
+  }
+}

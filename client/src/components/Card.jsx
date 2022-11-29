@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const Card = ({ card }) => {
   return (
     <Link to={card.link}>
-      <div className='card'>
+      <div className='component-card'>
         <h3>{card.name}</h3>
         <div>
           <span>{card.description}</span>
