@@ -5,6 +5,7 @@ module.exports = {
   entry: {
     app: './src/index.js',
     cocktails: './src/cocktails.js',
+    climbspots: './src/climbspots.js',
   },
   output: {
     path: path.resolve(__dirname, 'build'),

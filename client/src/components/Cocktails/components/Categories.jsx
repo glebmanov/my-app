@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import CategoriesButtons from './CategoriesButtons.jsx'
-import OptionButtons from '../components/OptionButtons.jsx'
+import OptionButtons from './OptionButtons.jsx'
 import ListIngredients from './ListIngredients.jsx'
 
 const Categories = ({

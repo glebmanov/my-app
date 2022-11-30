@@ -1,5 +1,5 @@
 import React from 'react'
-import cocktailSvg from '../../../public/cocktail.svg'
+import cocktailSvg from '../../../../public/cocktail.svg'
 
 const CocktailItemBig = ({ name, category = 'tasty', openModal, cocktail }) => {
   return (

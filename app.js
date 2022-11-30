@@ -4,6 +4,8 @@ const http = require('http')
 
 const app = express()
 
+app.use('/api', require('./routes/weather.routes'))
+
 if (process.env.NODE_ENV === 'production') {
   app.use('/', express.static(path.join(__dirname, 'client', 'build')))
   app.get('*', (_, res) => res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html')))

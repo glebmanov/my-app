@@ -1,0 +1,84 @@
+h1 {
+  padding: 0 80px;
+}
+
+.weather-wrapper {
+  width: 90%;
+  margin: auto;
+}
+
+.weather {
+  height: 100%;
+  background-color: $white-2;
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+
+  thead {
+    position: sticky;
+    top: 0;
+  }
+
+  .weekday {
+    font-weight: 700;
+  }
+
+  .datetime {
+    white-space: pre;
+  }
+
+  img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .spinner-grow {
+    background-color: $blue-2;
+  }
+}
+
+.warning {
+  height: 100%;
+  background-color: $white-2;
+}
+
+@include --mobile {
+  h1 {
+    font-size: 20px;
+    padding: 0 20px;
+  }
+
+  .weather-wrapper {
+    width: 100%;
+    padding: 0 5px;
+  }
+
+  table {
+    width: 100%;
+    font-size: 11px;
+
+    td {
+      &:first-child {
+        padding-right: 3px;
+      }
+      &:nth-child(2) {
+        padding: 8px 6px;
+      }
+      &:nth-child(3) {
+        padding: 8px 6px;
+      }
+      &:nth-child(4) {
+        padding: 8px 6px;
+      }
+      &:nth-child(5) {
+        padding: 8px 6px;
+      }
+      &:last-child {
+        padding-left: 3px;
+      }
+    }
+
+    img {
+      width: 30px !important;
+      height: 30px !important;
+    }
+  }
+}
