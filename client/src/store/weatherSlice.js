@@ -45,7 +45,6 @@ const weatherSlice = createSlice({
     [fetchSpotWeather.fulfilled]: (state, { payload }) => {
       state.status = 'resolved'
       if (state.endpoint === 'forecast/daily') {
-        console.log('payload.data', payload.data)
         state.data = payload.data.data.filter(dataUnit => isWeekend(dataUnit.datetime))
       } else {
         state.data = payload.data.data

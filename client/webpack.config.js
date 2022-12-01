@@ -17,6 +17,11 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx'],
+    alias: {
+      static: path.resolve(__dirname, 'src/static'),
+      utils: path.resolve(__dirname, 'src/utils'),
+      store: path.resolve(__dirname, 'src/store'),
+    },
   },
   module: {
     rules: [

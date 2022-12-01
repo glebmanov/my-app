@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 
-import CocktailsPage from './pages/CocktailsPage.jsx'
-import IngredientsPage from './pages/IngredientsPage.jsx'
-import Modal from './components/Modal.jsx'
-import ModalContentCocktail from './components/ModalContentCocktail.jsx'
+import CocktailsPage from './pages/CocktailsPage'
+import IngredientsPage from './pages/IngredientsPage'
+import Modal from './components/Modal'
+import ModalContentCocktail from './components/ModalContentCocktail'
 
 import './styles/cocktails.scss'
-import data from './cocktailList.js'
+import data from './cocktailList'
 
 const Cocktails = () => {
   const [page, setPage] = useState('cocktails')

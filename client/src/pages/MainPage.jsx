@@ -1,5 +1,5 @@
 import React from 'react'
-import Card from '../components/Card.jsx'
+import Card from '../components/Card'
 import { uniqueId } from 'lodash'
 
 const cards = [

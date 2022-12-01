@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { getDate } from '../../../utils/date'
+import { getDate } from 'utils/date'
 import { uniqueId } from 'lodash'
 
 const SpotWeatherList = ({ data }) =>

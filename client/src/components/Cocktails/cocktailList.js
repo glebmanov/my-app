@@ -155,11 +155,11 @@ const list = {
     },
     {
       id: 10,
-      name: 'fresh lemon juice',
+      name: 'lemon juice',
     },
     {
       id: 11,
-      name: 'fresh lime juice',
+      name: 'lime juice',
     },
     {
       id: 12,

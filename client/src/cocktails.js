@@ -1,3 +1,3 @@
-import Cocktails from './components/Cocktails/Cocktails.jsx'
+import Cocktails from './components/Cocktails/Cocktails'
 
 export default Cocktails

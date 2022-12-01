@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import CocktailItemMedium from './CocktailItemMedium.jsx'
-import CocktailItemBig from './CocktailItemBig.jsx'
-import CocktailItemSmall from './CocktailItemSmall.jsx'
-import ItemsSizeButtons from './ItemsSizeButtons.jsx'
+import CocktailItemMedium from './CocktailItemMedium'
+import CocktailItemBig from './CocktailItemBig'
+import CocktailItemSmall from './CocktailItemSmall'
+import ItemsSizeButtons from './ItemsSizeButtons'
 
 const ListCocktails = ({ cocktails, ingredientList, showSizeButtons = true, openModal }) => {
   const sizes = ['small', 'medium', 'big']

@@ -1,9 +1,9 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 
-import MainPage from './pages/MainPage.jsx'
-import Cocktails from './components/Cocktails/Cocktails.jsx'
-import Climbspots from './components/Climbspots/Climbspots.jsx'
+import MainPage from './pages/MainPage'
+import Cocktails from './components/Cocktails/Cocktails'
+import Climbspots from './components/Climbspots/Climbspots'
 
 const App = () => {
   return (

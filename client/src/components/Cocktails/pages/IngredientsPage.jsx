@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import Categories from '../components/Categories.jsx'
-import ListCocktails from '../components/ListCocktails.jsx'
-import ShowCocktailsButtons from '../components/ShowCocktailsButtons.jsx'
+import Categories from '../components/Categories'
+import ListCocktails from '../components/ListCocktails'
+import ShowCocktailsButtons from '../components/ShowCocktailsButtons'
 
 const IngredientsPage = ({ cocktails, ingredientList, categories, openModal }) => {
   document.title = 'Cocktails | Build cocktails'

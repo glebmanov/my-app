@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { setEndpoint } from '../../../store/weatherSlice'
+import { setEndpoint } from 'store/weatherSlice'
 
 import Button from './Button'
 

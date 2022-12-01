@@ -1,5 +1,5 @@
 import React from 'react'
-import Checkbox from './Checkbox.jsx'
+import Checkbox from './Checkbox'
 
 import { uniqueId } from 'lodash'
 

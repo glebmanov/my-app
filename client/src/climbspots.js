@@ -1,3 +1,3 @@
-import Climbspots from './components/Climbspots/Climbspots.jsx'
+import Climbspots from './components/Climbspots/Climbspots'
 
 export default Climbspots

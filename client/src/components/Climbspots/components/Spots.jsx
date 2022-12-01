@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { setActiveSpotId } from '../../../store/weatherSlice'
+import { setActiveSpotId } from 'store/weatherSlice'
 
 import Button from './Button'
 

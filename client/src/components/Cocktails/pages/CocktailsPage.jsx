@@ -1,5 +1,5 @@
 import React from 'react'
-import ListCocktails from '../components/ListCocktails.jsx'
+import ListCocktails from '../components/ListCocktails'
 
 const CocktailsPage = ({ cocktails, ingredientList, openModal }) => {
   document.title = 'Cocktails | List cocktails'

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchSpotWeather } from '../../store/weatherSlice'
+import { fetchSpotWeather } from 'store/weatherSlice'
 
 import Spots from './components/Spots'
 import SpotWeather from './components/SpotWeather'
