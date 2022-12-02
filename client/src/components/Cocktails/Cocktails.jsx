@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import CocktailsPage from './pages/CocktailsPage'
 import IngredientsPage from './pages/IngredientsPage'
-import Modal from './components/Modal'
+import Modal from '../Modal'
 import ModalContentCocktail from './components/ModalContentCocktail'
 
 import './styles/cocktails.scss'

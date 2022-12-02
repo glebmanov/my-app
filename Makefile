@@ -4,7 +4,7 @@ start:
 dev-client:
 	npm run dev --prefix client
 
-upd-front:
+upd-client:
 	git pull
 	npm run client:build
 
