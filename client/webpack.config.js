@@ -1,19 +1,14 @@
 const path = require('path')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 module.exports = {
   entry: {
     app: './src/index.js',
-    cocktails: './src/cocktails.js',
-    climbspots: './src/climbspots.js',
   },
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: '[name].bundle.js',
-    clean: true,
-  },
-  optimization: {
-    runtimeChunk: 'single',
+    filename: '[name].js',
   },
   resolve: {
     extensions: ['.js', '.jsx'],
@@ -50,6 +45,7 @@ module.exports = {
     new HtmlWebPackPlugin({
       template: './public/index.html',
     }),
+    new CleanWebpackPlugin(),
   ],
   stats: 'minimal',
   devServer: {

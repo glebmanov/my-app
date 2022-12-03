@@ -1,23 +1,22 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 
-import MainPage from './pages/MainPage'
-import Cocktails from './components/Cocktails/Cocktails'
+import Homepage from './pages/Homepage'
+import Notfoundpage from './pages/Notfoundpage'
 import Climbspots from './components/Climbspots/Climbspots'
+import Cocktails from './components/Cocktails/Cocktails'
+import Layout from './components/Layout'
 
 const App = () => {
   return (
-    <>
-      <header></header>
-      <main>
-        <Routes>
-          <Route path='/' element={<MainPage />} />
-          <Route path='/climbspots' element={<Climbspots />} />
-          <Route path='/cocktails' element={<Cocktails />} />
-        </Routes>
-      </main>
-      <footer></footer>
-    </>
+    <Routes>
+      <Route path='/' element={<Layout />}>
+        <Route index element={<Homepage />} />
+        <Route path='climbspots' element={<Climbspots />} />
+        <Route path='cocktails' element={<Cocktails />} />
+        <Route path='*' element={<Notfoundpage />} />
+      </Route>
+    </Routes>
   )
 }
 

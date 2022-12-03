@@ -23,47 +23,21 @@ a {
 }
 
 header {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
   height: 50px;
-}
-
-main {
-  .component-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
-    width: 300px;
-    height: 130px;
-
-    margin: 20px;
-    padding: 15px;
-
-    background-color: #ecedee;
-    border-radius: 5px;
-    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
-
-    transition: all 0.4s;
-
-    &:hover {
-      transform: scale(1.1);
-    }
-  }
 }
 
 footer {
   height: 50px;
 }
 
-.main-page {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  height: 100%;
+@include --desktop {
+}
+
+@include --tablet {
 }
 
 @include --mobile {
-  .main-page {
-    flex-direction: column;
-    align-items: center;
-  }
 }
