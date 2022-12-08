@@ -4,6 +4,7 @@ import CocktailsPage from './pages/CocktailsPage'
 import IngredientsPage from './pages/IngredientsPage'
 import Modal from '../Modal'
 import ModalContentCocktail from './components/ModalContentCocktail'
+import Editor from './components/Editor/Editor'
 
 import './styles/cocktails.scss'
 import data from './cocktailList'
@@ -23,6 +24,7 @@ const Cocktails = () => {
         <div id='menu'>
           <span onClick={() => setPage('cocktails')}>Cocktails</span>
           <span onClick={() => setPage('build')}>Build cocktails</span>
+          <span onClick={() => setPage('editor')}>Cocktail editor</span>
         </div>
       </div>
       <div className='content'>
@@ -37,6 +39,7 @@ const Cocktails = () => {
             openModal={openModalCocktail}
           />
         ) : null}
+        {page === 'editor' ? <Editor /> : null}
       </div>
       <Modal active={modalActive} setActive={setModalActive}>
         <ModalContentCocktail cocktail={currentCocktail} ingredientList={data.ingredients} />
