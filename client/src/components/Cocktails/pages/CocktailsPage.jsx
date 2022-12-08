@@ -7,7 +7,7 @@ const CocktailsPage = ({ cocktails, ingredientList, openModal }) => {
   return (
     <>
       <h1>List cocktails</h1>
-      <ListCocktails cocktails={cocktails} ingredientList={ingredientList} openModal={openModal} />
+      <ListCocktails cocktails={cocktails} openModal={openModal} />
     </>
   )
 }

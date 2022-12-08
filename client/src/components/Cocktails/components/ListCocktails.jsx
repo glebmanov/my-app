@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
-import CocktailItemMedium from './CocktailItemMedium'
 import CocktailItemBig from './CocktailItemBig'
 import CocktailItemSmall from './CocktailItemSmall'
 import ItemsSizeButtons from './ItemsSizeButtons'
 
-const ListCocktails = ({ cocktails, ingredientList, showSizeButtons = true, openModal }) => {
-  const sizes = ['small', 'medium', 'big']
+const ListCocktails = ({ cocktails, showSizeButtons = true, openModal }) => {
+  const sizes = ['small', 'big']
   const [activeSize, setActiveSize] = useState('small')
 
   const getSizeItem = cocktail => {
@@ -16,14 +15,7 @@ const ListCocktails = ({ cocktails, ingredientList, showSizeButtons = true, open
         return <CocktailItemBig key={cocktail.id} name={cocktail.name} openModal={openModal} cocktail={cocktail} />
 
       default:
-        return (
-          <CocktailItemMedium
-            key={cocktail.id}
-            cocktail={cocktail}
-            ingredientList={ingredientList}
-            openModal={openModal}
-          />
-        )
+        break
     }
   }
 

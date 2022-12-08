@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchCocktails } from 'store/cocktailsSlice'
 
 import CocktailsPage from './pages/CocktailsPage'
 import IngredientsPage from './pages/IngredientsPage'
@@ -9,6 +11,8 @@ import './styles/cocktails.scss'
 import data from './cocktailList'
 
 const Cocktails = () => {
+  const dispatch = useDispatch()
+  const cocktails = useSelector(state => state.cocktails.cocktails)
   const [page, setPage] = useState('cocktails')
   const [modalActive, setModalActive] = useState(false)
   const [currentCocktail, setCurrentCocktail] = useState({})
@@ -16,6 +20,10 @@ const Cocktails = () => {
     setCurrentCocktail(cocktail)
     setModalActive(true)
   }
+
+  useEffect(() => {
+    dispatch(fetchCocktails())
+  }, [dispatch])
 
   return (
     <>
