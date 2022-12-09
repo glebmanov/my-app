@@ -1,27 +1,58 @@
 import React from 'react'
+import { useForm } from 'react-hook-form'
 import { uniqueId } from 'lodash'
 
 const EditorIngredient = ({ categories }) => {
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    reset,
+  } = useForm({
+    mode: 'onBlur',
+  })
+
+  const onSubmit = data => {
+    alert(JSON.stringify(data))
+    reset()
+  }
+
   return (
-    <div id='editor-ingredient'>
+    <div className='editor-ingredient'>
       <h3>Add ingredient</h3>
-      <div className='editor-inputs'>
-        <label htmlFor='input-ingredient-name'>Name</label>
-        <input id='input-ingredient-name' type='text' />
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <label>
+          Name
+          <input
+            type='text'
+            {...register('name', {
+              required: 'field is required',
+              minLength: {
+                value: 3,
+                message: 'minimum length 3 characters',
+              },
+            })}
+          />
+        </label>
+        <div className='error'>{errors?.name && <p>{errors?.name?.message || 'Error'}</p>}</div>
 
-        <label htmlFor='input-ingredient-category'>Category</label>
-        <select id='input-ingredient-category'>
-          {categories.map(category => (
-            <option key={uniqueId()} value={uniqueId()}>
-              {category}
-            </option>
-          ))}
-        </select>
+        <label>
+          Category
+          <select {...register('category')}>
+            {categories.map((category, index) => (
+              <option key={uniqueId()} value={index}>
+                {category}
+              </option>
+            ))}
+          </select>
+        </label>
 
-        <button type='button' className='btn btn-cstm btn-add'>
-          Add
-        </button>
-      </div>
+        <div className='add-buttons'>
+          <button type='submit' className='btn btn-cstm btn-add'>
+            Add
+          </button>
+        </div>
+      </form>
     </div>
   )
 }

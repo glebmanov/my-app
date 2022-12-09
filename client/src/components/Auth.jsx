@@ -41,7 +41,10 @@ const Auth = () => {
               type='email'
               {...register('email', {
                 required: 'field is required',
-                pattern: /.+@.+..+/i,
+                pattern: {
+                  value: /.+@.+..+/i,
+                  message: 'incorrect email',
+                },
               })}
             />
           </label>
