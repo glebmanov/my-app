@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchCocktails } from 'store/cocktailsSlice'
+import { getCategories, getCocktails, getIngredients } from 'store/cocktailsSlice'
 
 import CocktailsPage from './pages/CocktailsPage'
 import IngredientsPage from './pages/IngredientsPage'
@@ -9,22 +9,25 @@ import ModalContentCocktail from './components/ModalContentCocktail'
 import Editor from './components/Editor/Editor'
 
 import './styles/cocktails.scss'
-import data from './cocktailList'
 
 const Cocktails = () => {
   const dispatch = useDispatch()
+  const cocktail = useSelector(state => state.cocktails.cocktail)
   const cocktails = useSelector(state => state.cocktails.cocktails)
+  const categories = useSelector(state => state.cocktails.categories)
+  const ingredients = useSelector(state => state.cocktails.ingredients)
   const [page, setPage] = useState('cocktails')
   const [modalActive, setModalActive] = useState(false)
-  const [currentCocktail, setCurrentCocktail] = useState({})
-  const openModalCocktail = cocktail => {
-    setCurrentCocktail(cocktail)
-    setModalActive(true)
-  }
 
   useEffect(() => {
-    dispatch(fetchCocktails())
+    dispatch(getCocktails())
+    dispatch(getCategories())
+    dispatch(getIngredients())
   }, [dispatch])
+
+  useEffect(() => {
+    if (cocktail.amount) setModalActive(true)
+  }, [cocktail])
 
   return (
     <>
@@ -36,21 +39,14 @@ const Cocktails = () => {
         </div>
       </div>
       <div className='content'>
-        {page === 'cocktails' ? (
-          <CocktailsPage cocktails={data.cocktails} ingredientList={data.ingredients} openModal={openModalCocktail} />
-        ) : null}
+        {page === 'cocktails' ? <CocktailsPage cocktails={cocktails} /> : null}
         {page === 'build' ? (
-          <IngredientsPage
-            cocktails={data.cocktails}
-            ingredientList={data.ingredients}
-            categories={data.categories}
-            openModal={openModalCocktail}
-          />
+          <IngredientsPage cocktails={cocktails} ingredientList={ingredients} categories={categories} />
         ) : null}
-        {page === 'editor' ? <Editor /> : null}
+        {page === 'editor' ? <Editor ingredients={ingredients} /> : null}
       </div>
       <Modal active={modalActive} setActive={setModalActive}>
-        <ModalContentCocktail cocktail={currentCocktail} ingredientList={data.ingredients} />
+        <ModalContentCocktail cocktail={cocktail} ingredients={ingredients} />
       </Modal>
     </>
   )

@@ -3,7 +3,7 @@ import Categories from '../components/Categories'
 import ListCocktails from '../components/ListCocktails'
 import ShowCocktailsButtons from '../components/ShowCocktailsButtons'
 
-const IngredientsPage = ({ cocktails, ingredientList, categories, openModal }) => {
+const IngredientsPage = ({ cocktails, ingredientList, categories }) => {
   document.title = 'Cocktails | Build cocktails'
 
   const [checkedState, setCheckedState] = useState(new Array(ingredientList.length).fill(false))
@@ -34,14 +34,15 @@ const IngredientsPage = ({ cocktails, ingredientList, categories, openModal }) =
     switch (activeOption) {
       case 'includes':
         const listIncludesIngredients = cocktails.filter(
-          ({ ingredients }) => ingredients.filter(ingredient => selectedIngredients.includes(ingredient)).length > 0,
+          ({ amount }) => amount.filter(({ ingredientId }) => selectedIngredients.includes(ingredientId)).length > 0,
         )
         setFilteredList(listIncludesIngredients)
         break
       case 'consist':
-        const listConsistIngredients = cocktails.filter(({ ingredients }) =>
-          ingredients.every(ingredientId => selectedIngredients.includes(ingredientId)),
+        const listConsistIngredients = cocktails.filter(({ amount }) =>
+          amount.every(({ ingredientId }) => selectedIngredients.includes(ingredientId)),
         )
+        console.log('listConsistIngredients', listConsistIngredients)
         setFilteredList(listConsistIngredients)
         break
       default:
@@ -70,12 +71,7 @@ const IngredientsPage = ({ cocktails, ingredientList, categories, openModal }) =
         />
         <ShowCocktailsButtons show={showListCocktails} clear={clearListCocktails} />
         {filteredList ? (
-          <ListCocktails
-            cocktails={filteredList}
-            ingredientList={ingredientList}
-            showSizeButtons={false}
-            openModal={openModal}
-          />
+          <ListCocktails cocktails={filteredList} ingredientList={ingredientList} showSizeButtons={false} />
         ) : null}
       </div>
     </>

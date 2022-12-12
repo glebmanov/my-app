@@ -1,14 +1,16 @@
 import React from 'react'
 import EditorCocktail from './EditorCocktail'
 import EditorIngredient from './EditorIngredient'
-import data from '../../cocktailList'
+import { useSelector } from 'react-redux'
 
-const Add = () => {
+const Add = ({ ingredients }) => {
+  const categories = useSelector(state => state.cocktails.categories)
+
   return (
     <div className='wrapper-editor'>
       <div className='content-editor'>
-        <EditorCocktail ingredients={data.ingredients} />
-        <EditorIngredient categories={Object.keys(data.categories)} />
+        <EditorCocktail ingredients={ingredients} />
+        <EditorIngredient categories={categories} />
       </div>
     </div>
   )

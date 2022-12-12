@@ -1,8 +1,11 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { uniqueId } from 'lodash'
+import { useDispatch } from 'react-redux'
+import { createIngredient } from 'store/cocktailsSlice'
 
 const EditorIngredient = ({ categories }) => {
+  const dispatch = useDispatch()
+
   const {
     register,
     formState: { errors },
@@ -13,13 +16,13 @@ const EditorIngredient = ({ categories }) => {
   })
 
   const onSubmit = data => {
-    alert(JSON.stringify(data))
+    dispatch(createIngredient(data))
     reset()
   }
 
   return (
     <div className='editor-ingredient'>
-      <h3>Add ingredient</h3>
+      <h3>Create ingredient</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
         <label>
           Name
@@ -38,10 +41,10 @@ const EditorIngredient = ({ categories }) => {
 
         <label>
           Category
-          <select {...register('category')}>
-            {categories.map((category, index) => (
-              <option key={uniqueId()} value={index}>
-                {category}
+          <select {...register('category_id')}>
+            {categories.map(({ id, name }) => (
+              <option key={id} value={id}>
+                {name}
               </option>
             ))}
           </select>
@@ -49,7 +52,7 @@ const EditorIngredient = ({ categories }) => {
 
         <div className='add-buttons'>
           <button type='submit' className='btn btn-cstm btn-add'>
-            Add
+            create
           </button>
         </div>
       </form>

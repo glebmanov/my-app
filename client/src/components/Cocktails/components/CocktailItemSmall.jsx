@@ -1,10 +1,14 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { getOneCocktail } from 'store/cocktailsSlice'
 
-const CocktailItemSmall = ({ name, category = 'tasty', openModal, cocktail }) => {
+const CocktailItemSmall = ({ id, name }) => {
+  const dispatch = useDispatch()
+
   return (
-    <div className='item-s' onClick={() => openModal(cocktail)}>
+    <div className='item-s' onClick={() => dispatch(getOneCocktail({ id }))}>
       <div className='description'>
-        <p>{category}</p>
+        <p>tasty</p>
         <h2>{name}</h2>
       </div>
     </div>

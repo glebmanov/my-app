@@ -1,13 +1,16 @@
 start:
 	npm start
 
+server:
+	npm run server
+
 client-build:
 	npm run client:build
 
-dev-client:
+client-dev:
 	npm run dev --prefix client
 
-upd-client:
+client-upd:
 	git pull
 	npm run client:build
 

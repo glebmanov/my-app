@@ -4,7 +4,7 @@ require('dotenv').config()
 
 const router = Router()
 
-router.get('/weather', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const { endpoint, lat, lon } = req.query
     const response = await axios.get(`https://weatherbit-v1-mashape.p.rapidapi.com/${endpoint}`, {

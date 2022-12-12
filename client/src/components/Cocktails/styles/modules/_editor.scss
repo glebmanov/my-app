@@ -16,6 +16,7 @@
       justify-content: center;
       align-items: center;
       width: 500px;
+      height: max-content;
       margin: 32px 16px 0 16px;
       padding: 32px 24px;
       border-radius: 5px;
@@ -113,7 +114,18 @@
 
         .cocktail-ingredient {
           display: flex;
+          flex-direction: column;
           align-items: center;
+          padding: 0;
+          margin: 0;
+
+          li {
+            display: flex;
+            flex-wrap: nowrap;
+            width: 100%;
+            margin-bottom: 16px;
+            list-style-type: none;
+          }
 
           input[type='number'] {
             width: 60px;
@@ -127,12 +139,16 @@
           .ingredient-units {
             width: 85px;
           }
+
+          .ingredient-remove {
+            margin-left: 16px;
+          }
         }
 
         .add-buttons {
           display: flex;
           justify-content: space-between;
-          margin-top: 24px;
+          margin-top: 8px;
         }
       }
     }

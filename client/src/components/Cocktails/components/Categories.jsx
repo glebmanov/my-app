@@ -18,7 +18,7 @@ const Categories = ({
     <div className='categories'>
       <div className='buttons'>
         <CategoriesButtons
-          categories={Object.keys(categories)}
+          categories={categories}
           activeCategory={activeCategory}
           setActiveCategory={setActiveCategory}
         />

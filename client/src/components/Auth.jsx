@@ -21,7 +21,7 @@ const Auth = () => {
       <div className='auth'>
         <form onSubmit={handleSubmit(onSubmit)}>
           <label>
-            Nikname
+            Username
             <input
               type='text'
               {...register('name', {

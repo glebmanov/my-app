@@ -5,19 +5,21 @@ import { uniqueId } from 'lodash'
 
 const ListIngredients = ({ ingredientList, categories, activeCategory, handleOnChange, checkedState }) => {
   const renderSelectedCategory = () =>
-    categories[activeCategory].map(ingredientId => {
-      const foundIngredient = ingredientList.find(ingredient => ingredient.id === ingredientId)
-      const index = ingredientList.indexOf(foundIngredient)
-      return (
-        <Checkbox
-          ingredient={foundIngredient}
-          handleOnChange={handleOnChange}
-          index={index}
-          checkedState={checkedState}
-          key={uniqueId()}
-        />
-      )
-    })
+    categories
+      .find(({ id }) => activeCategory === id)
+      .ingredients.map(ingredientId => {
+        const foundIngredient = ingredientList.find(ingredient => ingredient.id === ingredientId)
+        const index = ingredientList.indexOf(foundIngredient)
+        return (
+          <Checkbox
+            ingredient={foundIngredient}
+            handleOnChange={handleOnChange}
+            index={index}
+            checkedState={checkedState}
+            key={uniqueId()}
+          />
+        )
+      })
 
   const renderAllCategory = () =>
     ingredientList.map((ingredient, index) => (

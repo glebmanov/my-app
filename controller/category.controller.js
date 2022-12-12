@@ -1,15 +1,27 @@
-const db_cocktails = require('../db_cocktails')
+const { Category, CategoryIngredient } = require('../models/cocktails')
 
 class CategoryController {
   async createCategory(req, res) {
     const { name } = req.body
-    const newCategory = await db_cocktails.query(`INSERT INTO category (name) values ($1) RETURNING *`, [name])
-    res.json(newCategory.rows[0])
+    const category = await Category.create({ name })
+    res.json(category)
   }
 
   async getCategories(_, res) {
-    const categories = await db_cocktails.query('SELECT * FROM category')
-    res.json(categories.rows)
+    const categories = await Category.findAll()
+    const resultCategories = categories.map(({ id, name }) => ({ id, name, ingredients: [] }))
+
+    const categoryIngredients = await CategoryIngredient.findAll()
+    categoryIngredients.forEach(({ categoryId, ingredientId }) => {
+      resultCategories.find(category => category.id === categoryId).ingredients.push(ingredientId)
+    })
+    res.json(resultCategories)
+  }
+
+  async deleteCategory(req, res) {
+    const id = req.params.id
+    const category = await Category.destroy({ where: { id } })
+    res.json(category)
   }
 }
 

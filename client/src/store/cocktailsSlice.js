@@ -1,71 +1,126 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-export const fetchCategories = createAsyncThunk('cocktails/fetchCategory', async () => await axios.get('/api/category'))
-export const fetchCocktails = createAsyncThunk('cocktails/fetchCocktails', async () => await axios.get('/api/cocktail'))
-export const fetchIngredients = createAsyncThunk(
-  'cocktails/fetchIngredients',
+export const getCategories = createAsyncThunk('cocktails/getCategories', async () => await axios.get('/api/category'))
+
+export const createIngredient = createAsyncThunk(
+  'cocktails/createIngredient',
+  async ({ name, category_id }) => await axios.post('/api/ingredient', { name, category_id }),
+)
+
+export const getIngredients = createAsyncThunk(
+  'cocktails/getIngredients',
   async () => await axios.get('/api/ingredient'),
 )
-export const addIngredient = createAsyncThunk(
-  'cocktails/addIngredient',
-  async (name, categiry_id) => await axios.get('/api/ingredient', { body: { name, categiry_id } }),
+
+export const createCocktail = createAsyncThunk(
+  'cocktails/createCocktail',
+  async ({ name, amount, description }) => await axios.post('/api/cocktail', { name, amount, description }),
+)
+
+export const getCocktails = createAsyncThunk('cocktails/getCocktails', async () => await axios.get('/api/cocktail'))
+
+export const getOneCocktail = createAsyncThunk(
+  'cocktails/getOneCocktail',
+  async ({ id }) => await axios.get(`/api/cocktail/${id}`),
+)
+
+export const updateCocktail = createAsyncThunk(
+  'cocktails/updateCocktail',
+  async ({ id, name, amount, description }) => await axios.put('/api/cocktail', { id, name, amount, description }),
+)
+
+export const deleteCocktail = createAsyncThunk(
+  'cocktails/deleteCocktail',
+  async ({ id }) => await axios.delete(`/api/cocktail/${id}`),
 )
 
 const cocktailsSlice = createSlice({
   name: 'cocktails',
   initialState: {
+    cocktail: { name: '' },
     cocktails: [],
     ingredients: [],
-    selectedIngredients: [],
     categories: [],
     error: null,
   },
-  reducers: {
-    setSelectedIngredients(state, action) {
-      state.selectedIngredients = action.payload.selectedIngredients
-    },
-  },
+  reducers: {},
   extraReducers: {
-    [fetchCategories.pending]: state => {
+    [getCategories.pending]: state => {
       state.status = 'loading'
       state.error = null
     },
-    [fetchCategories.fulfilled]: (state, { payload }) => {
+    [getCategories.fulfilled]: (state, { payload }) => {
       state.status = 'resolved'
       state.categories = payload.data
     },
-    [fetchCategories.rejected]: (state, { error }) => {
+    [getCategories.rejected]: (state, { error }) => {
       state.status = 'rejected'
       state.error = error.message
     },
-    [fetchCocktails.pending]: state => {
+    [createIngredient.pending]: state => {
       state.status = 'loading'
       state.error = null
     },
-    [fetchCocktails.fulfilled]: (state, { payload }) => {
+    [createIngredient.fulfilled]: (state, { payload }) => {
       state.status = 'resolved'
-      state.cocktails = payload.data
+      state.ingredient.push(payload.data)
     },
-    [fetchCocktails.rejected]: (state, { error }) => {
+    [createIngredient.rejected]: (state, { error }) => {
       state.status = 'rejected'
       state.error = error.message
     },
-    [fetchIngredients.pending]: state => {
+    [getIngredients.pending]: state => {
       state.status = 'loading'
       state.error = null
     },
-    [fetchIngredients.fulfilled]: (state, { payload }) => {
+    [getIngredients.fulfilled]: (state, { payload }) => {
       state.status = 'resolved'
       state.ingredients = payload.data
     },
-    [fetchIngredients.rejected]: (state, { error }) => {
+    [getIngredients.rejected]: (state, { error }) => {
+      state.status = 'rejected'
+      state.error = error.message
+    },
+    [createCocktail.pending]: state => {
+      state.status = 'loading'
+      state.error = null
+    },
+    [createCocktail.fulfilled]: (state, { payload }) => {
+      state.status = 'resolved'
+      state.cocktails.push(payload.data)
+    },
+    [createCocktail.rejected]: (state, { error }) => {
+      state.status = 'rejected'
+      state.error = error.message
+    },
+    [getCocktails.pending]: state => {
+      state.status = 'loading'
+      state.error = null
+    },
+    [getCocktails.fulfilled]: (state, { payload }) => {
+      state.status = 'resolved'
+      state.cocktails = payload.data
+    },
+    [getCocktails.rejected]: (state, { error }) => {
+      state.status = 'rejected'
+      state.error = error.message
+    },
+    [getOneCocktail.pending]: state => {
+      state.status = 'loading'
+      state.error = null
+    },
+    [getOneCocktail.fulfilled]: (state, { payload }) => {
+      state.status = 'resolved'
+      state.cocktail = payload.data
+    },
+    [getOneCocktail.rejected]: (state, { error }) => {
       state.status = 'rejected'
       state.error = error.message
     },
   },
 })
 
-export const { setSelectedIngredients } = cocktailsSlice.actions
+export const {} = cocktailsSlice.actions
 
 export default cocktailsSlice.reducer

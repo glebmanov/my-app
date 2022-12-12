@@ -1,12 +1,15 @@
 import React from 'react'
-import cocktailSvg from 'static/cocktail.svg'
+import { useDispatch } from 'react-redux'
+import { getOneCocktail } from 'store/cocktailsSlice'
 
-const CocktailItemBig = ({ name, category = 'tasty', openModal, cocktail }) => {
+const CocktailItemBig = ({ id, name, img }) => {
+  const dispatch = useDispatch()
+
   return (
-    <div className='item-b' onClick={() => openModal(cocktail)}>
-      <img src={cocktailSvg} alt='cocktail-img' />
+    <div className='item-b' onClick={() => dispatch(getOneCocktail({ id }))}>
+      <img src={img} alt='cocktail-img' />
       <div className='description'>
-        <p>{category}</p>
+        <p>tasty</p>
         <h3>{name}</h3>
       </div>
     </div>

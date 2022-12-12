@@ -51,4 +51,5 @@ module.exports = {
   devServer: {
     port: 7777,
   },
+  devtool: 'source-map',
 }

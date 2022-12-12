@@ -3,16 +3,16 @@ import CocktailItemBig from './CocktailItemBig'
 import CocktailItemSmall from './CocktailItemSmall'
 import ItemsSizeButtons from './ItemsSizeButtons'
 
-const ListCocktails = ({ cocktails, showSizeButtons = true, openModal }) => {
+const ListCocktails = ({ cocktails, showSizeButtons = true }) => {
   const sizes = ['small', 'big']
   const [activeSize, setActiveSize] = useState('small')
 
-  const getSizeItem = cocktail => {
+  const getSizeItem = ({ id, name, img }) => {
     switch (activeSize) {
       case 'small':
-        return <CocktailItemSmall key={cocktail.id} name={cocktail.name} openModal={openModal} cocktail={cocktail} />
+        return <CocktailItemSmall key={id} id={id} name={name} />
       case 'big':
-        return <CocktailItemBig key={cocktail.id} name={cocktail.name} openModal={openModal} cocktail={cocktail} />
+        return <CocktailItemBig key={id} id={id} name={name} img={img} />
 
       default:
         break

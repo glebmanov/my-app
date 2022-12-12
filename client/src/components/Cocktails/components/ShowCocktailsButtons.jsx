@@ -1,14 +1,11 @@
 import React from 'react'
+import Button from './Button'
 
 const ShowCocktailsButtons = ({ show, clear }) => {
   return (
     <div className='show-btn btn-group btn-group-sm'>
-      <button className='btn btn-cstm' type='button' onClick={() => show()}>
-        <span>show</span>
-      </button>
-      <button className='btn btn-cstm' type='button' onClick={() => clear()}>
-        <span>clear</span>
-      </button>
+      <Button handler={show} text={'show'} />
+      <Button handler={clear} text={'clear'} />
     </div>
   )
 }

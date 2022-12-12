@@ -1,21 +1,18 @@
 import React from 'react'
-import { uniqueId } from 'lodash'
 
-const ModalContentCocktail = ({ cocktail, ingredientList }) => {
-  const { name, ingredients, amount } = cocktail
+const ModalContentCocktail = ({ cocktail, ingredients }) => {
+  const { name, amount } = cocktail
 
   return (
     <div className='modal-cocktail'>
       <div className='description'>
-        <h3>{name || ''}</h3>
+        <h3>{name}</h3>
         <ul>
-          {ingredients &&
-            ingredients.map(ingredientId => (
-              <li key={uniqueId()}>
-                {ingredientList.find(ingredient => ingredient.id === ingredientId).name} —{' '}
-                {amount.find(item => item.ingredientId === ingredientId).value}
-              </li>
-            ))}
+          {amount &&
+            amount.map(({ id, value, unit, ingredientId }) => {
+              const ingredient = ingredients.find(ingredient => ingredient.id === ingredientId)
+              return <li key={id}>{`${ingredient.name} - ${value} ${unit}`}</li>
+            })}
         </ul>
       </div>
     </div>

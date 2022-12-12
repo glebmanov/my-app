@@ -2,7 +2,7 @@ const { Router } = require('express')
 const router = Router()
 const amountController = require('../controller/amount.controller')
 
-router.post('/amount', amountController.createAmount)
-router.get('/amount', amountController.getAmount)
+router.post('/', amountController.createAmount)
+router.get('/', amountController.getAmount)
 
 module.exports = router
