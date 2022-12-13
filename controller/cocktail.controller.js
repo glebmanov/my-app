@@ -5,7 +5,7 @@ const path = require('path')
 class CocktailController {
   async createCocktail(req, res) {
     const { name, amount, description } = req.body
-    let fileName = path.resolve(__dirname, '..', 'static', 'cocktail.svg')
+    let fileName = 'cocktail.svg'
     if (req.files?.img) {
       fileName = uuid.v4() + '.svg'
       req.files.img.mv(path.resolve(__dirname, '..', 'static', fileName))
