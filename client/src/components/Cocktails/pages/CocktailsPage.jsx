@@ -7,7 +7,7 @@ const CocktailsPage = ({ cocktails }) => {
   return (
     <>
       <h1>List cocktails</h1>
-      {cocktails.rows && <ListCocktails cocktails={cocktails} />}
+      {cocktails && <ListCocktails cocktails={cocktails} />}
     </>
   )
 }

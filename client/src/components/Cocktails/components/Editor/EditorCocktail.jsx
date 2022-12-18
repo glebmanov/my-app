@@ -1,7 +1,7 @@
 import React from 'react'
 import { useForm, useFieldArray } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
-import { createCocktail } from 'store/cocktailsSlice'
+import { findOrCreateCocktail } from 'store/cocktailsSlice'
 import { uniqueId, capitalize } from 'lodash'
 
 const EditorCocktail = ({ ingredients }) => {
@@ -27,7 +27,7 @@ const EditorCocktail = ({ ingredients }) => {
 
   const onSubmit = data => {
     data.name = capitalize(data.name)
-    dispatch(createCocktail(data))
+    dispatch(findOrCreateCocktail(data))
     reset()
   }
 
