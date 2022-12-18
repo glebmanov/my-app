@@ -19,10 +19,11 @@ const Login = () => {
 
   return (
     <div className='container-auth'>
+      <h1>Login</h1>
       <div className='login'>
         <form onSubmit={handleSubmit(onSubmit)}>
           <label>
-            Email
+            <span>Email</span>
             <input
               type='email'
               {...register('email', {
@@ -37,7 +38,7 @@ const Login = () => {
           <div className='error'>{errors?.email && <p>{errors?.email?.message || 'Error'}</p>}</div>
 
           <label>
-            Password
+            <span>Password</span>
             <input
               type='password'
               {...register('password', {

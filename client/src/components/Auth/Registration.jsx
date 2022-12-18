@@ -19,10 +19,11 @@ const Registration = () => {
 
   return (
     <div className='container-auth'>
+      <h1>Registration</h1>
       <div className='registration'>
         <form onSubmit={handleSubmit(onSubmit)}>
           <label>
-            Username
+            <span>Username</span>
             <input
               type='text'
               {...register('name', {
@@ -37,7 +38,7 @@ const Registration = () => {
           <div className='error'>{errors?.name && <p>{errors?.name?.message || 'Error'}</p>}</div>
 
           <label>
-            Email
+            <span>Email</span>
             <input
               type='email'
               {...register('email', {
@@ -52,7 +53,7 @@ const Registration = () => {
           <div className='error'>{errors?.email && <p>{errors?.email?.message || 'Error'}</p>}</div>
 
           <label>
-            Password
+            <span>Password</span>
             <input
               type='password'
               {...register('password', {
