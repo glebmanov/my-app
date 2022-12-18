@@ -2,7 +2,8 @@
   display: flex;
   justify-content: center;
 
-  .auth {
+  .registration,
+  .login {
     display: flex;
     flex-direction: column;
     justify-content: center;

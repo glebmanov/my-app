@@ -3,13 +3,13 @@ import Checkbox from './Checkbox'
 
 import { uniqueId } from 'lodash'
 
-const ListIngredients = ({ ingredientList, categories, activeCategory, handleOnChange, checkedState }) => {
+const ListIngredients = ({ ingredients, categories, activeCategory, handleOnChange, checkedState }) => {
   const renderSelectedCategory = () =>
     categories
       .find(({ id }) => activeCategory === id)
       .ingredients.map(ingredientId => {
-        const foundIngredient = ingredientList.find(ingredient => ingredient.id === ingredientId)
-        const index = ingredientList.indexOf(foundIngredient)
+        const foundIngredient = ingredients.find(ingredient => ingredient.id === ingredientId)
+        const index = ingredients.indexOf(foundIngredient)
         return (
           <Checkbox
             ingredient={foundIngredient}
@@ -22,7 +22,7 @@ const ListIngredients = ({ ingredientList, categories, activeCategory, handleOnC
       })
 
   const renderAllCategory = () =>
-    ingredientList.map((ingredient, index) => (
+    ingredients.map((ingredient, index) => (
       <Checkbox
         ingredient={ingredient}
         handleOnChange={handleOnChange}

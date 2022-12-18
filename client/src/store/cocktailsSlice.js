@@ -13,9 +13,10 @@ export const getIngredients = createAsyncThunk(
   async () => await axios.get('/api/ingredient'),
 )
 
-export const createCocktail = createAsyncThunk(
-  'cocktails/createCocktail',
-  async ({ name, amount, description }) => await axios.post('/api/cocktail', { name, amount, description }),
+export const findOrCreateCocktail = createAsyncThunk(
+  'cocktails/findOrCreateCocktail',
+  async ({ name, amount, description, type, ingredients }) =>
+    await axios.post('/api/cocktail', { name, amount, description, type, ingredients }),
 )
 
 export const getCocktails = createAsyncThunk('cocktails/getCocktails', async () => await axios.get('/api/cocktail'))
@@ -38,13 +39,18 @@ export const deleteCocktail = createAsyncThunk(
 const cocktailsSlice = createSlice({
   name: 'cocktails',
   initialState: {
-    cocktail: { name: '' },
-    cocktails: [],
+    cocktail: { name: '', amount: [] },
+    cocktails: {},
+    filteredCocktails: {},
     ingredients: [],
     categories: [],
     error: null,
   },
-  reducers: {},
+  reducers: {
+    clearFilteredCocktails(state, action) {
+      state.filteredCocktails = []
+    },
+  },
   extraReducers: {
     [getCategories.pending]: state => {
       state.status = 'loading'
@@ -64,7 +70,7 @@ const cocktailsSlice = createSlice({
     },
     [createIngredient.fulfilled]: (state, { payload }) => {
       state.status = 'resolved'
-      state.ingredient.push(payload.data)
+      state.ingredients.push(payload.data)
     },
     [createIngredient.rejected]: (state, { error }) => {
       state.status = 'rejected'
@@ -82,15 +88,20 @@ const cocktailsSlice = createSlice({
       state.status = 'rejected'
       state.error = error.message
     },
-    [createCocktail.pending]: state => {
+    [findOrCreateCocktail.pending]: state => {
       state.status = 'loading'
       state.error = null
     },
-    [createCocktail.fulfilled]: (state, { payload }) => {
+    [findOrCreateCocktail.fulfilled]: (state, { payload }) => {
       state.status = 'resolved'
-      state.cocktails.push(payload.data)
+      const { cocktails, action } = payload.data
+      if (action === 'create') {
+        state.cocktails = cocktails
+      } else {
+        state.filteredCocktails = cocktails
+      }
     },
-    [createCocktail.rejected]: (state, { error }) => {
+    [findOrCreateCocktail.rejected]: (state, { error }) => {
       state.status = 'rejected'
       state.error = error.message
     },
@@ -121,6 +132,6 @@ const cocktailsSlice = createSlice({
   },
 })
 
-export const {} = cocktailsSlice.actions
+export const { clearFilteredCocktails } = cocktailsSlice.actions
 
 export default cocktailsSlice.reducer

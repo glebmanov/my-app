@@ -4,15 +4,15 @@ import { Link } from 'react-router-dom'
 const Navigation = () => {
   return (
     <nav>
-      <span>
-        <Link to='/climbspots'>Climbspots</Link>
-      </span>
-      <span>
-        <Link to='/cocktails'>Cocktails</Link>
-      </span>
-      <span>
-        <Link to='/auth'>Sign in</Link>
-      </span>
+      <Link to='climbspots'>
+        <span>Climbspots</span>
+      </Link>
+      <Link to='cocktails'>
+        <span>Cocktails</span>
+      </Link>
+      <Link to='login'>
+        <span>Sign in</span>
+      </Link>
     </nav>
   )
 }

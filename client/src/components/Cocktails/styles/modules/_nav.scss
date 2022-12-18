@@ -4,12 +4,14 @@
   align-items: center;
   height: max-content;
 
-  #menu {
-    padding: 16px 0;
+  nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
     box-shadow: $shadow-3;
 
     span {
-      padding: 10px 20px;
+      padding: 16px 20px;
       color: $black-1;
       font-size: 23px;
       text-decoration: none;

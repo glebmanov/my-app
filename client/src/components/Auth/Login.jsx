@@ -1,7 +1,8 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import { Link } from 'react-router-dom'
 
-const Auth = () => {
+const Login = () => {
   const {
     register,
     formState: { errors },
@@ -18,23 +19,8 @@ const Auth = () => {
 
   return (
     <div className='container-auth'>
-      <div className='auth'>
+      <div className='login'>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <label>
-            Username
-            <input
-              type='text'
-              {...register('name', {
-                required: 'field is required',
-                minLength: {
-                  value: 6,
-                  message: 'minimum length 6 characters',
-                },
-              })}
-            />
-          </label>
-          <div className='error'>{errors?.name && <p>{errors?.name?.message || 'Error'}</p>}</div>
-
           <label>
             Email
             <input
@@ -69,7 +55,9 @@ const Auth = () => {
             <button type='submit' className='btn btn-cstm btn-sign-in'>
               Sign in
             </button>
-            <button className='btn-sign-up'>Sign up</button>
+            <Link to='/registration'>
+              <button className='btn-sign-up'>Sign up</button>
+            </Link>
           </div>
         </form>
       </div>
@@ -77,4 +65,4 @@ const Auth = () => {
   )
 }
 
-export default Auth
+export default Login

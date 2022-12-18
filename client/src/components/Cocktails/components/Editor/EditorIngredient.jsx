@@ -25,7 +25,7 @@ const EditorIngredient = ({ categories }) => {
       <h3>Create ingredient</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
         <label>
-          Name
+          <span>Name</span>
           <input
             type='text'
             {...register('name', {
@@ -40,7 +40,7 @@ const EditorIngredient = ({ categories }) => {
         <div className='error'>{errors?.name && <p>{errors?.name?.message || 'Error'}</p>}</div>
 
         <label>
-          Category
+          <span>Category</span>
           <select {...register('category_id')}>
             {categories.map(({ id, name }) => (
               <option key={id} value={id}>

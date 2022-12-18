@@ -2,7 +2,7 @@ import React from 'react'
 import { useForm, useFieldArray } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { createCocktail } from 'store/cocktailsSlice'
-import { uniqueId } from 'lodash'
+import { uniqueId, capitalize } from 'lodash'
 
 const EditorCocktail = ({ ingredients }) => {
   const dispatch = useDispatch()
@@ -26,6 +26,7 @@ const EditorCocktail = ({ ingredients }) => {
   })
 
   const onSubmit = data => {
+    data.name = capitalize(data.name)
     dispatch(createCocktail(data))
     reset()
   }
@@ -35,7 +36,7 @@ const EditorCocktail = ({ ingredients }) => {
       <h3>Create cocktail</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
         <label>
-          Name
+          <span>Name</span>
           <input
             type='text'
             {...register('name', {
@@ -49,12 +50,18 @@ const EditorCocktail = ({ ingredients }) => {
         </label>
         <div className='error'>{errors?.name && <p>{errors?.name?.message || 'Error'}</p>}</div>
 
-        <label htmlFor='inputs-cocktail-ingredients'>Ingredients</label>
+        <label htmlFor='inputs-cocktail-ingredients'>
+          <span>Ingredients</span>
+        </label>
         <div id='inputs-cocktail-ingredients'>
           <ul className='cocktail-ingredient'>
             {fields.map((item, index) => (
               <li key={item.id}>
-                <select {...register(`amount.${index}.ingredientId`)}>
+                <select
+                  {...register(`amount.${index}.ingredientId`, {
+                    required: 'field is required',
+                  })}
+                >
                   {ingredients.map(({ id, name }) => (
                     <option key={id} value={id}>
                       {name}

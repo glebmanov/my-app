@@ -4,6 +4,7 @@ import CocktailItemSmall from './CocktailItemSmall'
 import ItemsSizeButtons from './ItemsSizeButtons'
 
 const ListCocktails = ({ cocktails, showSizeButtons = true }) => {
+  const { count, rows } = cocktails
   const sizes = ['small', 'big']
   const [activeSize, setActiveSize] = useState('small')
 
@@ -22,10 +23,10 @@ const ListCocktails = ({ cocktails, showSizeButtons = true }) => {
   return (
     <>
       <div className='list-cocktails'>
-        {cocktails.length && showSizeButtons ? (
+        {rows?.length && showSizeButtons ? (
           <ItemsSizeButtons sizes={sizes} activeSize={activeSize} setActiveSize={setActiveSize} />
         ) : null}
-        <div className={`list-${activeSize}`}>{cocktails.map(cocktail => getSizeItem(cocktail))}</div>
+        <div className={`list-${activeSize}`}>{rows?.map(cocktail => getSizeItem(cocktail))}</div>
       </div>
     </>
   )

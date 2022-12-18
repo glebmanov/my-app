@@ -5,7 +5,7 @@ import ListIngredients from './ListIngredients'
 
 const Categories = ({
   categories,
-  ingredientList,
+  ingredients,
   handleOnChange,
   checkedState,
   options,
@@ -25,7 +25,7 @@ const Categories = ({
         <OptionButtons options={options} activeOption={activeOption} handler={setActiveOption} />
       </div>
       <ListIngredients
-        ingredientList={ingredientList}
+        ingredients={ingredients}
         categories={categories}
         activeCategory={activeCategory}
         handleOnChange={handleOnChange}

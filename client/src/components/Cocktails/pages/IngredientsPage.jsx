@@ -1,14 +1,17 @@
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { findOrCreateCocktail, clearFilteredCocktails } from 'store/cocktailsSlice'
 import Categories from '../components/Categories'
 import ListCocktails from '../components/ListCocktails'
 import ShowCocktailsButtons from '../components/ShowCocktailsButtons'
 
-const IngredientsPage = ({ cocktails, ingredientList, categories }) => {
+const IngredientsPage = ({ ingredients, categories }) => {
   document.title = 'Cocktails | Build cocktails'
 
-  const [checkedState, setCheckedState] = useState(new Array(ingredientList.length).fill(false))
+  const dispatch = useDispatch()
+  const filteredCocktails = useSelector(state => state.cocktails.filteredCocktails)
+  const [checkedState, setCheckedState] = useState(new Array(ingredients.length).fill(false))
   const [selectedIngredients, setSelectedIngredients] = useState([])
-  const [filteredList, setFilteredList] = useState([])
   const [activeOption, setActiveOption] = useState('includes')
   const options = ['includes', 'consist']
 
@@ -26,34 +29,18 @@ const IngredientsPage = ({ cocktails, ingredientList, categories }) => {
         return item
       }
     })
-    setCheckedState(new Array(ingredientList.length).fill(false))
+    setCheckedState(new Array(ingredients.length).fill(false))
     setCheckedState(updatedCheckedState)
   }
 
   const showListCocktails = () => {
-    switch (activeOption) {
-      case 'includes':
-        const listIncludesIngredients = cocktails.filter(
-          ({ amount }) => amount.filter(({ ingredientId }) => selectedIngredients.includes(ingredientId)).length > 0,
-        )
-        setFilteredList(listIncludesIngredients)
-        break
-      case 'consist':
-        const listConsistIngredients = cocktails.filter(({ amount }) =>
-          amount.every(({ ingredientId }) => selectedIngredients.includes(ingredientId)),
-        )
-        console.log('listConsistIngredients', listConsistIngredients)
-        setFilteredList(listConsistIngredients)
-        break
-      default:
-        break
-    }
+    dispatch(findOrCreateCocktail({ type: activeOption, ingredients: selectedIngredients }))
   }
 
   const clearListCocktails = () => {
-    setCheckedState(new Array(ingredientList.length).fill(false))
+    setCheckedState(new Array(ingredients.length).fill(false))
     setSelectedIngredients([])
-    setFilteredList([])
+    dispatch(clearFilteredCocktails())
   }
 
   return (
@@ -62,7 +49,7 @@ const IngredientsPage = ({ cocktails, ingredientList, categories }) => {
       <div className='build-cocktails'>
         <Categories
           categories={categories}
-          ingredientList={ingredientList}
+          ingredients={ingredients}
           handleOnChange={handleOnChange}
           checkedState={checkedState}
           options={options}
@@ -70,9 +57,7 @@ const IngredientsPage = ({ cocktails, ingredientList, categories }) => {
           setActiveOption={setActiveOption}
         />
         <ShowCocktailsButtons show={showListCocktails} clear={clearListCocktails} />
-        {filteredList ? (
-          <ListCocktails cocktails={filteredList} ingredientList={ingredientList} showSizeButtons={false} />
-        ) : null}
+        {filteredCocktails ? <ListCocktails cocktails={filteredCocktails} showSizeButtons={false} /> : null}
       </div>
     </>
   )

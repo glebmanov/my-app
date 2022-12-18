@@ -1,23 +1,20 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
+import { Routes, Route, Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getCategories, getCocktails, getIngredients } from 'store/cocktailsSlice'
 
+import CocktailPage from './pages/CocktailPage'
 import CocktailsPage from './pages/CocktailsPage'
 import IngredientsPage from './pages/IngredientsPage'
-import Modal from '../Modal'
-import ModalContentCocktail from './components/ModalContentCocktail'
-import Editor from './components/Editor/Editor'
+import EditorPage from './pages/EditorPage'
 
 import './styles/cocktails.scss'
 
 const Cocktails = () => {
   const dispatch = useDispatch()
-  const cocktail = useSelector(state => state.cocktails.cocktail)
   const cocktails = useSelector(state => state.cocktails.cocktails)
   const categories = useSelector(state => state.cocktails.categories)
   const ingredients = useSelector(state => state.cocktails.ingredients)
-  const [page, setPage] = useState('cocktails')
-  const [modalActive, setModalActive] = useState(false)
 
   useEffect(() => {
     dispatch(getCocktails())
@@ -25,29 +22,29 @@ const Cocktails = () => {
     dispatch(getIngredients())
   }, [dispatch])
 
-  useEffect(() => {
-    if (cocktail.amount) setModalActive(true)
-  }, [cocktail])
-
   return (
     <>
       <div className='nav'>
-        <div id='menu'>
-          <span onClick={() => setPage('cocktails')}>Cocktails</span>
-          <span onClick={() => setPage('build')}>Build cocktails</span>
-          <span onClick={() => setPage('editor')}>Cocktail editor</span>
-        </div>
+        <nav>
+          <Link to='/cocktails'>
+            <span>Cocktails</span>
+          </Link>
+          <Link to='build'>
+            <span>Build cocktails</span>
+          </Link>
+          <Link to='editor'>
+            <span>Cocktail editor</span>
+          </Link>
+        </nav>
       </div>
       <div className='content'>
-        {page === 'cocktails' ? <CocktailsPage cocktails={cocktails} /> : null}
-        {page === 'build' ? (
-          <IngredientsPage cocktails={cocktails} ingredientList={ingredients} categories={categories} />
-        ) : null}
-        {page === 'editor' ? <Editor ingredients={ingredients} /> : null}
+        <Routes>
+          <Route index element={<CocktailsPage cocktails={cocktails} />} />
+          <Route path='/:id' element={<CocktailPage />} />
+          <Route path='build' element={<IngredientsPage ingredients={ingredients} categories={categories} />} />
+          <Route path='editor' element={<EditorPage ingredients={ingredients} />} />
+        </Routes>
       </div>
-      <Modal active={modalActive} setActive={setModalActive}>
-        <ModalContentCocktail cocktail={cocktail} ingredients={ingredients} />
-      </Modal>
     </>
   )
 }

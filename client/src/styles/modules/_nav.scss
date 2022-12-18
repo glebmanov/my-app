@@ -4,5 +4,9 @@ nav {
 
   span {
     padding: 0 10px;
+
+    &:hover {
+      color: $white-2;
+    }
   }
 }

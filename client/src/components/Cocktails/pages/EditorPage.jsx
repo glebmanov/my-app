@@ -1,9 +1,11 @@
 import React from 'react'
-import EditorCocktail from './EditorCocktail'
-import EditorIngredient from './EditorIngredient'
 import { useSelector } from 'react-redux'
+import EditorCocktail from '../components/Editor/EditorCocktail'
+import EditorIngredient from '../components/Editor/EditorIngredient'
 
-const Add = ({ ingredients }) => {
+const EditorPage = ({ ingredients }) => {
+  document.title = 'Cocktails | Editor cocktails'
+
   const categories = useSelector(state => state.cocktails.categories)
 
   return (
@@ -16,4 +18,4 @@ const Add = ({ ingredients }) => {
   )
 }
 
-export default Add
+export default EditorPage
