@@ -23,7 +23,9 @@ a {
 }
 
 input[type='text'],
-input[type='number'] {
+input[type='number'],
+input[type='email'],
+input[type='password'] {
   height: 36px;
   padding-left: 12px;
   border: none;

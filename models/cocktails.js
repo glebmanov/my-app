@@ -1,32 +1,74 @@
 const sequelize = require('../db/db_cocktails')
 const { DataTypes } = require('sequelize')
 
-const Cocktail = sequelize.define('cocktail', {
-  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  name: { type: DataTypes.STRING, unique: true },
-  discription: { type: DataTypes.STRING },
-  img: { type: DataTypes.STRING },
-})
+const Cocktail = sequelize.define(
+  'cocktail',
+  {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    name: { type: DataTypes.STRING, unique: true },
+    discription: { type: DataTypes.STRING },
+    img: { type: DataTypes.STRING },
+  },
+  {
+    timestamps: false,
+    freezeTableName: true,
+  },
+)
 
-const Ingredient = sequelize.define('ingredient', {
-  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  name: { type: DataTypes.STRING, unique: true },
-  category_id: { type: DataTypes.INTEGER },
-})
+const Ingredient = sequelize.define(
+  'ingredient',
+  {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    name: { type: DataTypes.STRING, unique: true },
+    category_id: { type: DataTypes.INTEGER },
+  },
+  {
+    timestamps: false,
+    freezeTableName: true,
+  },
+)
 
-const CocktailIngredient = sequelize.define('cocktail_ingredient')
+const CocktailIngredient = sequelize.define(
+  'cocktail_ingredient',
+  {},
+  {
+    timestamps: false,
+    freezeTableName: true,
+  },
+)
 
-const Amount = sequelize.define('amount', {
-  value: { type: DataTypes.INTEGER },
-  unit: { type: DataTypes.STRING },
-})
+const Amount = sequelize.define(
+  'amount',
+  {
+    value: { type: DataTypes.INTEGER },
+    unit: { type: DataTypes.STRING },
+  },
+  {
+    timestamps: false,
+    freezeTableName: true,
+  },
+)
 
-const Category = sequelize.define('category', {
-  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  name: { type: DataTypes.STRING, unique: true },
-})
+const Category = sequelize.define(
+  'category',
+  {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    name: { type: DataTypes.STRING, unique: true },
+  },
+  {
+    timestamps: false,
+    freezeTableName: true,
+  },
+)
 
-const CategoryIngredient = sequelize.define('category_ingredient')
+const CategoryIngredient = sequelize.define(
+  'category_ingredient',
+  {},
+  {
+    timestamps: false,
+    freezeTableName: true,
+  },
+)
 
 Cocktail.hasMany(CocktailIngredient)
 CocktailIngredient.belongsTo(Cocktail)

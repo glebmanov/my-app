@@ -19,7 +19,10 @@ export const findOrCreateCocktail = createAsyncThunk(
     await axios.post('/api/cocktail', { name, amount, description, type, ingredients }),
 )
 
-export const getCocktails = createAsyncThunk('cocktails/getCocktails', async () => await axios.get('/api/cocktail'))
+export const getCocktails = createAsyncThunk(
+  'cocktails/getCocktails',
+  async ({ page, substring }) => await axios.get('/api/cocktail', { params: { page, substring } }),
+)
 
 export const getOneCocktail = createAsyncThunk(
   'cocktails/getOneCocktail',
@@ -41,14 +44,18 @@ const cocktailsSlice = createSlice({
   initialState: {
     cocktail: { name: '', amount: [] },
     cocktails: {},
-    filteredCocktails: {},
+    searchedCocktails: { count: 0, rows: [] },
+    filteredCocktails: { count: 0, rows: [] },
     ingredients: [],
     categories: [],
     error: null,
   },
   reducers: {
     clearFilteredCocktails(state, action) {
-      state.filteredCocktails = []
+      state.filteredCocktails = { count: 0, rows: [] }
+    },
+    clearSearchedCocktailsCocktails(state, action) {
+      state.searchedCocktails = { count: 0, rows: [] }
     },
   },
   extraReducers: {
@@ -111,7 +118,12 @@ const cocktailsSlice = createSlice({
     },
     [getCocktails.fulfilled]: (state, { payload }) => {
       state.status = 'resolved'
-      state.cocktails = payload.data
+      const { cocktails, action } = payload.data
+      if (action === 'searched') {
+        state.searchedCocktails = cocktails
+      } else {
+        state.cocktails = cocktails
+      }
     },
     [getCocktails.rejected]: (state, { error }) => {
       state.status = 'rejected'
@@ -132,6 +144,6 @@ const cocktailsSlice = createSlice({
   },
 })
 
-export const { clearFilteredCocktails } = cocktailsSlice.actions
+export const { clearFilteredCocktails, clearSearchedCocktailsCocktails } = cocktailsSlice.actions
 
 export default cocktailsSlice.reducer

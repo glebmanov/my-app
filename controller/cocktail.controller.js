@@ -20,11 +20,11 @@ class CocktailController {
       }
 
       result.action = 'create'
-      result.cocktails = await Cocktail.create({ name, description, img: fileName })
+      result.cocktails.push(await Cocktail.create({ name, description, img: fileName }))
 
       amount.forEach(({ ingredientId, value, unit }) => {
-        CocktailIngredient.create({ cocktailId: result.id, ingredientId })
-        Amount.create({ value, unit, cocktailId: result.id, ingredientId })
+        CocktailIngredient.create({ cocktailId: result.cocktails[0].id, ingredientId })
+        Amount.create({ value, unit, cocktailId: result.cocktails[0].id, ingredientId })
       })
     }
 
@@ -50,10 +50,14 @@ class CocktailController {
     const { page, substring } = req.query
     const limit = 8
     const offset = (page || 1) * limit - limit
-    let cocktails
+    const result = {
+      cocktails: [],
+      action: '',
+    }
 
     if (substring) {
-      cocktails = await Cocktail.findAndCountAll({
+      result.action = 'searched'
+      result.cocktails = await Cocktail.findAndCountAll({
         limit,
         offset,
         where: {
@@ -61,13 +65,13 @@ class CocktailController {
         },
       })
     } else {
-      cocktails = await Cocktail.findAndCountAll({
+      result.cocktails = await Cocktail.findAndCountAll({
         limit,
         offset,
       })
     }
 
-    res.json(cocktails)
+    res.json(result)
   }
 
   async getOneCocktail(req, res) {

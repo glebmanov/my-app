@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 import CocktailItemBig from './CocktailItemBig'
 import CocktailItemSmall from './CocktailItemSmall'
 import ItemsSizeButtons from './ItemsSizeButtons'
+import SearchInput from '../../SearchInput'
 
 const ListCocktails = ({ cocktails, showSizeButtons = true }) => {
   const { count, rows } = cocktails
+  const searchedCocktails = useSelector(state => state.cocktails.searchedCocktails)
   const sizes = ['small', 'big']
   const [activeSize, setActiveSize] = useState('small')
 
@@ -23,10 +26,17 @@ const ListCocktails = ({ cocktails, showSizeButtons = true }) => {
   return (
     <>
       <div className='list-cocktails'>
-        {rows?.length && showSizeButtons ? (
-          <ItemsSizeButtons sizes={sizes} activeSize={activeSize} setActiveSize={setActiveSize} />
+        {showSizeButtons ? (
+          <div className='buttons-and-search'>
+            <ItemsSizeButtons sizes={sizes} activeSize={activeSize} setActiveSize={setActiveSize} />
+            <SearchInput />
+          </div>
         ) : null}
-        <div className={`list-${activeSize}`}>{rows?.map(cocktail => getSizeItem(cocktail))}</div>
+        <div className={`list-${activeSize}`}>
+          {searchedCocktails.rows.length
+            ? searchedCocktails.rows?.map(cocktail => getSizeItem(cocktail))
+            : rows?.map(cocktail => getSizeItem(cocktail))}
+        </div>
       </div>
     </>
   )

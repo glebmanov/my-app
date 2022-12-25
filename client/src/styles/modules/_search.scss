@@ -1,0 +1,23 @@
+.search {
+  margin-left: 24px;
+
+  input {
+    width: 300px;
+    height: 36px;
+    padding-left: 36px;
+    border: none;
+    border-radius: 5px;
+    background-color: $white-1;
+    color: $gray-1;
+    box-shadow: $shadow-1;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyBpZD0ic2VhcmNoIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgY2xhc3M9Imljb24gbGluZSIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0Ij4KPHBhdGggaWQ9InByaW1hcnkiIGQ9Ik0xNywxMGE3LDcsMCwxLDEtNy03QTcsNywwLDAsMSwxNywxMFptNCwxMS02LTYiIHN0eWxlPSJmaWxsOiBub25lOyBzdHJva2U6ICM2MTYxNjE7IHN0cm9rZS1saW5lY2FwOiByb3VuZDsgc3Ryb2tlLWxpbmVqb2luOiByb3VuZDsgc3Ryb2tlLXdpZHRoOiAyOyI+PC9wYXRoPgo8L3N2Zz4=');
+    background-position-x: 6px;
+    background-position-y: center;
+    background-repeat: no-repeat;
+
+    &:focus-visible {
+      outline: none;
+      outline-offset: 0;
+    }
+  }
+}

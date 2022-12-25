@@ -17,7 +17,7 @@ const Cocktails = () => {
   const ingredients = useSelector(state => state.cocktails.ingredients)
 
   useEffect(() => {
-    dispatch(getCocktails())
+    dispatch(getCocktails({}))
     dispatch(getCategories())
     dispatch(getIngredients())
   }, [dispatch])
