@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { findOrCreateCocktail, clearFilteredCocktails } from 'store/cocktailsSlice'
 import Categories from '../components/Categories'
@@ -43,6 +43,10 @@ const IngredientsPage = ({ ingredients, categories }) => {
     setSelectedIngredients([])
     dispatch(clearFilteredCocktails())
   }
+
+  useEffect(() => {
+    if (!selectedIngredients.length) dispatch(clearFilteredCocktails())
+  }, [])
 
   return (
     <>
