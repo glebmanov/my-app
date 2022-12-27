@@ -55,4 +55,13 @@
   .list-small {
     width: 90%;
   }
+
+  .buttons-and-search {
+    flex-direction: column-reverse;
+
+    .search {
+      margin-left: 0;
+      margin-bottom: 24px;
+    }
+  }
 }
