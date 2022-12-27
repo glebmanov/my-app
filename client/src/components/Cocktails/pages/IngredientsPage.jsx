@@ -34,7 +34,8 @@ const IngredientsPage = ({ ingredients, categories }) => {
   }
 
   const showListCocktails = () => {
-    dispatch(findOrCreateCocktail({ type: activeOption, ingredients: selectedIngredients }))
+    selectedIngredients.length &&
+      dispatch(findOrCreateCocktail({ type: activeOption, ingredients: selectedIngredients }))
   }
 
   const clearListCocktails = () => {

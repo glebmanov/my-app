@@ -1,5 +1,5 @@
 const { Op } = require('sequelize')
-const { Sequelize } = require('../db/db_cocktails')
+const sequelize = require('../db/db_cocktails')
 const { Cocktail, CocktailIngredient, Amount, Ingredient } = require('../models/cocktails')
 const uuid = require('uuid')
 const path = require('path')
@@ -29,18 +29,24 @@ class CocktailController {
     }
 
     if (type && ingredients) {
-      let cocktails
-
-      if (type === 'consist') {
-      } else {
-        const cocktailIngredients = await CocktailIngredient.findAll({ where: { ingredientId: ingredients } })
-        cocktails = cocktailIngredients.map(({ cocktailId }) => cocktailId)
-      }
-
       result.action = 'find'
-      result.cocktails = await Cocktail.findAndCountAll({
-        where: { id: cocktails },
-      })
+      if (type === 'consist') {
+        result.cocktails = await sequelize.query(
+          'SELECT cocktail.* FROM cocktail INNER JOIN cocktail_ingredient ON cocktail.id = cocktail_ingredient."cocktailId" LEFT JOIN ingredient ON cocktail_ingredient."ingredientId" = ingredient.id AND ingredient.id NOT IN(:ingredients) GROUP BY cocktail.id HAVING EVERY(ingredient.id IS NULL);',
+          {
+            replacements: { ingredients },
+            model: Cocktail,
+          },
+        )
+      } else {
+        result.cocktails = await sequelize.query(
+          'SELECT cocktail.* FROM cocktail INNER JOIN cocktail_ingredient ON cocktail.id = cocktail_ingredient."cocktailId" LEFT JOIN ingredient ON cocktail_ingredient."ingredientId" = ingredient.id AND ingredient.id IN(:ingredients) GROUP BY cocktail.id;',
+          {
+            replacements: { ingredients },
+            model: Cocktail,
+          },
+        )
+      }
     }
 
     res.json(result)
@@ -61,7 +67,7 @@ class CocktailController {
         limit,
         offset,
         where: {
-          name: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('name')), 'LIKE', `%${substring.toLowerCase()}%`),
+          name: sequelize.where(sequelize.fn('LOWER', sequelize.col('name')), 'LIKE', `%${substring.toLowerCase()}%`),
         },
       })
     } else {

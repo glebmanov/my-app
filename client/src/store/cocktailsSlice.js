@@ -102,11 +102,7 @@ const cocktailsSlice = createSlice({
     [findOrCreateCocktail.fulfilled]: (state, { payload }) => {
       state.status = 'resolved'
       const { cocktails, action } = payload.data
-      if (action === 'create') {
-        state.cocktails = cocktails
-      } else {
-        state.filteredCocktails = cocktails
-      }
+      if (action === 'find') state.filteredCocktails.rows = cocktails
     },
     [findOrCreateCocktail.rejected]: (state, { error }) => {
       state.status = 'rejected'
