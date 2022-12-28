@@ -40,7 +40,7 @@ const Cocktails = () => {
       <div className='content'>
         <Routes>
           <Route index element={<CocktailsPage cocktails={cocktails} />} />
-          <Route path='/:id' element={<CocktailPage />} />
+          <Route path=':id' element={<CocktailPage />} />
           <Route path='build' element={<IngredientsPage ingredients={ingredients} categories={categories} />} />
           <Route path='editor' element={<EditorPage ingredients={ingredients} />} />
         </Routes>

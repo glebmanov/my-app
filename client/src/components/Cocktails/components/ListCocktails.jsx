@@ -6,7 +6,6 @@ import ItemsSizeButtons from './ItemsSizeButtons'
 import SearchInput from '../../SearchInput'
 
 const ListCocktails = ({ cocktails, showSizeButtons = true }) => {
-  const { count, rows } = cocktails
   const searchedCocktails = useSelector(state => state.cocktails.searchedCocktails)
   const sizes = ['small', 'big']
   const [activeSize, setActiveSize] = useState('small')
@@ -35,7 +34,7 @@ const ListCocktails = ({ cocktails, showSizeButtons = true }) => {
         <div className={`list-${activeSize}`}>
           {searchedCocktails.rows.length
             ? searchedCocktails.rows?.map(cocktail => getSizeItem(cocktail))
-            : rows?.map(cocktail => getSizeItem(cocktail))}
+            : cocktails.rows?.map(cocktail => getSizeItem(cocktail))}
         </div>
       </div>
     </>
