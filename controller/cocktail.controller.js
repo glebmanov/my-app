@@ -1,8 +1,9 @@
-const { Op } = require('sequelize')
+const { Op, where } = require('sequelize')
 const sequelize = require('../db/db_cocktails')
 const { Cocktail, CocktailIngredient, Amount, Ingredient } = require('../models/cocktails')
 const uuid = require('uuid')
 const path = require('path')
+const { model } = require('../db/db_cocktails')
 
 class CocktailController {
   async findOrCreateCocktail(req, res) {
@@ -39,13 +40,14 @@ class CocktailController {
           },
         )
       } else {
-        result.cocktails = await sequelize.query(
-          'SELECT cocktail.* FROM cocktail INNER JOIN cocktail_ingredient ON cocktail.id = cocktail_ingredient."cocktailId" LEFT JOIN ingredient ON cocktail_ingredient."ingredientId" = ingredient.id AND ingredient.id IN(:ingredients) GROUP BY cocktail.id;',
-          {
-            replacements: { ingredients },
-            model: Cocktail,
-          },
-        )
+        result.cocktails = await Cocktail.findAll({
+          include: [
+            {
+              model: CocktailIngredient,
+              where: { ingredientId: ingredients },
+            },
+          ],
+        })
       }
     }
 
