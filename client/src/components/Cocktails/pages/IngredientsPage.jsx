@@ -45,7 +45,7 @@ const IngredientsPage = ({ ingredients, categories }) => {
   }
 
   useEffect(() => {
-    if (!selectedIngredients.length && filteredCocktails.length) dispatch(clearFilteredCocktails())
+    if (!selectedIngredients.length && filteredCocktails.rows.length) dispatch(clearFilteredCocktails())
   }, [dispatch])
 
   return (
