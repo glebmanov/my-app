@@ -7,7 +7,6 @@ const http = require('http')
 
 const db_users = require('./db/db_users')
 const db_cocktails = require('./db/db_cocktails')
-const modelsCocktails = require('./models/cocktails')
 
 const PORT = process.env.PORT || 4343
 const app = express()

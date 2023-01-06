@@ -1,13 +1,11 @@
-const { Op, where } = require('sequelize')
 const sequelize = require('../db/db_cocktails')
-const { Cocktail, CocktailIngredient, Amount, Ingredient } = require('../models/cocktails')
+const { Cocktail, CocktailIngredient, Amount } = require('../models/cocktails')
 const uuid = require('uuid')
 const path = require('path')
-const { model } = require('../db/db_cocktails')
 
 class CocktailController {
   async findOrCreateCocktail(req, res) {
-    const { name, amount, description, type, ingredients } = req.body
+    const { name, amount, description, type, ingredients, cocktails } = req.body
     const result = {
       cocktails: [],
       action: '',
@@ -49,6 +47,11 @@ class CocktailController {
           ],
         })
       }
+    }
+
+    if (cocktails) {
+      result.action = 'get'
+      result.cocktails = await Cocktail.findAll({ where: { id: cocktails } })
     }
 
     res.json(result)

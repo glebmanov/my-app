@@ -7,5 +7,6 @@ router.use('/cocktail', require('./cocktail.routes'))
 router.use('/ingredient', require('./ingredient.routes'))
 router.use('/amount', require('./amount.routes'))
 router.use('/category', require('./category.routes'))
+router.use('/favorite', require('./favorite.routes'))
 
 module.exports = router

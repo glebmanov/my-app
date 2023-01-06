@@ -1,20 +1,22 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
 import EditorCocktail from '../components/Editor/EditorCocktail'
 import EditorIngredient from '../components/Editor/EditorIngredient'
 
-const EditorPage = ({ ingredients }) => {
-  document.title = 'Cocktails | Editor cocktails'
-
-  const categories = useSelector(state => state.cocktails.categories)
+const EditorPage = ({ ingredients, categories }) => {
+  useEffect(() => {
+    document.title = 'Cocktails | Editor cocktails'
+  }, [])
 
   return (
-    <div className='wrapper-editor'>
-      <div className='content-editor'>
-        <EditorCocktail ingredients={ingredients} />
-        <EditorIngredient categories={categories} />
+    <>
+      <h1>Create your cocktail</h1>
+      <div className='wrapper-editor'>
+        <div className='content-editor'>
+          <EditorCocktail ingredients={ingredients} />
+          <EditorIngredient categories={categories} />
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 

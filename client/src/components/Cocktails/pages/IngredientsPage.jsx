@@ -6,8 +6,6 @@ import ListCocktails from '../components/ListCocktails'
 import ShowCocktailsButtons from '../components/ShowCocktailsButtons'
 
 const IngredientsPage = ({ ingredients, categories }) => {
-  document.title = 'Cocktails | Build cocktails'
-
   const dispatch = useDispatch()
   const filteredCocktails = useSelector(state => state.cocktails.filteredCocktails)
   const [checkedState, setCheckedState] = useState(new Array(ingredients.length).fill(false))
@@ -46,6 +44,11 @@ const IngredientsPage = ({ ingredients, categories }) => {
 
   useEffect(() => {
     if (!selectedIngredients.length && filteredCocktails.rows.length) dispatch(clearFilteredCocktails())
+    document.title = 'Cocktails | Build cocktails'
+
+    return () => {
+      dispatch(clearFilteredCocktails())
+    }
   }, [dispatch])
 
   return (

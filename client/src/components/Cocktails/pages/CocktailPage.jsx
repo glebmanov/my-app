@@ -9,7 +9,10 @@ const CocktailPage = () => {
   const cocktail = useSelector(state => state.cocktails.cocktail)
   const ingredients = useSelector(state => state.cocktails.ingredients)
 
-  useEffect(() => dispatch(getOneCocktail({ id })), [dispatch, id])
+  useEffect(() => {
+    dispatch(getOneCocktail({ id }))
+    document.title = `Cocktails | ${cocktail.name}`
+  }, [dispatch, cocktail])
 
   return (
     <div className='cocktail-page'>

@@ -1,8 +1,13 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { registration } from 'store/userSlice'
 
 const Registration = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
   const {
     register,
     formState: { errors },
@@ -13,8 +18,11 @@ const Registration = () => {
   })
 
   const onSubmit = data => {
-    alert(JSON.stringify(data))
-    reset()
+    try {
+      dispatch(registration(data))
+      reset()
+      navigate(-1)
+    } catch (e) {}
   }
 
   return (
