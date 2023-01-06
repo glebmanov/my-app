@@ -47,7 +47,7 @@ const IngredientsPage = ({ ingredients, categories }) => {
     document.title = 'Cocktails | Build cocktails'
 
     return () => {
-      dispatch(clearFilteredCocktails())
+      filteredCocktails.rows.length && dispatch(clearFilteredCocktails())
     }
   }, [dispatch])
 

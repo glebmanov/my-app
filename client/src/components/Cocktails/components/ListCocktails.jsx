@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import CocktailItemBig from './CocktailItemBig'
 import CocktailItemSmall from './CocktailItemSmall'
 import ItemsSizeButtons from './ItemsSizeButtons'
-import SearchInput from '../../SearchInput'
+import SearchInput from './SearchInput'
 
 const ListCocktails = ({ cocktails, showSizeButtons = true }) => {
   const searchedCocktails = useSelector(state => state.cocktails.searchedCocktails)
@@ -12,13 +12,10 @@ const ListCocktails = ({ cocktails, showSizeButtons = true }) => {
 
   const getSizeItem = ({ id, name, img }) => {
     switch (activeSize) {
-      case 'small':
-        return <CocktailItemSmall key={id} id={id} name={name} />
       case 'big':
         return <CocktailItemBig key={id} id={id} name={name} img={img} />
-
       default:
-        break
+        return <CocktailItemSmall key={id} id={id} name={name} />
     }
   }
 

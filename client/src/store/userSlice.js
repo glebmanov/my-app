@@ -67,6 +67,7 @@ const userSlice = createSlice({
     email: null,
     role: null,
     favoriteCocktails: [],
+    status: null,
   },
   reducers: {
     setIsAuth(state, { payload }) {
@@ -78,6 +79,8 @@ const userSlice = createSlice({
       state.name = null
       state.email = null
       state.role = null
+      state.favoriteCocktails = []
+      state.status = null
       localStorage.removeItem('token')
     },
   },

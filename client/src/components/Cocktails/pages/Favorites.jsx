@@ -1,16 +1,20 @@
 import React, { useEffect } from 'react'
 import ListCocktails from '../components/ListCocktails'
 import { useDispatch, useSelector } from 'react-redux'
-import { findOrCreateCocktail } from 'store/cocktailsSlice'
+import { findOrCreateCocktail, clearFavoriteCocktails } from 'store/cocktailsSlice'
 
 const Favorites = () => {
   const dispatch = useDispatch()
-  const favoriteCocktails = useSelector(state => state.user.favoriteCocktails)
+  const favoriteCocktailsId = useSelector(state => state.user.favoriteCocktails)
   const cocktails = useSelector(state => state.cocktails.favoriteCocktails)
 
   useEffect(() => {
-    dispatch(findOrCreateCocktail({ cocktails: favoriteCocktails }))
+    dispatch(findOrCreateCocktail({ cocktails: favoriteCocktailsId }))
     document.title = 'Cocktails | Favorite cocktails'
+
+    return () => {
+      cocktails.rows.length && dispatch(clearFavoriteCocktails())
+    }
   }, [dispatch])
 
   return (

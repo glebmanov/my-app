@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { check, getFavoriteCocktails } from 'store/userSlice'
 
 import Layout from './components/Layout'
@@ -13,10 +13,11 @@ import Notfoundpage from './pages/Notfoundpage'
 
 const App = () => {
   const dispatch = useDispatch()
+  const isAuth = useSelector(state => state.user.isAuth)
 
   useEffect(() => {
     localStorage.getItem('token') && dispatch(check()).then(() => dispatch(getFavoriteCocktails()))
-  }, [])
+  }, [isAuth])
 
   return (
     <Routes>

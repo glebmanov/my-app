@@ -20,7 +20,9 @@ const CocktailItemSmall = ({ id, name }) => {
     setIsFavorite(prevState => !prevState)
   }
 
-  useEffect(() => isAuth && setIsFavorite(favoriteCocktails.includes(id)), [favoriteCocktails])
+  useEffect(() => {
+    isAuth && setIsFavorite(favoriteCocktails.includes(id))
+  }, [favoriteCocktails])
 
   return (
     <div className='item-s' onClick={() => navigate(`/cocktails/${id}`)}>

@@ -20,7 +20,9 @@ const CocktailItemBig = ({ id, name, img }) => {
     setIsFavorite(prevState => !prevState)
   }
 
-  useEffect(() => isAuth && setIsFavorite(favoriteCocktails.includes(id)), [favoriteCocktails])
+  useEffect(() => {
+    isAuth && setIsFavorite(favoriteCocktails.includes(id))
+  }, [favoriteCocktails])
 
   return (
     <div className='item-b' onClick={() => navigate(`/cocktails/${id}`)}>
