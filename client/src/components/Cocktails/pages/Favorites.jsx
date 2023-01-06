@@ -13,7 +13,7 @@ const Favorites = () => {
     document.title = 'Cocktails | Favorite cocktails'
 
     return () => {
-      cocktails.rows.length && dispatch(clearFavoriteCocktails())
+      !!cocktails.rows.length && dispatch(clearFavoriteCocktails())
     }
   }, [dispatch])
 
