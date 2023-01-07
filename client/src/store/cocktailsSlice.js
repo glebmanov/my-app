@@ -1,11 +1,20 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-export const getCategories = createAsyncThunk('cocktails/getCategories', async () => await axios.get('/api/category'))
+export const getIngredientCategories = createAsyncThunk(
+  'cocktails/getIngredientCategories',
+  async () => await axios.get('/api/category/ingredient'),
+)
+
+export const getCocktailCategories = createAsyncThunk(
+  'cocktails/getCocktailCategories',
+  async () => await axios.get('/api/category/cocktail'),
+)
 
 export const createIngredient = createAsyncThunk(
   'cocktails/createIngredient',
-  async ({ name, category_id }) => await axios.post('/api/ingredient', { name, category_id }),
+  async ({ name, category_ingredient_name_id }) =>
+    await axios.post('/api/ingredient', { name, category_ingredient_name_id }),
 )
 
 export const getIngredients = createAsyncThunk(
@@ -15,8 +24,16 @@ export const getIngredients = createAsyncThunk(
 
 export const findOrCreateCocktail = createAsyncThunk(
   'cocktails/findOrCreateCocktail',
-  async ({ name, amount, description, type, ingredients, cocktails }) =>
-    await axios.post('/api/cocktail', { name, amount, description, type, ingredients, cocktails }),
+  async ({ name, amount, category_cocktail_name_id, description, type, ingredients, cocktails }) =>
+    await axios.post('/api/cocktail', {
+      name,
+      amount,
+      category_cocktail_name_id,
+      description,
+      type,
+      ingredients,
+      cocktails,
+    }),
 )
 
 export const getCocktails = createAsyncThunk(
@@ -48,7 +65,9 @@ const cocktailsSlice = createSlice({
     filteredCocktails: { count: 0, rows: [] },
     favoriteCocktails: { count: 0, rows: [] },
     ingredients: [],
-    categories: [],
+    ingredientCategories: [],
+    cocktailCategories: [],
+    status: null,
     error: null,
   },
   reducers: {
@@ -63,15 +82,27 @@ const cocktailsSlice = createSlice({
     },
   },
   extraReducers: {
-    [getCategories.pending]: state => {
+    [getIngredientCategories.pending]: state => {
       state.status = 'loading'
       state.error = null
     },
-    [getCategories.fulfilled]: (state, { payload }) => {
+    [getIngredientCategories.fulfilled]: (state, { payload }) => {
       state.status = 'resolved'
-      state.categories = payload.data
+      state.ingredientCategories = payload.data
     },
-    [getCategories.rejected]: (state, { error }) => {
+    [getIngredientCategories.rejected]: (state, { error }) => {
+      state.status = 'rejected'
+      state.error = error.message
+    },
+    [getCocktailCategories.pending]: state => {
+      state.status = 'loading'
+      state.error = null
+    },
+    [getCocktailCategories.fulfilled]: (state, { payload }) => {
+      state.status = 'resolved'
+      state.cocktailCategories = payload.data
+    },
+    [getCocktailCategories.rejected]: (state, { error }) => {
       state.status = 'rejected'
       state.error = error.message
     },
@@ -106,6 +137,7 @@ const cocktailsSlice = createSlice({
     [findOrCreateCocktail.fulfilled]: (state, { payload }) => {
       state.status = 'resolved'
       const { cocktails, action } = payload.data
+      if (action === 'create') state.cocktails.rows.push(...cocktails)
       if (action === 'find') state.filteredCocktails.rows = cocktails
       if (action === 'get') state.favoriteCocktails.rows = cocktails
     },

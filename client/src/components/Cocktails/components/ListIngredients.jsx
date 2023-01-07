@@ -3,9 +3,9 @@ import Checkbox from './Checkbox'
 
 import { uniqueId } from 'lodash'
 
-const ListIngredients = ({ ingredients, categories, activeCategory, handleOnChange, checkedState }) => {
+const ListIngredients = ({ ingredients, ingredientCategories, activeCategory, handleOnChange, checkedState }) => {
   const renderSelectedCategory = () =>
-    categories
+    ingredientCategories
       .find(({ id }) => activeCategory === id)
       .ingredients.map(ingredientId => {
         const foundIngredient = ingredients.find(ingredient => ingredient.id === ingredientId)

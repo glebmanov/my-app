@@ -4,7 +4,7 @@ import OptionButtons from './OptionButtons'
 import ListIngredients from './ListIngredients'
 
 const Categories = ({
-  categories,
+  ingredientCategories,
   ingredients,
   handleOnChange,
   checkedState,
@@ -18,7 +18,7 @@ const Categories = ({
     <div className='categories'>
       <div className='buttons'>
         <CategoriesButtons
-          categories={categories}
+          ingredientCategories={ingredientCategories}
           activeCategory={activeCategory}
           setActiveCategory={setActiveCategory}
         />
@@ -26,7 +26,7 @@ const Categories = ({
       </div>
       <ListIngredients
         ingredients={ingredients}
-        categories={categories}
+        ingredientCategories={ingredientCategories}
         activeCategory={activeCategory}
         handleOnChange={handleOnChange}
         checkedState={checkedState}

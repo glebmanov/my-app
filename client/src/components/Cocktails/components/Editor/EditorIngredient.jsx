@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { createIngredient } from 'store/cocktailsSlice'
 
-const EditorIngredient = ({ categories }) => {
+const EditorIngredient = ({ ingredientCategories }) => {
   const dispatch = useDispatch()
 
   const {
@@ -41,8 +41,8 @@ const EditorIngredient = ({ categories }) => {
 
         <label>
           <span>Category</span>
-          <select {...register('category_id')}>
-            {categories.map(({ id, name }) => (
+          <select {...register('category_ingredient_name_id')}>
+            {ingredientCategories.map(({ id, name }) => (
               <option key={id} value={id}>
                 {name}
               </option>

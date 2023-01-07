@@ -114,6 +114,18 @@
             width: 100%;
             height: 36px;
           }
+
+          textarea {
+            width: 100%;
+            height: 120px;
+            padding: 0 0 0 12px;
+            margin-top: 4px;
+            border: none;
+            border-radius: 5px;
+            background-color: $white-1;
+            vertical-align: top;
+            resize: none;
+          }
         }
 
         .error {
@@ -121,6 +133,10 @@
           font-size: 12px;
           text-align: end;
           color: $red-1;
+        }
+
+        select[name='category_cocktail_name_id'] {
+          margin: 4px 0 16px 0;
         }
 
         #inputs-cocktail-ingredients {

@@ -12,7 +12,7 @@ const CocktailPage = () => {
   useEffect(() => {
     dispatch(getOneCocktail({ id }))
     document.title = `Cocktails | ${cocktail.name}`
-  }, [dispatch, cocktail])
+  }, [dispatch])
 
   return (
     <div className='cocktail-page'>

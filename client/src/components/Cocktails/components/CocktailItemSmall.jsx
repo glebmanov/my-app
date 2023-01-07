@@ -5,11 +5,12 @@ import { addFavoriteCocktail, deleteFavoriteCocktail } from 'store/userSlice'
 
 import Favorite from 'static/favorite.svg'
 
-const CocktailItemSmall = ({ id, name }) => {
+const CocktailItemSmall = ({ id, name, category }) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const isAuth = useSelector(state => state.user.isAuth)
   const favoriteCocktails = useSelector(state => state.user.favoriteCocktails)
+  const cocktailCategories = useSelector(state => state.cocktails.cocktailCategories)
   const [isFavorite, setIsFavorite] = useState(false)
 
   const handlerFavorite = e => {
@@ -27,7 +28,7 @@ const CocktailItemSmall = ({ id, name }) => {
   return (
     <div className='item-s' onClick={() => navigate(`/cocktails/${id}`)}>
       <div className='description'>
-        <p>tasty</p>
+        <p>{cocktailCategories.find(({ id }) => id === category)?.name || ''}</p>
         <h2>{name}</h2>
       </div>
       {isAuth && <Favorite className={isFavorite ? 'favorite active' : 'favorite'} onClick={e => handlerFavorite(e)} />}

@@ -10,12 +10,12 @@ const ListCocktails = ({ cocktails, showSizeButtons = true }) => {
   const sizes = ['small', 'big']
   const [activeSize, setActiveSize] = useState('small')
 
-  const getSizeItem = ({ id, name, img }) => {
+  const getSizeItem = ({ id, name, img, category_cocktail_name_id }) => {
     switch (activeSize) {
       case 'big':
-        return <CocktailItemBig key={id} id={id} name={name} img={img} />
+        return <CocktailItemBig key={id} id={id} name={name} img={img} category={category_cocktail_name_id} />
       default:
-        return <CocktailItemSmall key={id} id={id} name={name} />
+        return <CocktailItemSmall key={id} id={id} name={name} category={category_cocktail_name_id} />
     }
   }
 

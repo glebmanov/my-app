@@ -20,7 +20,7 @@ const Favorites = () => {
   return (
     <>
       <h1>Your favorites and own cocktails</h1>
-      {cocktails.rows?.length && <ListCocktails cocktails={cocktails} showSizeButtons={false} />}
+      {!!cocktails.rows?.length && <ListCocktails cocktails={cocktails} showSizeButtons={false} />}
     </>
   )
 }

@@ -9,7 +9,7 @@ const CocktailsPage = ({ cocktails }) => {
   return (
     <>
       <h1>Search cocktails</h1>
-      {cocktails.rows?.length && <ListCocktails cocktails={cocktails} />}
+      {!!cocktails.rows?.length && <ListCocktails cocktails={cocktails} />}
     </>
   )
 }

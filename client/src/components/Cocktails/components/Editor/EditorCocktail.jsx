@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { findOrCreateCocktail } from 'store/cocktailsSlice'
 import { uniqueId, capitalize } from 'lodash'
 
-const EditorCocktail = ({ ingredients }) => {
+const EditorCocktail = ({ ingredients, cocktailCategories }) => {
   const dispatch = useDispatch()
 
   const {
@@ -49,6 +49,30 @@ const EditorCocktail = ({ ingredients }) => {
           />
         </label>
         <div className='error'>{errors?.name && <p>{errors?.name?.message || 'Error'}</p>}</div>
+
+        <label>
+          <span>Category</span>
+          <select {...register('category_cocktail_name_id')}>
+            {cocktailCategories.map(({ id, name }) => (
+              <option key={id} value={id}>
+                {name}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label>
+          <span>Description</span>
+          <textarea
+            {...register('description', {
+              maxLength: {
+                value: 255,
+                message: 'maximum length 255 characters',
+              },
+            })}
+          />
+        </label>
+        <div className='error'>{errors?.description && <p>{errors?.description?.message || 'Error'}</p>}</div>
 
         <label htmlFor='inputs-cocktail-ingredients'>
           <span>Ingredients</span>

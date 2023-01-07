@@ -1,11 +1,11 @@
 const sequelize = require('../db/db_cocktails')
-const { Cocktail, CocktailIngredient, Amount } = require('../models/cocktails')
+const { Cocktail, CocktailIngredient, Amount, CategoryCocktail } = require('../models/cocktails')
 const uuid = require('uuid')
 const path = require('path')
 
 class CocktailController {
   async findOrCreateCocktail(req, res) {
-    const { name, amount, description, type, ingredients, cocktails } = req.body
+    const { name, amount, category_cocktail_name_id, description, type, ingredients, cocktails } = req.body
     const result = {
       cocktails: [],
       action: '',
@@ -19,7 +19,12 @@ class CocktailController {
       }
 
       result.action = 'create'
-      result.cocktails.push(await Cocktail.create({ name, description, img: fileName }))
+      result.cocktails.push(await Cocktail.create({ name, description, category_cocktail_name_id, img: fileName }))
+
+      CategoryCocktail.create({
+        cocktailId: result.cocktails[0].id,
+        categoryCocktailNameId: category_cocktail_name_id,
+      })
 
       amount.forEach(({ ingredientId, value, unit }) => {
         CocktailIngredient.create({ cocktailId: result.cocktails[0].id, ingredientId })

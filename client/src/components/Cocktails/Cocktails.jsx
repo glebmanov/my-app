@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { getCategories, getCocktails, getIngredients } from 'store/cocktailsSlice'
+import { getIngredientCategories, getCocktailCategories, getCocktails, getIngredients } from 'store/cocktailsSlice'
 
 import CocktailPage from './pages/CocktailPage'
 import CocktailsPage from './pages/CocktailsPage'
@@ -15,12 +15,14 @@ const Cocktails = () => {
   const dispatch = useDispatch()
   const isAuth = useSelector(state => state.user.isAuth)
   const cocktails = useSelector(state => state.cocktails.cocktails)
-  const categories = useSelector(state => state.cocktails.categories)
+  const ingredientCategories = useSelector(state => state.cocktails.ingredientCategories)
+  const cocktailCategories = useSelector(state => state.cocktails.cocktailCategories)
   const ingredients = useSelector(state => state.cocktails.ingredients)
 
   useEffect(() => {
     dispatch(getCocktails({}))
-    dispatch(getCategories())
+    dispatch(getIngredientCategories())
+    dispatch(getCocktailCategories())
     dispatch(getIngredients())
   }, [dispatch])
 
@@ -50,9 +52,23 @@ const Cocktails = () => {
         <Routes>
           <Route index element={<CocktailsPage cocktails={cocktails} />} />
           <Route path=':id' element={<CocktailPage />} />
-          <Route path='build' element={<IngredientsPage ingredients={ingredients} categories={categories} />} />
+          <Route
+            path='build'
+            element={<IngredientsPage ingredients={ingredients} ingredientCategories={ingredientCategories} />}
+          />
           {isAuth && <Route path='favorites' element={<Favorites />} />}
-          {isAuth && <Route path='editor' element={<EditorPage ingredients={ingredients} categories={categories} />} />}
+          {isAuth && (
+            <Route
+              path='editor'
+              element={
+                <EditorPage
+                  ingredients={ingredients}
+                  ingredientCategories={ingredientCategories}
+                  cocktailCategories={cocktailCategories}
+                />
+              }
+            />
+          )}
         </Routes>
       </div>
     </>

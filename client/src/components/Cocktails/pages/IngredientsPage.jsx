@@ -5,7 +5,7 @@ import Categories from '../components/Categories'
 import ListCocktails from '../components/ListCocktails'
 import ShowCocktailsButtons from '../components/ShowCocktailsButtons'
 
-const IngredientsPage = ({ ingredients, categories }) => {
+const IngredientsPage = ({ ingredients, ingredientCategories }) => {
   const dispatch = useDispatch()
   const filteredCocktails = useSelector(state => state.cocktails.filteredCocktails)
   const [checkedState, setCheckedState] = useState(new Array(ingredients.length).fill(false))
@@ -56,7 +56,7 @@ const IngredientsPage = ({ ingredients, categories }) => {
       <h1>Build cocktail by ingredients</h1>
       <div className='build-cocktails'>
         <Categories
-          categories={categories}
+          ingredientCategories={ingredientCategories}
           ingredients={ingredients}
           handleOnChange={handleOnChange}
           checkedState={checkedState}
