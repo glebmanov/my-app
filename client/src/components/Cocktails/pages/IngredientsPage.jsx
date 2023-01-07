@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { findOrCreateCocktail, clearFilteredCocktails } from 'store/cocktailsSlice'
+import {
+  getIngredientCategories,
+  getIngredients,
+  findOrCreateCocktail,
+  clearFilteredCocktails,
+} from 'store/cocktailsSlice'
 import Categories from '../components/Categories'
 import ListCocktails from '../components/ListCocktails'
 import ShowCocktailsButtons from '../components/ShowCocktailsButtons'
 
-const IngredientsPage = ({ ingredients, ingredientCategories }) => {
+const IngredientsPage = () => {
   const dispatch = useDispatch()
+  const ingredients = useSelector(state => state.cocktails.ingredients)
+  const ingredientCategories = useSelector(state => state.cocktails.ingredientCategories)
   const filteredCocktails = useSelector(state => state.cocktails.filteredCocktails)
   const [checkedState, setCheckedState] = useState(new Array(ingredients.length).fill(false))
   const [selectedIngredients, setSelectedIngredients] = useState([])
@@ -43,6 +50,9 @@ const IngredientsPage = ({ ingredients, ingredientCategories }) => {
   }
 
   useEffect(() => {
+    dispatch(getIngredientCategories())
+    dispatch(getIngredients())
+
     if (!selectedIngredients.length && filteredCocktails.rows.length) dispatch(clearFilteredCocktails())
     document.title = 'Cocktails | Build cocktails'
 

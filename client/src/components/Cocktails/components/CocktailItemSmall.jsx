@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { addFavoriteCocktail, deleteFavoriteCocktail } from 'store/userSlice'
+import { getCocktailCategories } from 'store/cocktailsSlice'
 
 import Favorite from 'static/favorite.svg'
 
@@ -22,6 +23,7 @@ const CocktailItemSmall = ({ id, name, category }) => {
   }
 
   useEffect(() => {
+    dispatch(getCocktailCategories())
     isAuth && setIsFavorite(favoriteCocktails.includes(id))
   }, [favoriteCocktails])
 

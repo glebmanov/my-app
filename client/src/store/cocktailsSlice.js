@@ -164,7 +164,6 @@ const cocktailsSlice = createSlice({
   },
 })
 
-export const { clearCocktail, clearFilteredCocktails, clearSearchedCocktails, clearFavoriteCocktails } =
-  cocktailsSlice.actions
+export const { clearFilteredCocktails, clearSearchedCocktails, clearFavoriteCocktails } = cocktailsSlice.actions
 
 export default cocktailsSlice.reducer

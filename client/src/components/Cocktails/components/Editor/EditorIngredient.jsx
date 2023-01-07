@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { createIngredient } from 'store/cocktailsSlice'
+import { getIngredientCategories } from 'store/cocktailsSlice'
 
-const EditorIngredient = ({ ingredientCategories }) => {
+const EditorIngredient = () => {
   const dispatch = useDispatch()
+  const ingredientCategories = useSelector(state => state.cocktails.ingredientCategories)
 
   const {
     register,
@@ -19,6 +21,10 @@ const EditorIngredient = ({ ingredientCategories }) => {
     dispatch(createIngredient(data))
     reset()
   }
+
+  useEffect(() => {
+    dispatch(getIngredientCategories())
+  }, [dispatch])
 
   return (
     <div className='editor-ingredient'>

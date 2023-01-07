@@ -1,8 +1,14 @@
 import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getCocktails } from 'store/cocktailsSlice'
 import ListCocktails from '../components/ListCocktails'
 
-const CocktailsPage = ({ cocktails }) => {
+const CocktailsPage = () => {
+  const dispatch = useDispatch()
+  const cocktails = useSelector(state => state.cocktails.cocktails)
+
   useEffect(() => {
+    dispatch(getCocktails({}))
     document.title = 'Cocktails | List cocktails'
   }, [])
 

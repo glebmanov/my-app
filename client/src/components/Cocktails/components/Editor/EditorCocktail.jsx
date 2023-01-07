@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm, useFieldArray } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
-import { findOrCreateCocktail } from 'store/cocktailsSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { getIngredients, getCocktailCategories, findOrCreateCocktail } from 'store/cocktailsSlice'
 import { uniqueId, capitalize } from 'lodash'
 
-const EditorCocktail = ({ ingredients, cocktailCategories }) => {
+const EditorCocktail = () => {
   const dispatch = useDispatch()
+  const ingredients = useSelector(state => state.cocktails.ingredients)
+  const cocktailCategories = useSelector(state => state.cocktails.cocktailCategories)
 
   const {
     register,
@@ -30,6 +32,11 @@ const EditorCocktail = ({ ingredients, cocktailCategories }) => {
     dispatch(findOrCreateCocktail(data))
     reset()
   }
+
+  useEffect(() => {
+    dispatch(getIngredients())
+    dispatch(getCocktailCategories())
+  }, [dispatch])
 
   return (
     <div className='editor-cocktail'>
