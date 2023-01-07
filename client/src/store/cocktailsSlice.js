@@ -59,7 +59,6 @@ export const deleteCocktail = createAsyncThunk(
 const cocktailsSlice = createSlice({
   name: 'cocktails',
   initialState: {
-    cocktail: { name: '', amount: [] },
     cocktails: {},
     searchedCocktails: { count: 0, rows: [] },
     filteredCocktails: { count: 0, rows: [] },
@@ -162,21 +161,10 @@ const cocktailsSlice = createSlice({
       state.status = 'rejected'
       state.error = error.message
     },
-    [getOneCocktail.pending]: state => {
-      state.status = 'loading'
-      state.error = null
-    },
-    [getOneCocktail.fulfilled]: (state, { payload }) => {
-      state.status = 'resolved'
-      state.cocktail = payload.data
-    },
-    [getOneCocktail.rejected]: (state, { error }) => {
-      state.status = 'rejected'
-      state.error = error.message
-    },
   },
 })
 
-export const { clearFilteredCocktails, clearSearchedCocktails, clearFavoriteCocktails } = cocktailsSlice.actions
+export const { clearCocktail, clearFilteredCocktails, clearSearchedCocktails, clearFavoriteCocktails } =
+  cocktailsSlice.actions
 
 export default cocktailsSlice.reducer
