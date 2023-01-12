@@ -16,7 +16,15 @@ const App = () => {
   const isAuth = useSelector(state => state.user.isAuth)
 
   useEffect(() => {
-    localStorage.getItem('token') && dispatch(check()).then(() => dispatch(getFavoriteCocktails()))
+    localStorage.getItem('token') &&
+      dispatch(check()).then(({ error, payload }) => {
+        if (!error) {
+          dispatch(getFavoriteCocktails())
+        } else {
+          alert(payload.message)
+          localStorage.removeItem('token')
+        }
+      })
   }, [isAuth])
 
   return (

@@ -1,41 +1,50 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, isRejectedWithValue } from '@reduxjs/toolkit'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 
 export const registration = createAsyncThunk(
   'user/registration',
-  async ({ name, email, password }) =>
-    await axios.post('/api/auth/registration', {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-      name,
-      email,
-      password,
-    }),
+  async ({ name, email, password }, { rejectWithValue }) => {
+    try {
+      return await axios.post('/api/auth/registration', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+        name,
+        email,
+        password,
+      })
+    } catch (e) {
+      return rejectWithValue(e.response.data)
+    }
+  },
 )
 
-export const login = createAsyncThunk(
-  'user/login',
-  async ({ email, password }) =>
-    await axios.post('/api/auth/login', {
+export const login = createAsyncThunk('user/login', async ({ email, password }, { rejectWithValue }) => {
+  try {
+    return await axios.post('/api/auth/login', {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
       email,
       password,
-    }),
-)
+    })
+  } catch (e) {
+    return rejectWithValue(e.response.data)
+  }
+})
 
-export const check = createAsyncThunk(
-  'user/check',
-  async () =>
-    await axios.get('/api/auth/check', {
+export const check = createAsyncThunk('user/check', async (_, { rejectWithValue }) => {
+  try {
+    return await axios.get('/api/auth/check', {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
-    }),
-)
+    })
+  } catch (e) {
+    return rejectWithValue(e.response.data)
+  }
+})
 
 export const getFavoriteCocktails = createAsyncThunk('user/getFavoriteCocktails', async (_, { getState }) => {
   const { user } = getState()

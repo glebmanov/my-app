@@ -18,11 +18,14 @@ const Login = () => {
   })
 
   const onSubmit = data => {
-    try {
-      dispatch(login(data))
-      reset()
-      navigate(-1)
-    } catch (e) {}
+    dispatch(login(data)).then(({ error, payload }) => {
+      if (!error) {
+        reset()
+        navigate(-1)
+      } else {
+        alert(payload.message)
+      }
+    })
   }
 
   return (

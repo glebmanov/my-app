@@ -18,11 +18,14 @@ const Registration = () => {
   })
 
   const onSubmit = data => {
-    try {
-      dispatch(registration(data))
-      reset()
-      navigate(-1)
-    } catch (e) {}
+    dispatch(registration(data)).then(({ error, payload }) => {
+      if (!error) {
+        reset()
+        navigate(-1)
+      } else {
+        alert(payload.message)
+      }
+    })
   }
 
   return (
