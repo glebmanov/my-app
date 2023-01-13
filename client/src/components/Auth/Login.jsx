@@ -10,6 +10,7 @@ const Login = () => {
 
   const {
     register,
+    setError,
     formState: { errors },
     handleSubmit,
     reset,
@@ -23,7 +24,7 @@ const Login = () => {
         reset()
         navigate(-1)
       } else {
-        alert(payload.message)
+        setError(payload.type, { message: payload.message })
       }
     })
   }
