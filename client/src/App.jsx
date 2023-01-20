@@ -21,7 +21,6 @@ const App = () => {
         if (!error) {
           dispatch(getFavoriteCocktails())
         } else {
-          alert(payload.message)
           localStorage.removeItem('token')
         }
       })

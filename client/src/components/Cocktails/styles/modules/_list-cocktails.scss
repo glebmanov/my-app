@@ -48,20 +48,31 @@
 }
 
 @include --mobile {
-  .list-medium {
-    width: 90%;
-  }
+  .list-cocktails {
+    .list-medium {
+      width: 90%;
+    }
 
-  .list-small {
-    width: 90%;
-  }
+    .list-small {
+      width: 95%;
 
-  .buttons-and-search {
-    flex-direction: column-reverse;
+      .item-s {
+        margin-bottom: 12px;
+      }
+    }
 
-    .search {
-      margin-left: 0;
-      margin-bottom: 24px;
+    .items-size-button {
+      display: none;
+    }
+
+    .buttons-and-search {
+      flex-direction: column-reverse;
+      margin-bottom: 0;
+
+      .search {
+        margin-left: 0;
+        margin-bottom: 24px;
+      }
     }
   }
 }
