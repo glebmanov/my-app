@@ -49,5 +49,9 @@
 @include --mobile {
   .item-s {
     width: 100%;
+
+    .favorite {
+      fill: $gray-3;
+    }
   }
 }
