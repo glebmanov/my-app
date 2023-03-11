@@ -72,3 +72,21 @@
     }
   }
 }
+
+@include --desktop {
+}
+
+@include --tablet {
+}
+
+@include --mobile {
+  .container-auth {
+    padding: 0 5px;
+
+    .registration,
+    .login {
+      padding: 20px 16px;
+      width: 100%;
+    }
+  }
+}

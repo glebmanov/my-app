@@ -1,14 +1,20 @@
-import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import CocktailItemBig from './CocktailItemBig'
 import CocktailItemSmall from './CocktailItemSmall'
 import ItemsSizeButtons from './ItemsSizeButtons'
 import SearchInput from './SearchInput'
+import { getCocktailCategories } from 'store/cocktailsSlice'
 
 const ListCocktails = ({ cocktails, showSizeButtons = true }) => {
+  const dispatch = useDispatch()
   const searchedCocktails = useSelector(state => state.cocktails.searchedCocktails)
   const sizes = ['small', 'big']
   const [activeSize, setActiveSize] = useState('small')
+
+  useEffect(() => {
+    dispatch(getCocktailCategories())
+  }, [])
 
   const getSizeItem = ({ id, name, img, category_cocktail_name_id }) => {
     switch (activeSize) {
