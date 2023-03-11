@@ -35,6 +35,7 @@
 
     p {
       width: 65px;
+      flex-basis: 91px;
       color: #c63228;
       margin: 0;
       margin-right: 15px;
@@ -46,6 +47,7 @@
       text-align: start;
       font-weight: 500;
       white-space: nowrap;
+      line-height: inherit;
       @include slow-hide;
     }
   }

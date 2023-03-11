@@ -7,8 +7,9 @@
 
   .cocktail-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     width: 100%;
 
     img {
