@@ -1,0 +1,19 @@
+.pagination {
+  margin: 0 auto;
+  width: max-content;
+
+  .page-item {
+    &.active {
+      .page-link {
+        border-radius: 5px;
+        background-color: $blue-2;
+      }
+    }
+
+    .page-link {
+      background-color: transparent;
+      border: none;
+      color: $black-1;
+    }
+  }
+}

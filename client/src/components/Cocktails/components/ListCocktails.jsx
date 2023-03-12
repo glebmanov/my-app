@@ -1,20 +1,26 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { PaginationControl } from 'react-bootstrap-pagination-control'
 import CocktailItemBig from './CocktailItemBig'
 import CocktailItemSmall from './CocktailItemSmall'
 import ItemsSizeButtons from './ItemsSizeButtons'
 import SearchInput from './SearchInput'
-import { getCocktailCategories } from 'store/cocktailsSlice'
+import { getCocktailCategories, getCocktails } from 'store/cocktailsSlice'
 
 const ListCocktails = ({ cocktails, showSizeButtons = true }) => {
   const dispatch = useDispatch()
   const searchedCocktails = useSelector(state => state.cocktails.searchedCocktails)
   const sizes = ['small', 'big']
   const [activeSize, setActiveSize] = useState('small')
+  const [page, setPage] = useState(1)
 
   useEffect(() => {
     dispatch(getCocktailCategories())
   }, [])
+
+  useEffect(() => {
+    dispatch(getCocktails({ page }))
+  }, [page])
 
   const getSizeItem = ({ id, name, img, category_cocktail_name_id }) => {
     switch (activeSize) {
@@ -40,6 +46,15 @@ const ListCocktails = ({ cocktails, showSizeButtons = true }) => {
             : cocktails.rows?.map(cocktail => getSizeItem(cocktail))}
         </div>
       </div>
+      <PaginationControl
+        page={page}
+        total={cocktails.count}
+        limit={8}
+        changePage={page => {
+          setPage(page)
+        }}
+        ellipsis={1}
+      />
     </>
   )
 }
