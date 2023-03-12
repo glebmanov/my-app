@@ -81,7 +81,7 @@ const cocktailsSlice = createSlice({
       state.favoriteCocktails = { count: 0, rows: [] }
     },
     setPage(state, { payload }) {
-      state.page = payload.page
+      state.page = payload
     },
   },
   extraReducers: {
