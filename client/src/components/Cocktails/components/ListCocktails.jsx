@@ -51,7 +51,7 @@ const ListCocktails = ({ cocktails, showSizeButtons = true }) => {
         total={cocktails.count}
         limit={8}
         changePage={page => {
-          setPage(page)
+          dispatch(setPage(page))
         }}
         ellipsis={1}
       />
