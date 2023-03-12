@@ -59,6 +59,7 @@ export const deleteCocktail = createAsyncThunk(
 const cocktailsSlice = createSlice({
   name: 'cocktails',
   initialState: {
+    page: 1,
     cocktails: {},
     searchedCocktails: { count: 0, rows: [] },
     filteredCocktails: { count: 0, rows: [] },
@@ -78,6 +79,9 @@ const cocktailsSlice = createSlice({
     },
     clearFavoriteCocktails(state) {
       state.favoriteCocktails = { count: 0, rows: [] }
+    },
+    setPage(state, { payload }) {
+      state.page = payload.page
     },
   },
   extraReducers: {
@@ -164,6 +168,7 @@ const cocktailsSlice = createSlice({
   },
 })
 
-export const { clearFilteredCocktails, clearSearchedCocktails, clearFavoriteCocktails } = cocktailsSlice.actions
+export const { clearFilteredCocktails, clearSearchedCocktails, clearFavoriteCocktails, setPage } =
+  cocktailsSlice.actions
 
 export default cocktailsSlice.reducer

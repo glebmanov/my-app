@@ -12,6 +12,7 @@ import './styles/cocktails.scss'
 
 const Cocktails = () => {
   const isAuth = useSelector(state => state.user.isAuth)
+  const role = useSelector(state => state.user.role)
 
   return (
     <>
@@ -28,7 +29,7 @@ const Cocktails = () => {
               <span>Favorite</span>
             </Link>
           )}
-          {isAuth && (
+          {role === 'admin' && (
             <Link to='editor'>
               <span>Editor</span>
             </Link>
@@ -41,7 +42,7 @@ const Cocktails = () => {
           <Route path=':id' element={<CocktailPage />} />
           <Route path='build' element={<IngredientsPage />} />
           {isAuth && <Route path='favorites' element={<Favorites />} />}
-          {isAuth && <Route path='editor' element={<EditorPage />} />}
+          {role === 'admin' && <Route path='editor' element={<EditorPage />} />}
         </Routes>
       </div>
     </>

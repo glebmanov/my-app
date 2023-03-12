@@ -5,14 +5,14 @@ import CocktailItemBig from './CocktailItemBig'
 import CocktailItemSmall from './CocktailItemSmall'
 import ItemsSizeButtons from './ItemsSizeButtons'
 import SearchInput from './SearchInput'
-import { getCocktailCategories, getCocktails } from 'store/cocktailsSlice'
+import { getCocktailCategories, getCocktails, setPage } from 'store/cocktailsSlice'
 
 const ListCocktails = ({ cocktails, showSizeButtons = true }) => {
   const dispatch = useDispatch()
   const searchedCocktails = useSelector(state => state.cocktails.searchedCocktails)
+  const page = useSelector(state => state.cocktails.page)
   const sizes = ['small', 'big']
   const [activeSize, setActiveSize] = useState('small')
-  const [page, setPage] = useState(1)
 
   useEffect(() => {
     dispatch(getCocktailCategories())
