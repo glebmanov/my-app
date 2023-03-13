@@ -34,7 +34,7 @@ const IngredientsPage = () => {
         return item
       }
     })
-    setCheckedState(new Array(ingredients.length).fill(false))
+
     setCheckedState(updatedCheckedState)
   }
 
@@ -60,6 +60,10 @@ const IngredientsPage = () => {
       filteredCocktails.rows.length && dispatch(clearFilteredCocktails())
     }
   }, [dispatch])
+
+  useEffect(() => {
+    setCheckedState(new Array(ingredients.length).fill(false))
+  }, [ingredients])
 
   return (
     <>
