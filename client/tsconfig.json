@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "es2015",
+    "jsx": "react",
+    "moduleResolution":"node",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "useUnknownInCatchVariables": false,
+    "strict": true,
+    "noImplicitAny": false,
+    "skipLibCheck": true,
+    "outDir": "build",
+    "typeRoots": ["./types", "./typings"],
+    "paths": {
+      "components/*": ["./src/components/*"],
+      "modules/*": ["./src/modules/*"],
+      "pages/*": ["./src/pages/*"],
+      "static/*": ["./src/static/*"],
+      "hooks/*": ["./src/hooks/*"],
+      "utils/*": ["./src/utils/*"],
+      "store/*": ["./src/store/*"],
+      "types/*": ["./types/*"]
+    }
+  },
+  "include": [
+    "src/**/*",
+    "tests/**/*",
+    "**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "build"
+  ]
+}
