@@ -25,9 +25,19 @@ const Navigation: React.FC = () => {
   return (
     <>
       <nav>
-        <NavLink to='climbspots'>Climbspots</NavLink>
-        <NavLink to='cocktails'>Cocktails</NavLink>
-        {isAuth ? <a onClick={() => dispatch(removeUser())}>Sign out</a> : <NavLink to='login'>Sign in</NavLink>}
+        <NavLink to='climbspots' onClick={toggle}>
+          Climbspots
+        </NavLink>
+        <NavLink to='cocktails' onClick={toggle}>
+          Cocktails
+        </NavLink>
+        {isAuth ? (
+          <a onClick={() => dispatch(removeUser())}>Sign out</a>
+        ) : (
+          <NavLink to='login' onClick={toggle}>
+            Sign in
+          </NavLink>
+        )}
       </nav>
       <div className='bx bx-menu' id='menu-icon' onClick={toggle} />
     </>
