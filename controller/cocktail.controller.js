@@ -1,39 +1,44 @@
 const sequelize = require('../db/db_cocktails')
-const { Cocktail, CocktailIngredient, Amount, CategoryCocktail } = require('../models/cocktails')
+const { Cocktail, CocktailIngredient, Amount, CategoryCocktail, Ingredient } = require('../models/cocktails')
 const uuid = require('uuid')
 const path = require('path')
 
 class CocktailController {
-  async findOrCreateCocktail(req, res) {
-    const { name, amount, category_cocktail_name_id, description, type, ingredients, cocktails } = req.body
-    const result = {
-      cocktails: [],
-      action: '',
+  async createCocktail(req, res) {
+    const { name, amount, category_cocktail_name_id, description } = req.body
+
+    let fileName = 'cocktail.svg'
+    if (req.files?.img) {
+      fileName = uuid.v4() + '.svg'
+      req.files.img.mv(path.resolve(__dirname, '..', 'static', fileName))
     }
 
-    if (name) {
-      let fileName = 'cocktail.svg'
-      if (req.files?.img) {
-        fileName = uuid.v4() + '.svg'
-        req.files.img.mv(path.resolve(__dirname, '..', 'static', fileName))
-      }
+    const cocktail = await Cocktail.create({ name, description, category_cocktail_name_id, img: fileName })
 
-      result.action = 'create'
-      result.cocktails.push(await Cocktail.create({ name, description, category_cocktail_name_id, img: fileName }))
+    CategoryCocktail.create({
+      cocktailId: cocktail.id,
+      categoryCocktailNameId: category_cocktail_name_id,
+    })
 
-      CategoryCocktail.create({
-        cocktailId: result.cocktails[0].id,
-        categoryCocktailNameId: category_cocktail_name_id,
-      })
+    amount.forEach(({ ingredientId, value, unit }) => {
+      CocktailIngredient.create({ cocktailId: cocktail.id, ingredientId })
+      Amount.create({ value, unit, cocktailId: cocktail.id, ingredientId })
+    })
 
-      amount.forEach(({ ingredientId, value, unit }) => {
-        CocktailIngredient.create({ cocktailId: result.cocktails[0].id, ingredientId })
-        Amount.create({ value, unit, cocktailId: result.cocktails[0].id, ingredientId })
-      })
+    res.json(cocktail)
+  }
+
+  async getCocktails(req, res) {
+    const { page, substring, type, ingredients, cocktails } = req.query
+    const limit = 8
+    const offset = (page || 1) * limit - limit
+    const result = {
+      cocktails: [],
+      destination: '',
     }
 
     if (type && ingredients) {
-      result.action = 'find'
+      result.destination = 'byIngredients'
       if (type === 'consist') {
         result.cocktails = await sequelize.query(
           'SELECT cocktail.* FROM cocktail INNER JOIN cocktail_ingredient ON cocktail.id = cocktail_ingredient."cocktailId" LEFT JOIN ingredient ON cocktail_ingredient."ingredientId" = ingredient.id AND ingredient.id NOT IN(:ingredients) GROUP BY cocktail.id HAVING EVERY(ingredient.id IS NULL);',
@@ -43,36 +48,17 @@ class CocktailController {
           },
         )
       } else {
-        result.cocktails = await Cocktail.findAll({
+        result.cocktails = await Cocktail.findAndCountAll({
           include: [
             {
               model: CocktailIngredient,
-              where: { ingredientId: ingredients },
+              where: { ingredientId: ingredients.split('') },
             },
           ],
         })
       }
-    }
-
-    if (cocktails) {
-      result.action = 'get'
-      result.cocktails = await Cocktail.findAll({ where: { id: cocktails } })
-    }
-
-    res.json(result)
-  }
-
-  async getCocktails(req, res) {
-    const { page, substring } = req.query
-    const limit = 8
-    const offset = (page || 1) * limit - limit
-    const result = {
-      cocktails: [],
-      action: '',
-    }
-
-    if (substring) {
-      result.action = 'searched'
+    } else if (substring) {
+      result.destination = 'bySubstring'
       result.cocktails = await Cocktail.findAndCountAll({
         limit,
         offset,
@@ -80,6 +66,9 @@ class CocktailController {
           name: sequelize.where(sequelize.fn('LOWER', sequelize.col('name')), 'LIKE', `%${substring.toLowerCase()}%`),
         },
       })
+    } else if (cocktails) {
+      result.destination = 'byFavorites'
+      result.cocktails = await Cocktail.findAndCountAll({ where: { id: cocktails.split('') } })
     } else {
       result.cocktails = await Cocktail.findAndCountAll({
         limit,
@@ -94,7 +83,22 @@ class CocktailController {
     const { id } = req.params
     const cocktail = await Cocktail.findOne({
       where: { id },
-      include: [{ model: Amount, as: 'amount' }],
+      include: [
+        {
+          model: Amount,
+          as: 'amount',
+          include: [
+            {
+              model: Ingredient,
+              attributes: ['name'],
+            },
+          ],
+          attributes: ['id', 'value', 'unit'],
+        },
+      ],
+      attributes: {
+        exclude: ['category_cocktail_name_id'],
+      },
     })
 
     res.json(cocktail)

@@ -27,19 +27,16 @@ export const getIngredients = createAsyncThunk<Ingredient[]>(
   async () => await ky.get('/api/ingredient').json(),
 )
 
-export const findOrCreateCocktail = createAsyncThunk<
-  { cocktails: ResponseCocktails | Cocktail[]; action: string },
+export const createCocktail = createAsyncThunk<
+  Cocktail,
   {
     name?: string
     amount?: Array<Amount>
     category_cocktail_name_id?: string
     description?: string
-    type?: string
-    ingredients?: Array<string>
-    cocktails?: Array<number>
   }
->('cocktails/findOrCreateCocktail', async data => {
-  const { name, amount, category_cocktail_name_id, description, type, ingredients, cocktails } = data
+>('cocktails/createCocktail', async data => {
+  const { name, amount, category_cocktail_name_id, description } = data
   return await ky
     .post('/api/cocktail', {
       json: {
@@ -47,35 +44,27 @@ export const findOrCreateCocktail = createAsyncThunk<
         amount,
         category_cocktail_name_id,
         description,
-        type,
-        ingredients,
-        cocktails,
       },
     })
     .json()
 })
 
 export const getCocktails = createAsyncThunk<
-  { cocktails: ResponseCocktails; action: string },
-  { page?: number; substring?: string }
+  { cocktails: ResponseCocktails; destination: string },
+  { page?: number; substring?: string; type?: string; ingredients?: Array<number>; cocktails?: Array<number> }
 >('cocktails/getCocktails', async data => {
-  const { page, substring } = data
+  const { page, substring, type, ingredients, cocktails } = data
   return await ky
     .get('/api/cocktail', {
       searchParams: {
         ...(page && { page }),
         ...(substring && { substring }),
+        ...(type && { type }),
+        ...(ingredients && { ingredients: ingredients.join('') }),
+        ...(cocktails && { cocktails: cocktails.join('') }),
       },
     })
     .json()
-})
-
-export const getOneCocktail = createAsyncThunk<
-  { name: string; amount: Array<Amount>; img: string; description: string },
-  { id: string }
->('cocktails/getOneCocktail', async data => {
-  const { id } = data
-  return await ky.get(`/api/cocktail/${id}`).json()
 })
 
 export const updateCocktail = createAsyncThunk<
@@ -195,18 +184,15 @@ const cocktailsSlice = createSlice({
       state.status = 'rejected'
       state.error = error.message!
     })
-    builder.addCase(findOrCreateCocktail.pending, state => {
+    builder.addCase(createCocktail.pending, state => {
       state.status = 'loading'
       state.error = ''
     })
-    builder.addCase(findOrCreateCocktail.fulfilled, (state, { payload }) => {
+    builder.addCase(createCocktail.fulfilled, (state, { payload }) => {
       state.status = 'resolved'
-      const { cocktails, action } = payload
-      if (action === 'create') state.cocktails.rows.push(...(cocktails as Cocktail[]))
-      if (action === 'find') state.filteredCocktails.rows = cocktails as Cocktail[]
-      if (action === 'get') state.favoriteCocktails.rows = cocktails as Cocktail[]
+      state.cocktails.rows.push(payload)
     })
-    builder.addCase(findOrCreateCocktail.rejected, (state, { error }) => {
+    builder.addCase(createCocktail.rejected, (state, { error }) => {
       state.status = 'rejected'
       state.error = error.message!
     })
@@ -216,11 +202,20 @@ const cocktailsSlice = createSlice({
     })
     builder.addCase(getCocktails.fulfilled, (state, { payload }) => {
       state.status = 'resolved'
-      const { cocktails, action } = payload
-      if (action === 'searched') {
-        state.searchedCocktails = cocktails
-      } else {
-        state.cocktails = cocktails
+      const { destination, cocktails } = payload
+      switch (destination) {
+        case 'byIngredients':
+          state.filteredCocktails = cocktails
+          break
+        case 'bySubstring':
+          state.searchedCocktails = cocktails
+          break
+        case 'byFavorites':
+          state.favoriteCocktails = cocktails
+          break
+        default:
+          state.cocktails = cocktails
+          break
       }
     })
     builder.addCase(getCocktails.rejected, (state, { error }) => {

@@ -98,6 +98,9 @@ CocktailIngredient.belongsTo(Cocktail)
 Cocktail.hasMany(Amount, { as: 'amount' })
 Amount.belongsTo(Cocktail)
 
+Cocktail.hasMany(CocktailIngredient, { as: 'ingredients' })
+CocktailIngredient.belongsTo(Cocktail)
+
 Ingredient.hasMany(CocktailIngredient)
 CocktailIngredient.belongsTo(Ingredient)
 

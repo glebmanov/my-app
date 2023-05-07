@@ -6,6 +6,13 @@ export interface Cocktail {
   img: string
 }
 
+export interface SingleCocktail {
+  name: string
+  amount: Array<Amount>
+  img: string
+  description: string
+}
+
 export interface CocktailCategory {
   id: number
   name: string
@@ -29,4 +36,7 @@ export interface Amount {
   ingredientId: number | string
   value: string
   unit: string
+  ingredient?: {
+    name: string
+  }
 }

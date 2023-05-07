@@ -8,7 +8,7 @@ class IngredientController {
     res.json(ingredient)
   }
 
-  async getIngredients(req, res) {
+  async getIngredients(_, res) {
     const ingredients = await Ingredient.findAll()
     res.json(ingredients)
   }
