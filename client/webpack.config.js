@@ -1,19 +1,33 @@
 const path = require('path')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 module.exports = {
   entry: {
     app: './src/index.tsx',
   },
+
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: '[name].js',
     publicPath: '/',
   },
+
+  devtool: false,
+
   optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
     minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        extractComments: false,
+      }),
+    ],
   },
+
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
     alias: {
@@ -27,6 +41,7 @@ module.exports = {
       types: path.resolve(__dirname, 'types'),
     },
   },
+
   module: {
     rules: [
       {
@@ -59,13 +74,16 @@ module.exports = {
       },
     ],
   },
+
   plugins: [
     new HtmlWebPackPlugin({
       template: './public/index.html',
     }),
     new CleanWebpackPlugin(),
   ],
+
   stats: 'minimal',
+
   devServer: {
     port: 7777,
   },
