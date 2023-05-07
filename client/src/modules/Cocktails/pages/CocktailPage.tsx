@@ -1,47 +1,51 @@
-import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from 'hooks/index'
-import { getOneCocktail, getIngredients } from 'store/cocktailsSlice'
-import { Amount } from 'types/cocktailsInterfaces'
+import React, { Suspense } from 'react'
+import { defer, Await, useAsyncValue, useLoaderData } from 'react-router-dom'
+import ky from 'ky'
+import { SingleCocktail } from 'types/cocktailsInterfaces'
 
-const CocktailPage: React.FC = () => {
-  const dispatch = useAppDispatch()
-  const params = useParams()
-  const id = params.id as string
-  const [cocktail, setCocktail] = useState<{ name: string; amount: Array<Amount>; img: string; description: string }>({
-    name: '',
-    amount: [],
-    img: '',
-    description: '',
-  })
-  const ingredients = useAppSelector(state => state.cocktails.ingredients)
-
-  useEffect(() => {
-    dispatch(getIngredients())
-    dispatch(getOneCocktail({ id })).then(action => {
-      const payload = action.payload as { name: string; amount: Array<Amount>; img: string; description: string }
-      setCocktail(payload)
-      document.title = `Cocktails | ${payload.name as string}`
-    })
-  }, [])
+const CocktailElement: React.FC = () => {
+  const cocktail = useAsyncValue() as SingleCocktail
 
   return (
-    <div className='cocktail-page'>
+    <>
       <h2>{cocktail.name}</h2>
       <div className='cocktail-container'>
-        <img src={cocktail.img} alt='cocktail-img' />
+        <img src={`/${cocktail.img}`} alt='cocktail-img' />
         <div className='description-container'>
           <ul className='cocktail-amount'>
-            {cocktail.amount.map(({ id, value, unit, ingredientId }) => {
-              const ingredient = ingredients.find(ingredient => ingredient.id === ingredientId)
-              return <li key={id}>{`${ingredient?.name} - ${value} ${unit}`}</li>
-            })}
+            {cocktail.amount.map(({ id, value, unit, ingredient }) => (
+              <li key={id}>{`${ingredient?.name} - ${value} ${unit}`}</li>
+            ))}
           </ul>
           <span className='cocktail-description'>{cocktail.description}</span>
         </div>
       </div>
+    </>
+  )
+}
+
+const CocktailPage: React.FC = () => {
+  const { cocktail } = useLoaderData() as { cocktail: SingleCocktail }
+
+  return (
+    <div className='cocktail-page'>
+      <Suspense fallback={<p>Loading...</p>}>
+        <Await resolve={cocktail}>
+          <CocktailElement />
+        </Await>
+      </Suspense>
     </div>
   )
+}
+
+const getCocktail = async (id: string) => await ky.get(`/api/cocktail/${id}`).json()
+
+export const cocktailLoader = async ({ params }) => {
+  const { id } = params
+
+  return defer({
+    cocktail: getCocktail(id),
+  })
 }
 
 export default CocktailPage

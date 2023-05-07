@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react'
 import ListCocktails from '../components/ListCocktails'
 import { useAppDispatch, useAppSelector } from 'hooks/index'
-import { findOrCreateCocktail, clearFavoriteCocktails } from 'store/cocktailsSlice'
+import { clearFavoriteCocktails, getCocktails } from 'store/cocktailsSlice'
 import { getFavoriteCocktails } from 'store/userSlice'
 
 const Favorites: React.FC = () => {
   const dispatch = useAppDispatch()
-  const favoriteCocktailsId = useAppSelector(state => state.user.favoriteCocktails)
+  const favoriteCocktails = useAppSelector(state => state.user.favoriteCocktails)
   const cocktails = useAppSelector(state => state.cocktails.favoriteCocktails)
 
   useEffect(() => {
-    favoriteCocktailsId.length && dispatch(getFavoriteCocktails())
-    favoriteCocktailsId.length && dispatch(findOrCreateCocktail({ cocktails: favoriteCocktailsId }))
+    favoriteCocktails.length && dispatch(getFavoriteCocktails())
+    favoriteCocktails.length && dispatch(getCocktails({ cocktails: favoriteCocktails }))
     document.title = 'Cocktails | Favorite cocktails'
 
     return () => {
@@ -21,7 +21,7 @@ const Favorites: React.FC = () => {
 
   return (
     <>
-      <h1>Your favorites and own cocktails</h1>
+      <h1>Your favorites cocktails</h1>
       {!!cocktails?.rows?.length && <ListCocktails cocktails={cocktails} showSizeButtons={false} />}
     </>
   )

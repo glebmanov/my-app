@@ -1,22 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from 'hooks/index'
-import {
-  getIngredientCategories,
-  getIngredients,
-  findOrCreateCocktail,
-  clearFilteredCocktails,
-} from 'store/cocktailsSlice'
+import { getIngredientCategories, getIngredients, clearFilteredCocktails, getCocktails } from 'store/cocktailsSlice'
 import Categories from '../components/Categories'
 import ListCocktails from '../components/ListCocktails'
 import ShowCocktailsButtons from '../components/Buttons/ShowCocktailsButtons'
 
 const IngredientsPage: React.FC = () => {
   const dispatch = useAppDispatch()
-  const ingredients = useAppSelector(state => state.cocktails.ingredients)
-  const ingredientCategories = useAppSelector(state => state.cocktails.ingredientCategories)
-  const filteredCocktails = useAppSelector(state => state.cocktails.filteredCocktails)
+  const { ingredients, ingredientCategories, filteredCocktails } = useAppSelector(state => state.cocktails)
   const [checkedState, setCheckedState] = useState(new Array(ingredients.length).fill(false))
-  const [selectedIngredients, setSelectedIngredients] = useState<string[]>([])
+  const [selectedIngredients, setSelectedIngredients] = useState<number[]>([])
   const [activeOption, setActiveOption] = useState('includes')
   const options = ['includes', 'consist']
 
@@ -39,8 +32,7 @@ const IngredientsPage: React.FC = () => {
   }
 
   const showListCocktails = () => {
-    selectedIngredients.length &&
-      dispatch(findOrCreateCocktail({ type: activeOption, ingredients: selectedIngredients }))
+    selectedIngredients.length && dispatch(getCocktails({ type: activeOption, ingredients: selectedIngredients }))
   }
 
   const clearListCocktails = () => {
@@ -79,7 +71,9 @@ const IngredientsPage: React.FC = () => {
           setActiveOption={setActiveOption}
         />
         <ShowCocktailsButtons show={showListCocktails} clear={clearListCocktails} />
-        {filteredCocktails ? <ListCocktails cocktails={filteredCocktails} showSizeButtons={false} /> : null}
+        {!!filteredCocktails.rows?.length ? (
+          <ListCocktails cocktails={filteredCocktails} showSizeButtons={false} />
+        ) : null}
       </div>
     </>
   )

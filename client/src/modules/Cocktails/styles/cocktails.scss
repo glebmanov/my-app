@@ -1,11 +1,12 @@
-@import '../../../styles/App.scss';
+@import '../../../styles/utils/vars';
+@import '../../../styles/utils/breakpoints';
+@import '../../../styles/mixins/index';
 
 @import 'pages/list-cocktails';
 @import 'pages/build-cocktails';
 @import 'pages/single-cocktail';
 
 @import 'modules/base';
-@import 'modules/nav';
 @import 'modules/item-s';
 @import 'modules/item-b';
 @import 'modules/modal-cocktail';

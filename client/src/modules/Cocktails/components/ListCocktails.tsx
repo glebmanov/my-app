@@ -18,8 +18,7 @@ interface ListCocktailsProps {
 
 const ListCocktails: React.FC<ListCocktailsProps> = ({ cocktails, showSizeButtons = true }) => {
   const dispatch = useAppDispatch()
-  const searchedCocktails = useAppSelector(state => state.cocktails.searchedCocktails)
-  const page = useAppSelector(state => state.cocktails.page)
+  const { page, searchedCocktails } = useAppSelector(state => state.cocktails)
   const sizes = ['small', 'big']
   const [activeSize, setActiveSize] = useState('small')
 

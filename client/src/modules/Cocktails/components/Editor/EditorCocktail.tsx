@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useForm, FormProvider, useFieldArray, SubmitHandler } from 'react-hook-form'
 import { useAppDispatch, useAppSelector } from 'hooks/index'
-import { getIngredients, getCocktailCategories, findOrCreateCocktail } from 'store/cocktailsSlice'
+import { getIngredients, getCocktailCategories, createCocktail } from 'store/cocktailsSlice'
 import { uniqueId, capitalize } from 'lodash'
 import InputName from 'components/Auth/InputName'
 import SelectCategory from './SelectCategory'
@@ -35,7 +35,7 @@ const EditorCocktail: React.FC = () => {
   const onSubmit: SubmitHandler<FormValues> = data => {
     console.log('data', data)
     data.name = capitalize(data.name)
-    dispatch(findOrCreateCocktail(data))
+    dispatch(createCocktail(data))
     reset()
   }
 

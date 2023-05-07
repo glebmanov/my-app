@@ -1,5 +1,5 @@
 import React from 'react'
-import Button from './Button'
+import Button from 'modules/Cocktails/components/Buttons/Button'
 import { uniqueId } from 'lodash'
 import { IngredientCategory } from 'types/cocktailsInterfaces'
 

@@ -26,7 +26,7 @@ const Login: React.FC = () => {
       .unwrap()
       .then(() => {
         reset()
-        navigate(-1)
+        navigate('/', { replace: true })
       })
       .catch(e => {
         const type = e.type === 'email' || e.type === 'password' ? e.type : 'email'

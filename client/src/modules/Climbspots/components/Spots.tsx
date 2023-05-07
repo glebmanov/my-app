@@ -4,13 +4,20 @@ import { setActiveSpotId } from 'store/weatherSlice'
 
 import Button from './Button'
 
-const Spots = () => {
+const Spots: React.FC = () => {
   const { spots, activeSpotId } = useAppSelector(state => state.weather)
 
   return (
     <>
       {spots.map(({ id, name }) => (
-        <Button key={id} handler={setActiveSpotId} value={id} text={name} isActive={activeSpotId === id} />
+        <Button
+          key={id}
+          className='col-5 col-lg-12 mb-2 mx-lg-0 mx-1 btn-shadow'
+          handler={setActiveSpotId}
+          value={id}
+          text={name}
+          isActive={activeSpotId === id}
+        />
       ))}
     </>
   )

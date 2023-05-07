@@ -1,3 +1,4 @@
 import { useAppSelector, useAppDispatch } from './useRedux'
+import { useFavoriteCocktail } from './useFavoriteCocktail'
 
-export { useAppSelector, useAppDispatch }
+export { useAppSelector, useAppDispatch, useFavoriteCocktail }

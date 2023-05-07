@@ -12,11 +12,11 @@
   }
 
   &.active {
-    background: $blue-2;
+    background: $green-2;
     z-index: 0 !important;
   }
 
   &:hover {
-    background-color: $blue-2;
+    background-color: $green-1;
   }
 }

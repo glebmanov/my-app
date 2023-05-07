@@ -1,28 +1,25 @@
 import React, { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from 'hooks/index'
-import { fetchSpotWeather } from 'store/weatherSlice'
+import { fetchSpots, fetchSpotWeather } from 'store/weatherSlice'
 
-import Spots from './components/Spots'
-import SpotWeather from './components/SpotWeather'
-import Warning from './components/Warning'
+import Spots from '../components/Spots'
+import SpotWeather from '../components/SpotWeather'
+import Warning from '../components/Warning'
 
-import './styles/app.scss'
-
-const Climbspots: React.FC = () => {
+const WeatherPage: React.FC = () => {
   const dispatch = useAppDispatch()
-  const activeSpotId = useAppSelector(state => state.weather.activeSpotId)
-  const endpoint = useAppSelector(state => state.weather.endpoint)
-  const error = useAppSelector(state => state.weather.error)
+  const { spots, activeSpotId, endpoint, error } = useAppSelector(state => state.weather)
 
   useEffect(() => {
     document.title = 'Climbspots | Weather'
 
+    if (!spots.length) dispatch(fetchSpots())
     if (activeSpotId) dispatch(fetchSpotWeather())
   }, [activeSpotId, endpoint])
 
   return (
     <div className='weather-wrapper pb-3'>
-      <h1 className='text-center'>Weather in the climbing spots of the Leningrad region and Karelia</h1>
+      <h1>Weather in the climbing spots</h1>
       <div className='weather-content d-flex flex-column flex-lg-row row p-0 p-lg-3'>
         <div className='spot-list col-lg-2 d-flex flex-wrap flex-row flex-lg-column py-4 justify-content-center justify-content-lg-start'>
           <Spots />
@@ -33,4 +30,4 @@ const Climbspots: React.FC = () => {
   )
 }
 
-export default Climbspots
+export default WeatherPage

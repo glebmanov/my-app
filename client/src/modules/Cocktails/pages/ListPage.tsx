@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from 'hooks/index'
 import { getCocktails } from 'store/cocktailsSlice'
 import ListCocktails from '../components/ListCocktails'
 
-const CocktailsPage: React.FC = () => {
+const ListPage: React.FC = () => {
   const dispatch = useAppDispatch()
   const cocktails = useAppSelector(state => state.cocktails.cocktails)
 
@@ -20,4 +20,4 @@ const CocktailsPage: React.FC = () => {
   )
 }
 
-export default CocktailsPage
+export default ListPage

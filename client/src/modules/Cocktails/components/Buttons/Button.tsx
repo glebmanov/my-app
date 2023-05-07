@@ -9,10 +9,8 @@ interface ButtonProps {
 }
 
 const Button: React.FC<ButtonProps> = ({ handler, value, text, isActive }) => {
-  const classNames = cn(`btn btn-cstm`, { active: isActive })
-
   return (
-    <button className={classNames} type='button' onClick={() => handler(value)}>
+    <button className={cn('btn btn-cstm', { active: isActive })} type='button' onClick={() => handler(value)}>
       <span>{text}</span>
     </button>
   )

@@ -15,6 +15,7 @@
     "@svgr/webpack": "^6.5.1",
     "@types/lodash": "^4.14.194",
     "@types/react-dom": "^18.2.1",
+    "@types/scrollreveal": "^0.0.8",
     "babel-loader": "^9.1.0",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.7.2",
@@ -41,6 +42,7 @@
     "react-hook-form": "^7.40.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.11.1",
-    "sass": "^1.56.1"
+    "sass": "^1.56.1",
+    "scrollreveal": "^4.0.9"
   }
 }

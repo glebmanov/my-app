@@ -5,11 +5,10 @@ import Endpoints from './Endpoints'
 import SpotWeatherList from './SpotWeatherList'
 
 const SpotWeather: React.FC = () => {
-  const data = useAppSelector(state => state.weather.data)
-  const status = useAppSelector(state => state.weather.status)
+  const { data, status } = useAppSelector(state => state.weather)
 
   return (
-    <div className='weather d-flex flex-column p-2 p-md-4 rounded'>
+    <div className='weather d-flex flex-column h-100 p-2 p-md-4 rounded'>
       {status !== 'loading' ? (
         data.length !== 0 ? (
           <>
