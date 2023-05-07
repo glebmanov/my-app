@@ -26,6 +26,10 @@ header {
     #menu-icon {
       display: none;
     }
+
+    nav {
+      display: flex;
+    }
   }
 }
 
@@ -42,7 +46,7 @@ header {
       width: 300px;
       height: max-content;
       background-color: $green-1;
-      display: flex;
+      display: none;
       align-items: center;
       flex-direction: column;
       padding: 50px 20px;
@@ -50,6 +54,7 @@ header {
       z-index: 1000;
 
       &.open {
+        display: flex;
         right: 0;
       }
 
