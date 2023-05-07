@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from 'hooks/index'
-import { addFavoriteCocktail, deleteFavoriteCocktail } from 'store/userSlice'
+import { useAppSelector, useFavoriteCocktail } from 'hooks/index'
+import cn from 'classnames'
 
 import Favorite from 'static/favorite.svg'
 
@@ -12,24 +12,10 @@ interface CocktailItemSmallProps {
 }
 
 const CocktailItemSmall: React.FC<CocktailItemSmallProps> = ({ id, name, category }) => {
-  const dispatch = useAppDispatch()
+  const { isFavorite, setFavorite } = useFavoriteCocktail(id)
   const navigate = useNavigate()
-  const isAuth = useAppSelector(state => state.user.isAuth)
-  const favoriteCocktails = useAppSelector(state => state.user.favoriteCocktails)
+  const { isAuth } = useAppSelector(state => state.user)
   const cocktailCategories = useAppSelector(state => state.cocktails.cocktailCategories)
-  const [isFavorite, setIsFavorite] = useState(false)
-
-  const handlerFavorite = e => {
-    e.stopPropagation()
-    isFavorite
-      ? dispatch(deleteFavoriteCocktail({ cocktailId: id }))
-      : dispatch(addFavoriteCocktail({ cocktailId: id }))
-    setIsFavorite(prevState => !prevState)
-  }
-
-  useEffect(() => {
-    isAuth && setIsFavorite(favoriteCocktails.includes(id))
-  }, [favoriteCocktails])
 
   return (
     <div className='item-s' onClick={() => navigate(`/cocktails/${id}`)}>
@@ -37,7 +23,7 @@ const CocktailItemSmall: React.FC<CocktailItemSmallProps> = ({ id, name, categor
         <p>{cocktailCategories.find(({ id }) => id === category)?.name || ''}</p>
         <h2>{name}</h2>
       </div>
-      {isAuth && <Favorite className={isFavorite ? 'favorite active' : 'favorite'} onClick={e => handlerFavorite(e)} />}
+      {isAuth && <Favorite className={cn('favorite', { active: isFavorite })} onClick={(e: Event) => setFavorite(e)} />}
     </div>
   )
 }
