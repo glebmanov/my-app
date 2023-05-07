@@ -1,10 +1,9 @@
 import React from 'react'
+import { uniqueId } from 'lodash'
 import { useAppSelector } from 'hooks/index'
 import { setEndpoint } from 'store/weatherSlice'
 
 import Button from './Button'
-
-import { uniqueId } from 'lodash'
 
 const Endpoints: React.FC = () => {
   const currentEndpoint = useAppSelector(state => state.weather.endpoint)
@@ -19,9 +18,9 @@ const Endpoints: React.FC = () => {
       {endpoints.map(endpoint => (
         <Button
           key={uniqueId()}
-          name={endpoint.name}
           handler={setEndpoint}
           value={endpoint.value}
+          text={endpoint.name}
           isActive={endpoint.value === currentEndpoint}
         />
       ))}
