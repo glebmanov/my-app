@@ -43,7 +43,7 @@ class CocktailController {
         result.cocktails = await sequelize.query(
           'SELECT cocktail.* FROM cocktail INNER JOIN cocktail_ingredient ON cocktail.id = cocktail_ingredient."cocktailId" LEFT JOIN ingredient ON cocktail_ingredient."ingredientId" = ingredient.id AND ingredient.id NOT IN(:ingredients) GROUP BY cocktail.id HAVING EVERY(ingredient.id IS NULL);',
           {
-            replacements: { ingredients: ingredients.split('') },
+            replacements: { ingredients: ingredients.split(',') },
             model: Cocktail,
           },
         )
@@ -52,7 +52,7 @@ class CocktailController {
           include: [
             {
               model: CocktailIngredient,
-              where: { ingredientId: ingredients.split('') },
+              where: { ingredientId: ingredients.split(',') },
             },
           ],
         })
@@ -68,7 +68,7 @@ class CocktailController {
       })
     } else if (cocktails) {
       result.destination = 'byFavorites'
-      result.cocktails = await Cocktail.findAndCountAll({ where: { id: cocktails.split('') } })
+      result.cocktails = await Cocktail.findAndCountAll({ where: { id: cocktails.split(',') } })
     } else {
       result.cocktails = await Cocktail.findAndCountAll({
         limit,

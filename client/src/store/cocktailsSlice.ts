@@ -60,8 +60,8 @@ export const getCocktails = createAsyncThunk<
         ...(page && { page }),
         ...(substring && { substring }),
         ...(type && { type }),
-        ...(ingredients && { ingredients: ingredients.join('') }),
-        ...(cocktails && { cocktails: cocktails.join('') }),
+        ...(ingredients && { ingredients: ingredients.join(',') }),
+        ...(cocktails && { cocktails: cocktails.join(',') }),
       },
     })
     .json()
