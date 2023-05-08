@@ -10,7 +10,7 @@ const Homepage: React.FC = () => {
   })
 
   useEffect(() => {
-    sr.reveal('.icons', { delay: 400, origin: 'top' })
+    sr.reveal('.icons', { delay: 300, origin: 'top' })
   }, [])
 
   return (

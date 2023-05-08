@@ -1,10 +1,14 @@
-import React, { Suspense } from 'react'
+import React, { Suspense, useEffect } from 'react'
 import { defer, Await, useAsyncValue, useLoaderData } from 'react-router-dom'
 import ky from 'ky'
 import { SingleCocktail } from 'types/cocktailsInterfaces'
 
 const CocktailElement: React.FC = () => {
   const cocktail = useAsyncValue() as SingleCocktail
+
+  useEffect(() => {
+    document.title = `Cocktails | ${cocktail.name}`
+  }, [])
 
   return (
     <>

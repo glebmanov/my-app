@@ -4,6 +4,7 @@ import { getIngredientCategories, getIngredients, clearFilteredCocktails, getCoc
 import Categories from '../components/Categories'
 import ListCocktails from '../components/ListCocktails'
 import ShowCocktailsButtons from '../components/Buttons/ShowCocktailsButtons'
+import { Ingredient } from 'types/cocktailsInterfaces'
 
 const IngredientsPage: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -13,7 +14,7 @@ const IngredientsPage: React.FC = () => {
   const [activeOption, setActiveOption] = useState('includes')
   const options = ['includes', 'consist']
 
-  const handleOnChange = (position, ingredient) => {
+  const handleOnChange = (position: number, ingredient: Ingredient) => {
     const updatedCheckedState = checkedState.map((item, index) => {
       if (index === position) {
         const isCheckboxActive = !item

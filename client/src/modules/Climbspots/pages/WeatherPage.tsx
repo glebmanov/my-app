@@ -20,7 +20,7 @@ const WeatherPage: React.FC = () => {
   return (
     <div className='weather-wrapper pb-3'>
       <h1>Weather in the climbing spots</h1>
-      <div className='weather-content d-flex flex-column flex-lg-row row p-0 p-lg-3 mx-auto'>
+      <div className='weather-content d-flex flex-column flex-lg-row row p-0 mx-auto'>
         <div className='spot-list col-lg-2 d-flex flex-wrap flex-row flex-lg-column py-4 justify-content-center justify-content-lg-start'>
           <Spots />
         </div>

@@ -19,7 +19,8 @@ export const registration = createAsyncThunk<
       })
       .json()
   } catch (e) {
-    return rejectWithValue(e.response.data)
+    const error = await e.response.json()
+    return rejectWithValue(error.message)
   }
 })
 
@@ -37,8 +38,8 @@ export const login = createAsyncThunk<
       })
       .json()
   } catch (e) {
-    const result = await e.response.json()
-    return rejectWithValue(result)
+    const error = await e.response.json()
+    return rejectWithValue(error.message)
   }
 })
 
@@ -54,7 +55,8 @@ export const check = createAsyncThunk<{ token: string; message?: string; type: s
         })
         .json()
     } catch (e) {
-      return rejectWithValue(e.response.data)
+      const error = await e.response.json()
+      return rejectWithValue(error.message)
     }
   },
 )
@@ -87,8 +89,8 @@ export type UserState = {
   email: string
   role: string
   favoriteCocktails: Array<number>
-  status: string
-  error: string
+  status: null | string
+  error: null | string
 }
 
 const initialState: UserState = {
@@ -98,8 +100,8 @@ const initialState: UserState = {
   email: '',
   role: '',
   favoriteCocktails: [],
-  status: '',
-  error: '',
+  status: null,
+  error: null,
 }
 
 const userSlice = createSlice({
@@ -113,107 +115,109 @@ const userSlice = createSlice({
       state.email = ''
       state.role = ''
       state.favoriteCocktails = []
-      state.status = ''
+      state.status = null
       localStorage.removeItem('token')
     },
   },
   extraReducers: builder => {
-    builder.addCase(registration.pending, state => {
-      state.status = 'loading'
-      state.error = ''
-    })
-    builder.addCase(registration.fulfilled, (state, { payload }) => {
-      state.status = 'resolved'
-      const { token } = payload
-      localStorage.setItem('token', token)
-      state.isAuth = true
-      const { id, name, email, role }: { id: string; name: string; email: string; role: string } = jwt_decode(token)
-      state.id = id
-      state.name = name
-      state.email = email
-      state.role = role
-    })
-    builder.addCase(registration.rejected, (state, { error }) => {
-      state.status = 'rejected'
-      state.error = error.message!
-      state.isAuth = false
-    })
-    builder.addCase(login.pending, state => {
-      state.status = 'loading'
-      state.error = ''
-    })
-    builder.addCase(login.fulfilled, (state, { payload }) => {
-      state.status = 'resolved'
-      const { token } = payload
-      localStorage.setItem('token', token)
-      state.isAuth = true
-      const { id, name, email, role }: { id: string; name: string; email: string; role: string } = jwt_decode(token)
-      state.id = id
-      state.name = name
-      state.email = email
-      state.role = role
-    })
-    builder.addCase(login.rejected, (state, { error }) => {
-      state.status = 'rejected'
-      state.error = error.message!
-      state.isAuth = false
-    })
-    builder.addCase(check.pending, state => {
-      state.status = 'loading'
-      state.error = ''
-    })
-    builder.addCase(check.fulfilled, (state, { payload }) => {
-      state.status = 'resolved'
-      const { token } = payload
-      localStorage.setItem('token', token)
-      state.isAuth = true
-      const { id, name, email, role }: { id: string; name: string; email: string; role: string } = jwt_decode(token)
-      state.id = id
-      state.name = name
-      state.email = email
-      state.role = role
-    })
-    builder.addCase(check.rejected, (state, { error }) => {
-      state.status = 'rejected'
-      state.error = error.message!
-      state.isAuth = false
-    })
-    builder.addCase(getFavoriteCocktails.pending, state => {
-      state.status = 'loading'
-      state.error = ''
-    })
-    builder.addCase(getFavoriteCocktails.fulfilled, (state, { payload }) => {
-      state.status = 'resolved'
-      state.favoriteCocktails = payload
-    })
-    builder.addCase(getFavoriteCocktails.rejected, (state, { error }) => {
-      state.status = 'rejected'
-      state.error = error.message!
-    })
-    builder.addCase(addFavoriteCocktail.pending, state => {
-      state.status = 'loading'
-      state.error = ''
-    })
-    builder.addCase(addFavoriteCocktail.fulfilled, (state, { payload }) => {
-      state.status = 'resolved'
-      state.favoriteCocktails.push(payload)
-    })
-    builder.addCase(addFavoriteCocktail.rejected, (state, { error }) => {
-      state.status = 'rejected'
-      state.error = error.message!
-    })
-    builder.addCase(deleteFavoriteCocktail.pending, state => {
-      state.status = 'loading'
-      state.error = ''
-    })
-    builder.addCase(deleteFavoriteCocktail.fulfilled, (state, { payload }) => {
-      state.status = 'resolved'
-      state.favoriteCocktails = state.favoriteCocktails.filter(id => id !== payload)
-    })
-    builder.addCase(deleteFavoriteCocktail.rejected, (state, { error }) => {
-      state.status = 'rejected'
-      state.error = error.message!
-    })
+    builder
+      .addCase(registration.pending, state => {
+        state.status = 'loading'
+        state.error = null
+      })
+      .addCase(registration.fulfilled, (state, { payload }) => {
+        state.status = 'resolved'
+        const { token } = payload
+        localStorage.setItem('token', token)
+        state.isAuth = true
+        const { id, name, email, role }: { id: string; name: string; email: string; role: string } = jwt_decode(token)
+        state.id = id
+        state.name = name
+        state.email = email
+        state.role = role
+      })
+      .addCase(registration.rejected, (state, { error }) => {
+        state.status = 'rejected'
+        state.error = error.message!
+        state.isAuth = false
+      })
+      .addCase(login.pending, state => {
+        state.status = 'loading'
+        state.error = null
+      })
+      .addCase(login.fulfilled, (state, { payload }) => {
+        state.status = 'resolved'
+        const { token } = payload
+        localStorage.setItem('token', token)
+        state.isAuth = true
+        const { id, name, email, role }: { id: string; name: string; email: string; role: string } = jwt_decode(token)
+        state.id = id
+        state.name = name
+        state.email = email
+        state.role = role
+      })
+      .addCase(login.rejected, (state, { error }) => {
+        state.status = 'rejected'
+        state.error = error.message!
+        state.isAuth = false
+      })
+      .addCase(check.pending, state => {
+        state.status = 'loading'
+        state.error = null
+      })
+      .addCase(check.fulfilled, (state, { payload }) => {
+        state.status = 'resolved'
+        const { token } = payload
+        localStorage.setItem('token', token)
+        state.isAuth = true
+        const { id, name, email, role }: { id: string; name: string; email: string; role: string } = jwt_decode(token)
+        state.id = id
+        state.name = name
+        state.email = email
+        state.role = role
+      })
+      .addCase(check.rejected, (state, { error }) => {
+        state.status = 'rejected'
+        state.error = error.message!
+        state.isAuth = false
+        localStorage.removeItem('token')
+      })
+      .addCase(getFavoriteCocktails.pending, state => {
+        state.status = 'loading'
+        state.error = null
+      })
+      .addCase(getFavoriteCocktails.fulfilled, (state, { payload }) => {
+        state.status = 'resolved'
+        state.favoriteCocktails = payload
+      })
+      .addCase(getFavoriteCocktails.rejected, (state, { error }) => {
+        state.status = 'rejected'
+        state.error = error.message!
+      })
+      .addCase(addFavoriteCocktail.pending, state => {
+        state.status = 'loading'
+        state.error = null
+      })
+      .addCase(addFavoriteCocktail.fulfilled, (state, { payload }) => {
+        state.status = 'resolved'
+        state.favoriteCocktails.push(payload)
+      })
+      .addCase(addFavoriteCocktail.rejected, (state, { error }) => {
+        state.status = 'rejected'
+        state.error = error.message!
+      })
+      .addCase(deleteFavoriteCocktail.pending, state => {
+        state.status = 'loading'
+        state.error = null
+      })
+      .addCase(deleteFavoriteCocktail.fulfilled, (state, { payload }) => {
+        state.status = 'resolved'
+        state.favoriteCocktails = state.favoriteCocktails.filter(id => id !== payload)
+      })
+      .addCase(deleteFavoriteCocktail.rejected, (state, { error }) => {
+        state.status = 'rejected'
+        state.error = error.message!
+      })
   },
 })
 

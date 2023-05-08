@@ -64,13 +64,8 @@ const App: React.FC = () => {
   const { isAuth } = useAppSelector(state => state.user)
 
   useEffect(() => {
-    localStorage.getItem('token') &&
-      dispatch(check())
-        .unwrap()
-        .then(response => {
-          response.message && localStorage.removeItem('token')
-          dispatch(getFavoriteCocktails())
-        })
+    dispatch(check())
+    isAuth && dispatch(getFavoriteCocktails())
   }, [isAuth])
 
   return <RouterProvider router={router} />

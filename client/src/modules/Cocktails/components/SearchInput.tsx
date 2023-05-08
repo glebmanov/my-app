@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { FormEvent, MouseEventHandler, useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from 'hooks/index'
 import { getCocktails, clearSearchedCocktails } from 'store/cocktailsSlice'
 import { debounce } from 'lodash'
@@ -10,8 +10,9 @@ const SearchInput: React.FC = () => {
     e => (e.target.value ? dispatch(getCocktails({ substring: e.target.value })) : dispatch(clearSearchedCocktails())),
     300,
   )
-  const handlerClear = e => {
-    e.target.value = ''
+  const handlerClear: MouseEventHandler = e => {
+    const target = e.target as HTMLButtonElement
+    target.value = ''
     dispatch(clearSearchedCocktails())
   }
 
@@ -22,9 +23,9 @@ const SearchInput: React.FC = () => {
   }, [])
 
   return (
-    <div className='search' onInput={e => handlerInput(e)}>
-      <input type='text' />
-      <i onClick={e => handlerClear(e)}></i>
+    <div className='search'>
+      <input type='text' onInput={(e: FormEvent<HTMLInputElement>) => handlerInput(e)} />
+      <i onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handlerClear(e)}></i>
     </div>
   )
 }

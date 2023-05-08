@@ -30,7 +30,7 @@ const ListCocktails: React.FC<ListCocktailsProps> = ({ cocktails, showSizeButton
     dispatch(getCocktails({ page }))
   }, [page])
 
-  const getSizeItem = ({ id, name, img, category_cocktail_name_id }) => {
+  const getSizeItem = ({ id, name, img, category_cocktail_name_id }: Cocktail) => {
     switch (activeSize) {
       case 'big':
         return <CocktailItemBig key={id} id={id} name={name} img={img} category={category_cocktail_name_id} />

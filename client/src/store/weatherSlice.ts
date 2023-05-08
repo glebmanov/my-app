@@ -2,6 +2,17 @@ import { createSlice, createAsyncThunk, PayloadAction, AnyAction } from '@reduxj
 import ky from 'ky'
 import { isWeekend } from 'utils/date'
 
+export type DataUnit = {
+  datetime: string
+  weather: {
+    description: string
+    icon: string
+  }
+  temp: number
+  rh: number
+  wind_spd: number
+}
+
 type Spot = {
   id: number
   name: string
@@ -26,7 +37,7 @@ export const fetchSpots = createAsyncThunk<Spot[]>(
 )
 
 export const fetchSpotWeather = createAsyncThunk<
-  any,
+  { data: Array<DataUnit> },
   undefined,
   { state: { weather: WeatherState }; rejectValue: string }
 >('weather/fetchSpotWeather', async (_, { getState, rejectWithValue }) => {
@@ -71,7 +82,7 @@ const weatherSlice = createSlice({
       .addCase(fetchSpotWeather.fulfilled, (state, action) => {
         state.status = 'resolved'
         if (state.endpoint === 'forecast/daily') {
-          state.data = action.payload.data.filter((dataUnit: any) => isWeekend(dataUnit.datetime))
+          state.data = action.payload.data.filter(dataUnit => isWeekend(dataUnit.datetime))
         } else {
           state.data = action.payload.data
         }

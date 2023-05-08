@@ -43,7 +43,7 @@ class CocktailController {
         result.cocktails = await sequelize.query(
           'SELECT cocktail.* FROM cocktail INNER JOIN cocktail_ingredient ON cocktail.id = cocktail_ingredient."cocktailId" LEFT JOIN ingredient ON cocktail_ingredient."ingredientId" = ingredient.id AND ingredient.id NOT IN(:ingredients) GROUP BY cocktail.id HAVING EVERY(ingredient.id IS NULL);',
           {
-            replacements: { ingredients },
+            replacements: { ingredients: ingredients.split('') },
             model: Cocktail,
           },
         )

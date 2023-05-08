@@ -50,7 +50,7 @@ export const createCocktail = createAsyncThunk<
 })
 
 export const getCocktails = createAsyncThunk<
-  { cocktails: ResponseCocktails; destination: string },
+  { cocktails: ResponseCocktails | Array<Cocktail>; destination: string },
   { page?: number; substring?: string; type?: string; ingredients?: Array<number>; cocktails?: Array<number> }
 >('cocktails/getCocktails', async data => {
   const { page, substring, type, ingredients, cocktails } = data
@@ -136,92 +136,93 @@ const cocktailsSlice = createSlice({
     },
   },
   extraReducers: builder => {
-    builder.addCase(getIngredientCategories.pending, state => {
-      state.status = 'loading'
-      state.error = ''
-    })
-    builder.addCase(getIngredientCategories.fulfilled, (state, { payload }) => {
-      state.status = 'resolved'
-      state.ingredientCategories = payload
-    })
-    builder.addCase(getIngredientCategories.rejected, (state, { error }) => {
-      state.status = 'rejected'
-      state.error = error.message!
-    })
-    builder.addCase(getCocktailCategories.pending, state => {
-      state.status = 'loading'
-      state.error = ''
-    })
-    builder.addCase(getCocktailCategories.fulfilled, (state, { payload }) => {
-      state.status = 'resolved'
-      state.cocktailCategories = payload
-    })
-    builder.addCase(getCocktailCategories.rejected, (state, { error }) => {
-      state.status = 'rejected'
-      state.error = error.message!
-    })
-    builder.addCase(createIngredient.pending, state => {
-      state.status = 'loading'
-      state.error = ''
-    })
-    builder.addCase(createIngredient.fulfilled, (state, { payload }) => {
-      state.status = 'resolved'
-      state.ingredients.push(payload)
-    })
-    builder.addCase(createIngredient.rejected, (state, { error }) => {
-      state.status = 'rejected'
-      state.error = error.message!
-    })
-    builder.addCase(getIngredients.pending, state => {
-      state.status = 'loading'
-      state.error = ''
-    })
-    builder.addCase(getIngredients.fulfilled, (state, { payload }) => {
-      state.status = 'resolved'
-      state.ingredients = payload
-    })
-    builder.addCase(getIngredients.rejected, (state, { error }) => {
-      state.status = 'rejected'
-      state.error = error.message!
-    })
-    builder.addCase(createCocktail.pending, state => {
-      state.status = 'loading'
-      state.error = ''
-    })
-    builder.addCase(createCocktail.fulfilled, (state, { payload }) => {
-      state.status = 'resolved'
-      state.cocktails.rows.push(payload)
-    })
-    builder.addCase(createCocktail.rejected, (state, { error }) => {
-      state.status = 'rejected'
-      state.error = error.message!
-    })
-    builder.addCase(getCocktails.pending, state => {
-      state.status = 'loading'
-      state.error = ''
-    })
-    builder.addCase(getCocktails.fulfilled, (state, { payload }) => {
-      state.status = 'resolved'
-      const { destination, cocktails } = payload
-      switch (destination) {
-        case 'byIngredients':
-          state.filteredCocktails = cocktails
-          break
-        case 'bySubstring':
-          state.searchedCocktails = cocktails
-          break
-        case 'byFavorites':
-          state.favoriteCocktails = cocktails
-          break
-        default:
-          state.cocktails = cocktails
-          break
-      }
-    })
-    builder.addCase(getCocktails.rejected, (state, { error }) => {
-      state.status = 'rejected'
-      state.error = error.message!
-    })
+    builder
+      .addCase(getIngredientCategories.pending, state => {
+        state.status = 'loading'
+        state.error = ''
+      })
+      .addCase(getIngredientCategories.fulfilled, (state, { payload }) => {
+        state.status = 'resolved'
+        state.ingredientCategories = payload
+      })
+      .addCase(getIngredientCategories.rejected, (state, { error }) => {
+        state.status = 'rejected'
+        state.error = error.message!
+      })
+      .addCase(getCocktailCategories.pending, state => {
+        state.status = 'loading'
+        state.error = ''
+      })
+      .addCase(getCocktailCategories.fulfilled, (state, { payload }) => {
+        state.status = 'resolved'
+        state.cocktailCategories = payload
+      })
+      .addCase(getCocktailCategories.rejected, (state, { error }) => {
+        state.status = 'rejected'
+        state.error = error.message!
+      })
+      .addCase(createIngredient.pending, state => {
+        state.status = 'loading'
+        state.error = ''
+      })
+      .addCase(createIngredient.fulfilled, (state, { payload }) => {
+        state.status = 'resolved'
+        state.ingredients.push(payload)
+      })
+      .addCase(createIngredient.rejected, (state, { error }) => {
+        state.status = 'rejected'
+        state.error = error.message!
+      })
+      .addCase(getIngredients.pending, state => {
+        state.status = 'loading'
+        state.error = ''
+      })
+      .addCase(getIngredients.fulfilled, (state, { payload }) => {
+        state.status = 'resolved'
+        state.ingredients = payload
+      })
+      .addCase(getIngredients.rejected, (state, { error }) => {
+        state.status = 'rejected'
+        state.error = error.message!
+      })
+      .addCase(createCocktail.pending, state => {
+        state.status = 'loading'
+        state.error = ''
+      })
+      .addCase(createCocktail.fulfilled, (state, { payload }) => {
+        state.status = 'resolved'
+        state.cocktails.rows.push(payload)
+      })
+      .addCase(createCocktail.rejected, (state, { error }) => {
+        state.status = 'rejected'
+        state.error = error.message!
+      })
+      .addCase(getCocktails.pending, state => {
+        state.status = 'loading'
+        state.error = ''
+      })
+      .addCase(getCocktails.fulfilled, (state, { payload }) => {
+        state.status = 'resolved'
+        const { destination, cocktails } = payload
+        switch (destination) {
+          case 'byIngredients':
+            state.filteredCocktails.rows = cocktails as Array<Cocktail>
+            break
+          case 'bySubstring':
+            state.searchedCocktails = cocktails as ResponseCocktails
+            break
+          case 'byFavorites':
+            state.favoriteCocktails = cocktails as ResponseCocktails
+            break
+          default:
+            state.cocktails = cocktails as ResponseCocktails
+            break
+        }
+      })
+      .addCase(getCocktails.rejected, (state, { error }) => {
+        state.status = 'rejected'
+        state.error = error.message!
+      })
   },
 })
 
