@@ -48,7 +48,7 @@ class CocktailController {
           },
         )
       } else {
-        result.cocktails = await Cocktail.findAndCountAll({
+        result.cocktails = await Cocktail.findAll({
           include: [
             {
               model: CocktailIngredient,
