@@ -33,7 +33,7 @@ const CocktailPage: React.FC = () => {
 
   return (
     <div className='cocktail-page'>
-      <Suspense fallback={<p>Loading...</p>}>
+      <Suspense fallback={<div className='spinner-grow' role='status' />}>
         <Await resolve={cocktail}>
           <CocktailElement />
         </Await>

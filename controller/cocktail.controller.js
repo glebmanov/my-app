@@ -45,6 +45,9 @@ class CocktailController {
           {
             replacements: { ingredients: ingredients.split(',') },
             model: Cocktail,
+            attributes: {
+              exclude: ['description'],
+            },
           },
         )
       } else {
@@ -53,6 +56,9 @@ class CocktailController {
             {
               model: CocktailIngredient,
               where: { ingredientId: ingredients.split(',') },
+              attributes: {
+                exclude: ['description'],
+              },
             },
           ],
         })
@@ -65,14 +71,25 @@ class CocktailController {
         where: {
           name: sequelize.where(sequelize.fn('LOWER', sequelize.col('name')), 'LIKE', `%${substring.toLowerCase()}%`),
         },
+        attributes: {
+          exclude: ['description'],
+        },
       })
     } else if (cocktails) {
       result.destination = 'byFavorites'
-      result.cocktails = await Cocktail.findAndCountAll({ where: { id: cocktails.split(',') } })
+      result.cocktails = await Cocktail.findAndCountAll({
+        where: { id: cocktails.split(',') },
+        attributes: {
+          exclude: ['description'],
+        },
+      })
     } else {
       result.cocktails = await Cocktail.findAndCountAll({
         limit,
         offset,
+        attributes: {
+          exclude: ['description'],
+        },
       })
     }
 

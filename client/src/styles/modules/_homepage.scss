@@ -1,6 +1,27 @@
 .homepage {
   section {
+    position: absolute;
+    top: 40%;
     padding: 0 19%;
+
+    .projects {
+      display: flex;
+      flex-direction: column;
+
+      a {
+        margin: 0 0 16px 0;
+        color: $white-1;
+        font-family: 'Dancing Script', cursive;
+        font-size: 70px;
+        line-height: 1;
+        transition: all 0.5s ease;
+
+        &:hover {
+          color: $green-1;
+          transform: translateX(5px);
+        }
+      }
+    }
   }
 
   .icons {
@@ -19,6 +40,19 @@
       &:hover {
         color: $green-1;
         transform: translateY(-5px);
+      }
+    }
+  }
+}
+
+@include --mobile {
+  .homepage {
+    .icons {
+      top: 20%;
+      display: flex;
+
+      i {
+        margin: 0 16px 0 0;
       }
     }
   }

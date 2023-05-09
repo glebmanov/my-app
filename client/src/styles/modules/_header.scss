@@ -36,6 +36,18 @@ header {
 @include --tablet {
   header {
     #menu-icon {
+      display: none;
+    }
+
+    nav {
+      display: flex;
+    }
+  }
+}
+
+@include --mobile {
+  header {
+    #menu-icon {
       display: block;
     }
 
@@ -64,7 +76,4 @@ header {
       }
     }
   }
-}
-
-@include --mobile {
 }

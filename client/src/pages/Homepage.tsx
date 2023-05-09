@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { NavLink } from 'react-router-dom'
 import ScrollReveal from 'scrollreveal'
 
 const Homepage: React.FC = () => {
@@ -10,11 +11,19 @@ const Homepage: React.FC = () => {
   })
 
   useEffect(() => {
-    sr.reveal('.icons', { delay: 300, origin: 'top' })
+    sr.reveal('.projects', { delay: 300, origin: 'top' })
+    sr.reveal('.icons', { delay: 450, origin: 'left' })
   }, [])
 
   return (
     <div className='homepage'>
+      <section>
+        <div className='projects'>
+          <NavLink to='/climbspots'>Climbspots</NavLink>
+          <NavLink to='/cocktails'>Cocktails</NavLink>
+        </div>
+      </section>
+
       <div className='icons'>
         <a href='https://github.com/glebmanov' target='_blank'>
           <i className='ri-github-fill'></i>
