@@ -1,8 +1,9 @@
 .homepage {
   section {
     position: absolute;
-    top: 40%;
+    top: 50%;
     padding: 0 19%;
+    transform: translateY(-50%);
 
     .projects {
       display: flex;
