@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from 'hooks/index'
 import { check, getFavoriteCocktails } from 'store/userSlice'
 
 import Homepage from 'pages/Homepage'
+import Resume from 'pages/Resume'
 import Notfoundpage from 'pages/Notfoundpage'
 import Layout from 'components/Layout'
 import Login from 'components/Auth/Login'
@@ -28,6 +29,7 @@ const router = createBrowserRouter(
       <Route index element={<Homepage />} />
       <Route path='login' element={<Login />} />
       <Route path='registration' element={<Registration />} />
+      <Route path='resume' element={<Resume />} />
       <Route path='climbspots' element={<ClimbspotsLayout />}>
         <Route index element={<Navigate replace to='weather' />} />
         <Route path='weather' element={<WeatherPage />} />

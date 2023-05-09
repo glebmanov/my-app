@@ -48,9 +48,9 @@ const Login: React.FC = () => {
               <button type='submit' className='btn btn-cstm btn-sign-in'>
                 Sign in
               </button>
-              <Link to='/registration'>
+              {/* <Link to='/registration'>
                 <button className='btn-sign-up'>Sign up</button>
-              </Link>
+              </Link> */}
             </div>
           </form>
         </FormProvider>

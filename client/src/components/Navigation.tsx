@@ -25,12 +25,14 @@ const Navigation: React.FC = () => {
   return (
     <>
       <nav>
-        <NavLink to='climbspots' onClick={toggle}>
-          Climbspots
+        <NavLink to='resume' onClick={toggle}>
+          Resume
         </NavLink>
-        <NavLink to='cocktails' onClick={toggle}>
-          Cocktails
-        </NavLink>
+        {isAuth ? null : (
+          <NavLink to='registration' onClick={toggle}>
+            Sign up
+          </NavLink>
+        )}
         {isAuth ? (
           <a onClick={() => dispatch(removeUser())}>Sign out</a>
         ) : (

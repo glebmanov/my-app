@@ -1,0 +1,36 @@
+.resume {
+  text-align: center;
+
+  .resume-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &:not(:first-child) {
+      margin: 16px 0 0 0;
+    }
+
+    h1 {
+      color: $white-1;
+      margin: 0 0 16px 0;
+    }
+
+    a {
+      color: $blue-2;
+      text-decoration: underline;
+    }
+
+    .skills {
+      display: flex;
+
+      .skill {
+        margin: 0 6px;
+        padding: 0 6px;
+        color: $white-1;
+        border: 1px solid $white-1;
+        cursor: default;
+      }
+    }
+  }
+}
