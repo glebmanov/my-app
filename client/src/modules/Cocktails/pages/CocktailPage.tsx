@@ -2,6 +2,7 @@ import React, { Suspense, useEffect } from 'react'
 import { defer, Await, useAsyncValue, useLoaderData } from 'react-router-dom'
 import ky from 'ky'
 import { SingleCocktail } from 'types/cocktailsInterfaces'
+import Loader from 'components/Loader'
 
 const CocktailElement: React.FC = () => {
   const cocktail = useAsyncValue() as SingleCocktail
@@ -33,7 +34,7 @@ const CocktailPage: React.FC = () => {
 
   return (
     <div className='cocktail-page'>
-      <Suspense fallback={<div className='spinner-grow' role='status' />}>
+      <Suspense fallback={<Loader />}>
         <Await resolve={cocktail}>
           <CocktailElement />
         </Await>

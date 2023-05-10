@@ -1,27 +1,28 @@
-import React, { useEffect } from 'react'
+import React, { lazy, useEffect } from 'react'
 import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route, Navigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from 'hooks/index'
 import { check, getFavoriteCocktails } from 'store/userSlice'
 
-import Homepage from 'pages/Homepage'
-import Resume from 'pages/Resume'
-import Notfoundpage from 'pages/Notfoundpage'
 import Layout from 'components/Layout'
-import Login from 'components/Auth/Login'
-import Registration from 'components/Auth/Registration'
-
-import ClimbspotsLayout from 'modules/Climbspots/ClimbspotsLayout'
-import WeatherPage from 'modules/Climbspots/pages/WeatherPage'
-
-import CocktailsLayout from 'modules/Cocktails/CocktailsLayout'
-import CocktailPage, { cocktailLoader } from 'modules/Cocktails/pages/CocktailPage'
-import ListPage from 'modules/Cocktails/pages/ListPage'
-import IngredientsPage from 'modules/Cocktails/pages/IngredientsPage'
-import Favorites from 'modules/Cocktails/pages/Favorites'
-import EditorPage from 'modules/Cocktails/pages/EditorPage'
-
 import PrivateRoute from 'components/PrivateRoute'
 import PrivateAdminRoute from 'components/PrivateAdminRoute'
+
+const Login = lazy(() => import('components/Auth/Login'))
+const Registration = lazy(() => import('components/Auth/Registration'))
+const Homepage = lazy(() => import('pages/Homepage'))
+const Resume = lazy(() => import('pages/Resume'))
+const Notfoundpage = lazy(() => import('pages/Notfoundpage'))
+
+const ClimbspotsLayout = lazy(() => import('modules/Climbspots/ClimbspotsLayout'))
+const WeatherPage = lazy(() => import('modules/Climbspots/pages/WeatherPage'))
+
+const CocktailsLayout = lazy(() => import('modules/Cocktails/CocktailsLayout'))
+const CocktailPage = lazy(() => import('modules/Cocktails/pages/CocktailPage'))
+const ListPage = lazy(() => import('modules/Cocktails/pages/ListPage'))
+const IngredientsPage = lazy(() => import('modules/Cocktails/pages/IngredientsPage'))
+const Favorites = lazy(() => import('modules/Cocktails/pages/Favorites'))
+const EditorPage = lazy(() => import('modules/Cocktails/pages/EditorPage'))
+import { cocktailLoader } from 'modules/Cocktails/pages/CocktailPage'
 
 const router = createBrowserRouter(
   createRoutesFromElements(

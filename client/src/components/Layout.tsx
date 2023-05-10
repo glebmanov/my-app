@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { Outlet } from 'react-router-dom'
 import Navigation from './Navigation'
 import Logo from './Logo'
+import Loader from './Loader'
 
 const Layout: React.FC = () => {
   return (
@@ -11,7 +12,9 @@ const Layout: React.FC = () => {
         <Navigation />
       </header>
       <main>
-        <Outlet />
+        <Suspense fallback={<Loader />}>
+          <Outlet />
+        </Suspense>
       </main>
     </>
   )
