@@ -28,6 +28,12 @@ const Navigation: React.FC = () => {
         <NavLink to='resume' onClick={toggle}>
           Resume
         </NavLink>
+        <NavLink to='climbspots' onClick={toggle}>
+          Climbspots
+        </NavLink>
+        <NavLink to='cocktails' onClick={toggle}>
+          Cocktails
+        </NavLink>
         {isAuth ? null : (
           <NavLink to='registration' onClick={toggle}>
             Sign up
