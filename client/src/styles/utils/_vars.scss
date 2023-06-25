@@ -5,7 +5,12 @@ $green-1: #4d9559;
 $green-2: #38703d;
 $green-3: #133917;
 
-$background: linear-gradient(246.59deg, #4d9559, #38703d, #133917);
+$beige-1: #b79891;
+$beige-2: #94716b;
+
+$background-1: linear-gradient(246.59deg, $green-1, $green-2, $green-3);
+$background-2: linear-gradient(246.59deg, $beige-1, $beige-2);
+$background-3: linear-gradient(246.59deg, $blue-1, $blue-2);
 
 $black-1: #212529;
 

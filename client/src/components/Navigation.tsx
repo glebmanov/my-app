@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from 'hooks/index'
 import { removeUser } from 'store/userSlice'
 
 const Navigation: React.FC = () => {
   const dispatch = useAppDispatch()
+  const location = useLocation()
   const { isAuth } = useAppSelector(state => state.user)
   const notInitialRender = useRef(false)
   const [isOpen, setIsOpen] = useState(false)
@@ -25,14 +26,18 @@ const Navigation: React.FC = () => {
   return (
     <>
       <nav>
+        {location.pathname === '/' ? null : (
+          <>
+            <NavLink to='climbspots' onClick={toggle}>
+              Climbspots
+            </NavLink>
+            <NavLink to='cocktails' onClick={toggle}>
+              Cocktails
+            </NavLink>
+          </>
+        )}
         <NavLink to='resume' onClick={toggle}>
           Resume
-        </NavLink>
-        <NavLink to='climbspots' onClick={toggle}>
-          Climbspots
-        </NavLink>
-        <NavLink to='cocktails' onClick={toggle}>
-          Cocktails
         </NavLink>
         {isAuth ? null : (
           <NavLink to='registration' onClick={toggle}>
