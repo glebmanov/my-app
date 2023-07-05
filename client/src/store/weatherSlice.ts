@@ -69,7 +69,8 @@ const weatherSlice = createSlice({
     setEndpoint(state, action: PayloadAction<string>) {
       state.endpoint = action.payload
     },
-    setActiveSpotId(state, action: PayloadAction<number>) {
+    setActiveSpotId(state, action: PayloadAction<number | null>) {
+      state.data = []
       state.activeSpotId = action.payload
     },
   },
