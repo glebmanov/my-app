@@ -36,9 +36,6 @@ const Navigation: React.FC = () => {
             </NavLink>
           </>
         )}
-        <NavLink to='resume' onClick={toggle}>
-          Resume
-        </NavLink>
         {isAuth ? null : (
           <NavLink to='registration' onClick={toggle}>
             Sign up

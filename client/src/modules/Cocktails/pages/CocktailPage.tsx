@@ -13,7 +13,7 @@ const CocktailElement: React.FC = () => {
 
   return (
     <>
-      <h2>{cocktail.name}</h2>
+      <h1>{cocktail.name}</h1>
       <div className='cocktail-container'>
         <img src={`/${cocktail.img}`} alt='cocktail-img' />
         <div className='description-container'>

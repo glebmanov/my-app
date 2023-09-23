@@ -3,6 +3,22 @@
 
   .weather-content {
     max-width: 1150px;
+
+    .spot-list {
+      .special-spot {
+        width: 100%;
+        margin: 16px 0 0 0;
+        padding: 4px 16px;
+        border-radius: 8px;
+        background-color: rgba(0, 0, 0, 0.1);
+
+        span {
+          margin: 0 0 10px 0;
+          text-align: center;
+          color: white;
+        }
+      }
+    }
   }
 }
 

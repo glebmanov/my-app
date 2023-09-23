@@ -10,7 +10,6 @@ import PrivateAdminRoute from 'components/PrivateAdminRoute'
 const Login = lazy(() => import('components/Auth/Login'))
 const Registration = lazy(() => import('components/Auth/Registration'))
 const Homepage = lazy(() => import('pages/Homepage'))
-const Resume = lazy(() => import('pages/Resume'))
 const Notfoundpage = lazy(() => import('pages/Notfoundpage'))
 
 const ClimbspotsLayout = lazy(() => import('modules/Climbspots/ClimbspotsLayout'))
@@ -30,7 +29,6 @@ const router = createBrowserRouter(
       <Route index element={<Homepage />} />
       <Route path='login' element={<Login />} />
       <Route path='registration' element={<Registration />} />
-      <Route path='resume' element={<Resume />} />
       <Route path='climbspots' element={<ClimbspotsLayout />}>
         <Route index element={<Navigate replace to='weather' />} />
         <Route path='weather' element={<WeatherPage />} />

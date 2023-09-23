@@ -19,6 +19,18 @@ const Spots: React.FC = () => {
           isActive={activeSpotId === id}
         />
       ))}
+
+      <div className='special-spot d-flex justify-content-center align-items-center flex-column'>
+        <span>{'special for "Clear sky" <3'}</span>
+        <Button
+          key={7}
+          className='col-5 col-lg-12 mb-2 mx-lg-0 mx-1 btn-shadow'
+          handler={setActiveSpotId}
+          value={7}
+          text={'cirali'}
+          isActive={activeSpotId === 7}
+        />
+      </div>
     </>
   )
 }
