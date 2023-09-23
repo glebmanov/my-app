@@ -9,16 +9,18 @@ const Spots: React.FC = () => {
 
   return (
     <>
-      {spots.map(({ id, name }) => (
-        <Button
-          key={id}
-          className='col-5 col-lg-12 mb-2 mx-lg-0 mx-1 btn-shadow'
-          handler={setActiveSpotId}
-          value={id}
-          text={name}
-          isActive={activeSpotId === id}
-        />
-      ))}
+      {spots
+        .filter(spot => spot.id !== 7)
+        .map(({ id, name }) => (
+          <Button
+            key={id}
+            className='col-5 col-lg-12 mb-2 mx-lg-0 mx-1 btn-shadow'
+            handler={setActiveSpotId}
+            value={id}
+            text={name}
+            isActive={activeSpotId === id}
+          />
+        ))}
 
       <div className='special-spot d-flex justify-content-center align-items-center flex-column'>
         <span>{'special for "Clear sky" <3'}</span>
