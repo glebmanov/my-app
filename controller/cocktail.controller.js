@@ -45,9 +45,6 @@ class CocktailController {
           {
             replacements: { ingredients: ingredients.split(',') },
             model: Cocktail,
-            attributes: {
-              exclude: ['description'],
-            },
           },
         )
       } else {
