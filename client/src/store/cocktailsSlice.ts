@@ -18,7 +18,14 @@ export const createIngredient = createAsyncThunk<Ingredient, { name: string; cat
   'cocktails/createIngredient',
   async data => {
     const { name, category_ingredient_name_id } = data
-    return await ky.post('/api/ingredient', { json: { name, category_ingredient_name_id } }).json()
+    return await ky
+      .post('/api/ingredient', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+        json: { name, category_ingredient_name_id },
+      })
+      .json()
   },
 )
 
@@ -39,6 +46,9 @@ export const createCocktail = createAsyncThunk<
   const { name, amount, category_cocktail_name_id, description } = data
   return await ky
     .post('/api/cocktail', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
       json: {
         name,
         amount,
