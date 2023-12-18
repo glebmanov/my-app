@@ -1,8 +1,7 @@
 import React from 'react'
+import clsx from 'clsx'
 import { useNavigate } from 'react-router-dom'
 import { useAppSelector, useFavoriteCocktail } from 'hooks/index'
-import cn from 'classnames'
-
 import Favorite from 'static/favorite.svg'
 
 interface CocktailItemSmallProps {
@@ -23,7 +22,9 @@ const CocktailItemSmall: React.FC<CocktailItemSmallProps> = ({ id, name, categor
         <p>{cocktailCategories.find(({ id }) => id === category)?.name || ''}</p>
         <h2>{name}</h2>
       </div>
-      {isAuth && <Favorite className={cn('favorite', { active: isFavorite })} onClick={(e: Event) => setFavorite(e)} />}
+      {isAuth && (
+        <Favorite className={clsx('favorite', isFavorite && 'active')} onClick={(e: Event) => setFavorite(e)} />
+      )}
     </div>
   )
 }

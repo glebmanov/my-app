@@ -1,6 +1,6 @@
 import React from 'react'
-import cn from 'classnames'
 import { useAppDispatch } from 'hooks/useRedux'
+import clsx from 'clsx'
 interface ButtonProps {
   className?: string
   handler: any
@@ -12,12 +12,12 @@ interface ButtonProps {
 const Button: React.FC<ButtonProps> = ({ className, text, handler, value, isActive }) => {
   const dispatch = useAppDispatch()
 
-  const classNames = cn(`btn btn-primary text-nowrap btn-cstm ${className}`, {
-    active: isActive,
-  })
-
   return (
-    <button className={classNames} type='button' onClick={() => dispatch(handler(value))}>
+    <button
+      className={clsx(`btn btn-primary text-nowrap btn-cstm ${className}`, isActive && 'active')}
+      type='button'
+      onClick={() => dispatch(handler(value))}
+    >
       {text}
     </button>
   )

@@ -1,5 +1,5 @@
 import React from 'react'
-import cn from 'classnames'
+import clsx from 'clsx'
 
 interface ButtonProps {
   handler: React.Dispatch<React.SetStateAction<string>>
@@ -10,7 +10,7 @@ interface ButtonProps {
 
 const Button: React.FC<ButtonProps> = ({ handler, value, text, isActive }) => {
   return (
-    <button className={cn('btn btn-cstm', { active: isActive })} type='button' onClick={() => handler(value)}>
+    <button className={clsx('btn btn-cstm', isActive && 'active')} type='button' onClick={() => handler(value)}>
       <span>{text}</span>
     </button>
   )

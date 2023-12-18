@@ -33,7 +33,6 @@ const EditorCocktail: React.FC = () => {
   const { fields, append, remove } = useFieldArray({ control, name: 'amount' })
 
   const onSubmit: SubmitHandler<FormValues> = data => {
-    console.log('data', data)
     data.name = capitalize(data.name)
     dispatch(createCocktail(data))
     reset()

@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.1",
-    "classnames": "^2.3.2",
+    "clsx": "^2.0.0",
     "jwt-decode": "^3.1.2",
     "ky": "^0.33.3",
     "lodash": "^4.17.21",
