@@ -1,7 +1,7 @@
 import React, { FormEvent, MouseEventHandler, useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from 'hooks/index'
 import { getCocktails, clearSearchedCocktails } from 'store/cocktailsSlice'
-import { debounce } from 'lodash'
+import debounce from 'lodash/debounce'
 
 const SearchInput: React.FC = () => {
   const dispatch = useAppDispatch()

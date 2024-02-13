@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
-import ListCocktails from '../components/ListCocktails'
+import { ListCocktails } from '../components/ListCocktails'
 import { useAppDispatch, useAppSelector } from 'hooks/index'
 import { clearFavoriteCocktails, getCocktails } from 'store/cocktailsSlice'
 import { getFavoriteCocktails } from 'store/userSlice'
 
-const Favorites: React.FC = () => {
+const FavoritesPage: React.FC = () => {
   const dispatch = useAppDispatch()
   const favoriteCocktails = useAppSelector(state => state.user.favoriteCocktails)
   const cocktails = useAppSelector(state => state.cocktails.favoriteCocktails)
@@ -27,4 +27,4 @@ const Favorites: React.FC = () => {
   )
 }
 
-export default Favorites
+export default FavoritesPage

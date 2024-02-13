@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from 'hooks/index'
 import { getCocktails } from 'store/cocktailsSlice'
-import ListCocktails from '../components/ListCocktails'
+import { ListCocktails } from '../components/ListCocktails'
 
 const ListPage: React.FC = () => {
   const dispatch = useAppDispatch()

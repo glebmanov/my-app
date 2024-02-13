@@ -1,5 +1,5 @@
 import React from 'react'
-import { uniqueId } from 'lodash'
+import uniqueId from 'lodash/uniqueId'
 import { useAppSelector } from 'hooks/index'
 import { setEndpoint } from 'store/weatherSlice'
 

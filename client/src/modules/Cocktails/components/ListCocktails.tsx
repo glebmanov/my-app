@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from 'hooks/index'
 import { PaginationControl } from 'react-bootstrap-pagination-control'
 import CocktailItemBig from './CocktailItemBig'
 import CocktailItemSmall from './CocktailItemSmall'
-import ItemsSizeButtons from './Buttons/ItemsSizeButtons'
+import { ItemsSizeButtons } from './Buttons/ItemsSizeButtons'
 import SearchInput from './SearchInput'
 import { getCocktailCategories, getCocktails, setPage } from 'store/cocktailsSlice'
 import { Cocktail } from 'types/cocktailsInterfaces'
@@ -16,7 +16,7 @@ interface ListCocktailsProps {
   showSizeButtons?: boolean
 }
 
-const ListCocktails: React.FC<ListCocktailsProps> = ({ cocktails, showSizeButtons = true }) => {
+export const ListCocktails: React.FC<ListCocktailsProps> = ({ cocktails, showSizeButtons = true }) => {
   const dispatch = useAppDispatch()
   const { page, searchedCocktails } = useAppSelector(state => state.cocktails)
   const sizes = ['small', 'big']
@@ -66,5 +66,3 @@ const ListCocktails: React.FC<ListCocktailsProps> = ({ cocktails, showSizeButton
     </>
   )
 }
-
-export default ListCocktails

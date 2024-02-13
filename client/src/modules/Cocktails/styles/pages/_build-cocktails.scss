@@ -12,38 +12,38 @@
         flex-direction: column;
         align-items: center;
         width: 100%;
-        margin-bottom: 16px;
+        margin: 0 0 16px 0;
 
         .buttons {
           display: flex;
           flex-direction: row;
           justify-content: center;
-          margin-bottom: 16px;
 
           .option-buttons {
             margin-left: 16px;
           }
         }
+      }
 
-        .list-ingredients {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(150px, auto));
-          grid-auto-rows: max-content;
-          grid-gap: 5px 5px;
-          width: 70%;
-          max-width: 1000px;
-          height: max-content;
-          padding: 20px 24px;
-          border-radius: 5px;
-          background-color: $white-1;
-          box-shadow: $shadow-2;
+      .list-ingredients {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, auto));
+        grid-auto-rows: max-content;
+        grid-gap: 5px 5px;
+        width: 70%;
+        max-width: 1000px;
+        height: max-content;
+        margin: 0 0 16px 0;
+        padding: 20px 24px;
+        border-radius: 5px;
+        background-color: $white-1;
+        box-shadow: $shadow-2;
 
-          .ingredient {
-            display: flex;
-            justify-content: start;
-            align-items: center;
-            white-space: nowrap;
-          }
+        .ingredient {
+          display: flex;
+          justify-content: start;
+          align-items: center;
+          white-space: nowrap;
         }
       }
 
@@ -75,37 +75,37 @@
         flex-direction: column;
         align-items: center;
         width: 100%;
-        margin-bottom: 16px;
+        margin: 0 0 16px 0;
 
         .buttons {
           display: flex;
           flex-direction: row;
           justify-content: center;
-          margin-bottom: 16px;
 
           .option-buttons {
             margin-left: 16px;
           }
         }
+      }
 
-        .list-ingredients {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(150px, auto));
-          grid-auto-rows: max-content;
-          grid-gap: 5px 5px;
-          width: 80%;
-          height: max-content;
-          padding: 20px 24px;
-          border-radius: 5px;
-          background-color: $white-1;
-          box-shadow: $shadow-2;
+      .list-ingredients {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, auto));
+        grid-auto-rows: max-content;
+        grid-gap: 5px 5px;
+        width: 80%;
+        height: max-content;
+        margin: 0 0 16px 0;
+        padding: 20px 24px;
+        border-radius: 5px;
+        background-color: $white-1;
+        box-shadow: $shadow-2;
 
-          .ingredient {
-            display: flex;
-            justify-content: start;
-            align-items: center;
-            white-space: nowrap;
-          }
+        .ingredient {
+          display: flex;
+          justify-content: start;
+          align-items: center;
+          white-space: nowrap;
         }
       }
 
@@ -137,37 +137,37 @@
         flex-direction: column;
         align-items: center;
         width: 100%;
-        margin-bottom: 16px;
+        margin: 0 0 16px 0;
 
         .buttons {
           display: flex;
           flex-direction: column;
           align-items: center;
-          margin-bottom: 16px;
 
           .option-buttons {
             margin: 16px 0 0 0;
           }
         }
+      }
 
-        .list-ingredients {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(150px, auto));
-          grid-auto-rows: max-content;
-          grid-gap: 5px 5px;
-          width: 90%;
-          height: max-content;
-          padding: 10px 14px;
-          border-radius: 5px;
-          background-color: $white-1;
-          box-shadow: $shadow-2;
+      .list-ingredients {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, auto));
+        grid-auto-rows: max-content;
+        grid-gap: 5px 5px;
+        width: 90%;
+        height: max-content;
+        margin: 0 0 16px 0;
+        padding: 10px 14px;
+        border-radius: 5px;
+        background-color: $white-1;
+        box-shadow: $shadow-2;
 
-          .ingredient {
-            display: flex;
-            justify-content: start;
-            align-items: center;
-            white-space: nowrap;
-          }
+        .ingredient {
+          display: flex;
+          justify-content: start;
+          align-items: center;
+          white-space: nowrap;
         }
       }
 

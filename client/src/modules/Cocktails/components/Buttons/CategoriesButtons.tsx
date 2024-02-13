@@ -1,19 +1,13 @@
-import React from 'react'
+import React, { FC } from 'react'
+import uniqueId from 'lodash/uniqueId'
+import { useAppSelector } from 'hooks/useRedux'
 import Button from 'modules/Cocktails/components/Buttons/Button'
-import { uniqueId } from 'lodash'
-import { IngredientCategory } from 'types/cocktailsInterfaces'
+import { useIngredientsContext } from 'modules/Cocktails/context'
 
-interface CategoriesButtonsProps {
-  ingredientCategories: Array<IngredientCategory>
-  activeCategory: string
-  setActiveCategory: React.Dispatch<React.SetStateAction<string>>
-}
+export const CategoriesButtons: FC = () => {
+  const { ingredientCategories } = useAppSelector(state => state.cocktails)
+  const { activeCategory, setActiveCategory } = useIngredientsContext()
 
-const CategoriesButtons: React.FC<CategoriesButtonsProps> = ({
-  ingredientCategories,
-  activeCategory,
-  setActiveCategory,
-}) => {
   return (
     <div className='categories-buttons btn-group btn-group-sm'>
       {ingredientCategories.map(({ name }) => (
@@ -25,9 +19,8 @@ const CategoriesButtons: React.FC<CategoriesButtonsProps> = ({
           isActive={activeCategory === name}
         />
       ))}
+
       <Button handler={setActiveCategory} value={'all'} text={'all'} isActive={activeCategory === 'all'} />
     </div>
   )
 }
-
-export default CategoriesButtons

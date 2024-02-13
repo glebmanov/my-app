@@ -1,7 +1,6 @@
 import React from 'react'
+import uniqueId from 'lodash/uniqueId'
 import Button from 'modules/Cocktails/components/Buttons/Button'
-
-import { uniqueId } from 'lodash'
 
 interface ItemsSizeButtonsProps {
   sizes: Array<string>
@@ -9,7 +8,7 @@ interface ItemsSizeButtonsProps {
   setActiveSize: React.Dispatch<React.SetStateAction<string>>
 }
 
-const ItemsSizeButtons: React.FC<ItemsSizeButtonsProps> = ({ sizes, activeSize, setActiveSize }) => {
+export const ItemsSizeButtons: React.FC<ItemsSizeButtonsProps> = ({ sizes, activeSize, setActiveSize }) => {
   return (
     <div className='items-size-button btn-group btn-group-sm'>
       {sizes.map(size => (
@@ -18,5 +17,3 @@ const ItemsSizeButtons: React.FC<ItemsSizeButtonsProps> = ({ sizes, activeSize, 
     </div>
   )
 }
-
-export default ItemsSizeButtons

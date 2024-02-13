@@ -19,7 +19,7 @@ const CocktailsLayout = lazy(() => import('modules/Cocktails/CocktailsLayout'))
 const CocktailPage = lazy(() => import('modules/Cocktails/pages/CocktailPage'))
 const ListPage = lazy(() => import('modules/Cocktails/pages/ListPage'))
 const IngredientsPage = lazy(() => import('modules/Cocktails/pages/IngredientsPage'))
-const Favorites = lazy(() => import('modules/Cocktails/pages/Favorites'))
+const FavoritesPage = lazy(() => import('modules/Cocktails/pages/FavoritesPage'))
 const EditorPage = lazy(() => import('modules/Cocktails/pages/EditorPage'))
 import { cocktailLoader } from 'modules/Cocktails/pages/CocktailPage'
 
@@ -42,7 +42,7 @@ const router = createBrowserRouter(
           path='favorites'
           element={
             <PrivateRoute>
-              <Favorites />
+              <FavoritesPage />
             </PrivateRoute>
           }
         />

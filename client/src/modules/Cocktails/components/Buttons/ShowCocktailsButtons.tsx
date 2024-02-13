@@ -5,7 +5,7 @@ interface ShowCocktailsButtonsProps {
   clear: () => void
 }
 
-const ShowCocktailsButtons: React.FC<ShowCocktailsButtonsProps> = ({ show, clear }) => {
+export const ShowCocktailsButtons: React.FC<ShowCocktailsButtonsProps> = ({ show, clear }) => {
   return (
     <div className='show-btn btn-group btn-group-sm'>
       <button className={'btn btn-cstm'} type='button' onClick={show}>
@@ -17,5 +17,3 @@ const ShowCocktailsButtons: React.FC<ShowCocktailsButtonsProps> = ({ show, clear
     </div>
   )
 }
-
-export default ShowCocktailsButtons
